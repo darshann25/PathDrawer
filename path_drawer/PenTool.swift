@@ -19,6 +19,8 @@ class PenTool {
     func onDown(point: CGPoint) {
         // checks if the current point is not equal to start point
         points.append(point);
+        print(point.x);
+        print(point.y);
     }
     
     func onMove(point: CGPoint){
@@ -28,6 +30,7 @@ class PenTool {
             euclid_dist = interpolate_points(start: prevPoint, end: point);
         }
         points.append(point);
+        prevPoint = point;
     }
     
     func onUp(point: CGPoint, scene: inout Scene){

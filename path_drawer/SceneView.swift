@@ -8,20 +8,15 @@
 
 import UIKit
 
-
-
 class SceneView : UIView {
 
     // tuple of points
-    var points = [CGPoint]();
     var startPoint = CGPoint.zero;
+    var pT = PenTool();
+    var scene = Scene();
     
-    override func draw(_ rect: CGRect) {
-        for point in points {
-            let dot = UIBezierPath(ovalIn : CGRect(x : point.x-5, y : point.y-5, width : 10, height : 10));
-            UIColor.darkGray.setFill();
-            dot.fill();
-        }
+    override func draw(_ rect: CGRect){
+        scene.draw();
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -31,52 +26,27 @@ class SceneView : UIView {
             if (startPoint != CGPoint.zero) {
                 startPoint = currPoint;
             }
-            points.append(currPoint);
+            pT.onDown(point: currPoint);
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let currPoint = touch.location(in: self);
-            points.append(currPoint);
+            pT.onMove(point: currPoint);
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let currPoint = touch.location(in: self);
-            points.append(currPoint);
+            pT.onUp(point: currPoint, scene: &scene)
+            //scene.draw();
             setNeedsDisplay();
             
         }
         
     }
     
-    func euclidean_dist(start : CGPoint, end : CGPoint) -> Int {
-        let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2))
-        return Int(dist)
-    }
     
-    func interpolate_points(_start: CGPoint, _end : CGPoint) -> Int {
-        while _start != _end {
-            if _start.x < _end.x {
-                _start.x += 1;
-            }
-            
-            if _start.x > _end.x {
-                _start.x -= 1;
-            }
-            
-            if _start.y < _end.y {
-                _start.y += 1;
-            }
-            
-            if _start.y > _end.y {
-                _start.y -= 1;
-            }
-            
-            points.append(_start)
-        }
-        
-    }
 }
