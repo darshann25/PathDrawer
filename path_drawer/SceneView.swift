@@ -56,4 +56,27 @@ class SceneView : UIView {
         let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2))
         return Int(dist)
     }
+    
+    func interpolate_points(_start: CGPoint, _end : CGPoint) -> Int {
+        while _start != _end {
+            if _start.x < _end.x {
+                _start.x += 1;
+            }
+            
+            if _start.x > _end.x {
+                _start.x -= 1;
+            }
+            
+            if _start.y < _end.y {
+                _start.y += 1;
+            }
+            
+            if _start.y > _end.y {
+                _start.y -= 1;
+            }
+            
+            points.append(_start)
+        }
+        
+    }
 }
