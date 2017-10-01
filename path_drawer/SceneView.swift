@@ -15,9 +15,9 @@ class SceneView : UIView {
     var pT = PenTool();
     var scene = Scene();
     
-    override func draw(_ rect: CGRect){
-        scene.draw();
-    }
+    //override func draw(_ rect: CGRect){
+    //    scene.draw();
+    //}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -40,8 +40,10 @@ class SceneView : UIView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let currPoint = touch.location(in: self);
-            pT.onUp(point: currPoint, scene: &scene)
-            //scene.draw();
+            if startPoint != currPoint {
+                pT.onUp(point: currPoint, scene: &scene)
+            }
+            scene.draw();
             setNeedsDisplay();
             
         }
