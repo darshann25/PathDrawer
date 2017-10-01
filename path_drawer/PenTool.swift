@@ -11,32 +11,42 @@ import UIKit
 
 class PenTool {
     var points = [CGPoint]();
-    var prevPoint = CGPoint.zero;
+    var startPoint = CGPoint.zero;
     
     init () {
     }
     
-    func onDown(point: CGPoint) {
-        // checks if the current point is not equal to start point
-        points.append(point);
-        print(point.x);
-        print(point.y);
-    }
-    
-    func onMove(point: CGPoint){
-        // holds the distance of the interpolation between two points
-        var euclid_dist = 0;
-        if !(prevPoint.x == point.x && prevPoint.y == point.y){
-            euclid_dist = interpolate_points(start: prevPoint, end: point);
+    func onDown(touches: Set<UITouch>, sceneView: SceneView) {
+        if let touch = touches.first {
+            let point = touch.location(in: sceneView);
+            // sets the startPoint to avoid creating a dot
+            startPoint = point;
+            points.append(point);
         }
-        points.append(point);
-        prevPoint = point;
     }
     
-    func onUp(point: CGPoint, scene: inout Scene){
-        points.append(point);
-        let pT = PathItem(pointsArr: points);
-        scene.addPathItem(pathItem: pT);
+    func onMove(touches: Set<UITouch>, sceneView: SceneView){
+        // holds the distance of the interpolation between two points
+        // var euclid_dist = 0;
+        
+        if let touch = touches.first {
+            let point = touch.location(in: sceneView);
+            //if !(prevPoint.x == point.x && prevPoint.y == point.y){
+            //    euclid_dist = interpolate_points(start: &prevPoint, end: &point);
+            //}
+            points.append(point);
+        }
+    }
+    
+    func onUp(scene: inout Scene, sceneView: SceneView){
+        //points.append(point);
+        let lastPoint = points[points.count - 1];
+        
+        if lastPoint != startPoint {
+            let pItem = PathItem(pointsArr: points);
+            scene.addPathItem(pathItem: pItem);
+        }
+        sceneView.refreshView();
     }
     
     
@@ -45,7 +55,9 @@ class PenTool {
         return Int(dist)
     }
     
-    func interpolate_points(start: CGPoint, end : CGPoint) -> Int {
+    /*
+     // Fix interpolation
+    func interpolate_points(start: inout CGPoint, end : inout CGPoint) -> Int {
         var curr = start;
         
         while curr != end {
@@ -69,6 +81,6 @@ class PenTool {
         }
         
         return euclidean_dist(start: start, end: end)
-    }
+    }*/
     
 }
