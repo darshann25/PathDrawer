@@ -20,8 +20,12 @@ class PenTool {
         if let touch = touches.first {
             let point = touch.location(in: sceneView);
             // sets the startPoint to avoid creating a dot
-            startPoint = point;
-            points.append(point);
+            if startPoint == point {
+                startPoint = CGPoint.zero;
+            } else {
+                startPoint = point;
+                points.append(point);
+            }
         }
     }
     
@@ -46,6 +50,7 @@ class PenTool {
             let pItem = PathItem(pointsArr: points);
             scene.addPathItem(pathItem: pItem);
         }
+        points = [CGPoint]();
         sceneView.refreshView();
     }
     
