@@ -22,6 +22,7 @@ class PathItem {
     
     
     func draw() {
+        // Dots for Lines
         /*for point in points {
             let dot = UIBezierPath(ovalIn : CGRect(x : point.x-5, y : point.y-5, width : 10, height : 10));
             UIColor.blue.setFill();
@@ -30,7 +31,6 @@ class PathItem {
         
         
         var prevPoint = points[0];
-        //print(prevPoint);
         var i = 1;
         while(i < points.count) {
             let point = points[i];
@@ -43,10 +43,8 @@ class PathItem {
                 context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)) // move to old points
                 context.addLine(to: CGPoint(x: point.x, y: point.y)) // add line to new points
                 context.strokePath() //fill the path
-               // context.move(to: CGPoint(x: 0, y: 0))
             }
             prevPoint = point;
-            //print(prevPoint);
             i+=1;
         }
     }

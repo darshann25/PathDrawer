@@ -20,30 +20,24 @@ class PenTool {
         if let touch = touches.first {
             let point = touch.location(in: sceneView);
             // sets the startPoint to avoid creating a dot
-            if startPoint == point {
-                startPoint = CGPoint.zero;
-            } else {
-                startPoint = point;
-                points.append(point);
-            }
+            //if startPoint == point {
+            //    startPoint = CGPoint.zero;
+            //} else {
+            //    startPoint = point;
+            points.append(point);
+            //}
         }
     }
     
     func onMove(touches: Set<UITouch>, sceneView: SceneView){
-        // holds the distance of the interpolation between two points
-        // var euclid_dist = 0;
         
         if let touch = touches.first {
             let point = touch.location(in: sceneView);
-            //if !(prevPoint.x == point.x && prevPoint.y == point.y){
-            //    euclid_dist = interpolate_points(start: &prevPoint, end: &point);
-            //}
             points.append(point);
         }
     }
     
     func onUp(scene: inout Scene, sceneView: SceneView){
-        //points.append(point);
         let lastPoint = points[points.count - 1];
         
         if lastPoint != startPoint {
@@ -51,6 +45,7 @@ class PenTool {
             scene.addPathItem(pathItem: pItem);
         }
         points = [CGPoint]();
+        startPoint = CGPoint.zero;
         sceneView.refreshView();
     }
     
