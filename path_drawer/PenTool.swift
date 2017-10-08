@@ -42,7 +42,7 @@ class PenTool {
         
         if lastPoint != startPoint {
             let pItem = PathItem(pointsArr: points);
-            scene.addPathItem(pathItem: pItem);
+            scene.addItem(item: pItem);
         }
         points = [CGPoint]();
         startPoint = CGPoint.zero;

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PathItem {
+class PathItem : Item {
     var points = [CGPoint]();
     
     init (pointsArr: [CGPoint]) {
@@ -21,14 +21,14 @@ class PathItem {
     //print(points);
     
     
-    func draw() {
+    override func draw() {
         // Dots for Lines
         /*for point in points {
             let dot = UIBezierPath(ovalIn : CGRect(x : point.x-5, y : point.y-5, width : 10, height : 10));
             UIColor.blue.setFill();
             dot.fill();
         }*/
-        
+        super.draw();
         
         var prevPoint = points[0];
         var i = 1;

@@ -49,7 +49,7 @@ class Item {
         self.boundingRect = NSNull;
         
         
-    }*/
+    }
     
     /**
      Enumeration for all item types.
@@ -102,7 +102,7 @@ class Item {
      @abstract
      @todo Currently this has a default implementation that returns true. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
      */
-    func intersectsRect(rect: CGRect) -> Boolean {
+    func intersectsRect(rect: CGRect) -> Bool {
         return true;    // assumes boundingRec intersects rect
     }
     
@@ -112,5 +112,9 @@ class Item {
      */
     func getPdfgenData(matrix: Matrix) {
         return NSNull;
+    }*/
+    
+    func draw() {
+        // null
     }
 }
