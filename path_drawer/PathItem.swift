@@ -85,13 +85,11 @@ class PathItem {
     }*/
     
     /*func getBoundingRect(){
-        if(!self.boundingRect){
+        if(self.boundingRect = NSNull){
         var rect = self.path.computeBoundingRectCubic(self.matrix)
         var thickness = self.size * Math.sqrt(self.matrix.det())
             self.boundingRect = rect.expandedBy(a: thickness/2, b: thickness/2, c: thickness/2, d: thickness/2,)
-        }
-        return self.boundingRect
+         }
     }*/
-    
 
 }
