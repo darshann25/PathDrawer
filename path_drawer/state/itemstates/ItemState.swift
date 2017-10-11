@@ -17,7 +17,7 @@ class ItemState {
     public Matrix matrix;
     
     // abstract class ItemState
-    func ItemState(type : Item.Type, id : var, devId: var, matrix : Matrix) {
+    func ItemState(type : ItemType, id : var, devId: var, matrix : Matrix) {
         
         self.type = type;  // corresponds to Item.types enum
         self.id = id;
