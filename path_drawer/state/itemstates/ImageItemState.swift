@@ -9,10 +9,16 @@
 import Foundation
 
 class ImageItemState : ItemState {
-    /*
-    super(ItemType.Image, id, devId, matrix);
-    self.resource = resource;
     
+    /*
+    var resource;
+    
+    func ImageItemState(id : var, devId : var, matrix : Matrix, resource : var) {
+        super(ItemType.Image, id, devId, matrix);
+        self.resource = resource;
+    }
+    
+    // TODO : Understand what minify  does and port it from website
     //ImageItemState.prototype = Object.create(ItemState.prototype);
     //ImageItemState.prototype.constructor = ImageItemState;
     /*
@@ -29,6 +35,16 @@ class ImageItemState : ItemState {
         },
     }; */
     
-   */
+    // protected (invoke ItemState.unminify outside this file)
+    internal func unminify(mini : ItemState) {
+        var id = mini.id;
+        var matrix = Matrix.fromArray(mini.matrix);
+        var resourceId = mini.resource.id;
+        var resourceDevId = mini.resource.devId;
+        var resource = boardStateManager.getResource(resourceId, resourceDevId);
+        return ImageItemState(id, mini.devId, matrix, resource);
+    }
+    */
+    
 }
 
