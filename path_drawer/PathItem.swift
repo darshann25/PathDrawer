@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PathItem {
+class PathItem : Item {
     var points = [CGPoint]();
     
     init (pointsArr: [CGPoint]) {
