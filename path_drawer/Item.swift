@@ -15,7 +15,7 @@ import UIKit
  @param {ItemState} state The state of the item.
  */
 class Item {
-    /**
+    /*
     public var id;
     public var devId;
     public var state;
@@ -64,6 +64,7 @@ class Item {
         case Text
         case Eqn
         case Region
+        case Null
     }
     
     //////////////////////
@@ -112,9 +113,10 @@ class Item {
      */
     func getPdfgenData(matrix: Matrix) {
         return NSNull;
-    }*/
+    }
     
     func draw() {
         // null
     }
+     */
 }

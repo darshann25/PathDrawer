@@ -22,7 +22,7 @@ class PathItemState : ItemState {
     
     func PathItemState(id : var, devId : var, matrix : Matrix, resource : var, beginIndex : var, endIndex : var, color : var, size : var, opacity : var) {
         
-        super(ItemType.Path, id, devId, matrix);
+        convenience init(ItemType.Path, id, devId, matrix);
         self.resource = resource;
         self.beginIndex = beginIndex;
         self.endIndex = endIndex;
@@ -31,28 +31,51 @@ class PathItemState : ItemState {
         self.opacity = opacity;
     }
     
-    /*
+    
      PathItemState.prototype = Object.create(ItemState.prototype);
      PathItemState.prototype.constructor = PathItemState;
      PathItemState.prototype.minify = function() {
-         return {
+    
+    func minify() {
+        var resource_json : [String: Int] = [
+            "id": self.resource["id"],
+            "devId": self.resource["devId"]
+        ]
+    
+        var json : [String: var] = [
+            "version": 1,   // TODO: use a constant
+            "itemType": ItemType.Path,
+            "id": self.id,
+            "devId": self.devId,
+            "matrix": self.matrix.toArray(),
+            "resource": resource_json,
+            "beginIndex": ("beginIndex" in json ? self.beginIndex : 0),
+            // "endIndex": ("endIndex" in json ? self.endIndex : self.resource.data[0].length - 1)
+            "color": self.color,
+            "size": self.size,
+            "opacity": self.opacity
+        ]
+    
+    }
+    
+        return {
              version: 1, // TODO: use a constant
              itemType: Item.types.PathItem,
              id: this.id,
              devId: this.devId,
              matrix: this.matrix.toArray(),
              resource: {
-             id: this.resource.id,
-             devId: this.resource.devId,
-         },
-         beginIndex: ('beginIndex' in this ? this.beginIndex : 0),
-         endIndex: ('endIndex' in this ? this.endIndex : this.resource.data[0].length - 1),
-         color: this.color,
-         size: this.size,
-         opacity: this.opacity,
+                 id: this.resource.id,
+                 devId: this.resource.devId,
+             },
+             beginIndex: ('beginIndex' in this ? this.beginIndex : 0),
+             endIndex: ('endIndex' in this ? this.endIndex : this.resource.data[0].length - 1),
+             color: this.color,
+             size: this.size,
+             opacity: this.opacity,
          };
      };
-    */
+    
     
     // protected (invoke ItemState.unminify outside this file)
     internal func unminify(mini : ItemState) {
@@ -70,4 +93,5 @@ class PathItemState : ItemState {
 
     }
      */
+    
 }
