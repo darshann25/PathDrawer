@@ -8,16 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		1F3E80EF1F7D295C00632EB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E80EE1F7D295C00632EB3 /* AppDelegate.swift */; };
-		1F3E80F11F7D295C00632EB3 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E80F01F7D295C00632EB3 /* SceneViewController.swift */; };
+		1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E80F01F7D295C00632EB3 /* BoardViewController.swift */; };
 		1F3E80F41F7D295C00632EB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3E80F21F7D295C00632EB3 /* Main.storyboard */; };
 		1F3E80F61F7D295C00632EB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F3E80F51F7D295C00632EB3 /* Assets.xcassets */; };
 		1F3E80F91F7D295C00632EB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F3E80F71F7D295C00632EB3 /* LaunchScreen.storyboard */; };
 		1F3E81041F7D295C00632EB3 /* path_drawerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E81031F7D295C00632EB3 /* path_drawerTests.swift */; };
 		1F3E810F1F7D295C00632EB3 /* path_drawerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E810E1F7D295C00632EB3 /* path_drawerUITests.swift */; };
 		1F3E811F1F7D29CB00632EB3 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E811E1F7D29CB00632EB3 /* SceneView.swift */; };
+		F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC31F9576A6002B670A /* PathItemState.swift */; };
+		F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC51F9579C3002B670A /* InkItemState.swift */; };
+		F20A3C051F9D6D91002B670A /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C041F9D6D91002B670A /* Matrix.swift */; };
+		F20A3C071F9D6E41002B670A /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C061F9D6E41002B670A /* Rect.swift */; };
+		F20A3C091F9D6E75002B670A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C081F9D6E75002B670A /* Point.swift */; };
+		F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2349C501F89EDCB00DDE5FD /* Item.swift */; };
+		F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D3971F8D0ADD006A7B2B /* ItemState.swift */; };
+		F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */; };
 		F2D611041F8131C400872F8C /* PathItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611031F8131C400872F8C /* PathItem.swift */; };
 		F2D611061F8131E800872F8C /* PenTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611051F8131E800872F8C /* PenTool.swift */; };
 		F2D611081F81792F00872F8C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611071F81792F00872F8C /* Scene.swift */; };
+		F2EB83191F9D7D900099683D /* MagicEraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB83181F9D7D900099683D /* MagicEraserTool.swift */; };
+		F2EB831E1F9D7E200099683D /* PrePathItemT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB831D1F9D7E200099683D /* PrePathItemT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +50,7 @@
 /* Begin PBXFileReference section */
 		1F3E80EB1F7D295C00632EB3 /* path_drawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = path_drawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3E80EE1F7D295C00632EB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1F3E80F01F7D295C00632EB3 /* SceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
+		1F3E80F01F7D295C00632EB3 /* BoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
 		1F3E80F31F7D295C00632EB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1F3E80F51F7D295C00632EB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F3E80F81F7D295C00632EB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,9 +62,19 @@
 		1F3E810E1F7D295C00632EB3 /* path_drawerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = path_drawerUITests.swift; sourceTree = "<group>"; };
 		1F3E81101F7D295C00632EB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F3E811E1F7D29CB00632EB3 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
+		F20A3BC31F9576A6002B670A /* PathItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemState.swift; sourceTree = "<group>"; };
+		F20A3BC51F9579C3002B670A /* InkItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkItemState.swift; sourceTree = "<group>"; };
+		F20A3C041F9D6D91002B670A /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		F20A3C061F9D6E41002B670A /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
+		F20A3C081F9D6E75002B670A /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		F2349C501F89EDCB00DDE5FD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		F281D3971F8D0ADD006A7B2B /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
+		F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemState.swift; sourceTree = "<group>"; };
 		F2D611031F8131C400872F8C /* PathItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItem.swift; sourceTree = "<group>"; };
 		F2D611051F8131E800872F8C /* PenTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenTool.swift; sourceTree = "<group>"; };
 		F2D611071F81792F00872F8C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		F2EB83181F9D7D900099683D /* MagicEraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicEraserTool.swift; sourceTree = "<group>"; };
+		F2EB831D1F9D7E200099683D /* PrePathItemT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrePathItemT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,15 +125,18 @@
 		1F3E80ED1F7D295C00632EB3 /* path_drawer */ = {
 			isa = PBXGroup;
 			children = (
+				F2EB831F1F9D7ED80099683D /* items */,
+				F2EB831A1F9D7DF90099683D /* itemTs */,
+				F2EB83171F9D7D520099683D /* tools */,
+				F20A3C031F9D6D64002B670A /* geometry */,
+				F281D3991F8D0CCE006A7B2B /* state */,
 				1F3E80EE1F7D295C00632EB3 /* AppDelegate.swift */,
-				1F3E80F01F7D295C00632EB3 /* SceneViewController.swift */,
+				1F3E80F01F7D295C00632EB3 /* BoardViewController.swift */,
 				1F3E80F21F7D295C00632EB3 /* Main.storyboard */,
 				1F3E80F51F7D295C00632EB3 /* Assets.xcassets */,
 				1F3E80F71F7D295C00632EB3 /* LaunchScreen.storyboard */,
 				1F3E80FA1F7D295C00632EB3 /* Info.plist */,
 				1F3E811E1F7D29CB00632EB3 /* SceneView.swift */,
-				F2D611031F8131C400872F8C /* PathItem.swift */,
-				F2D611051F8131E800872F8C /* PenTool.swift */,
 				F2D611071F81792F00872F8C /* Scene.swift */,
 			);
 			path = path_drawer;
@@ -135,6 +158,61 @@
 				1F3E81101F7D295C00632EB3 /* Info.plist */,
 			);
 			path = path_drawerUITests;
+			sourceTree = "<group>";
+		};
+		F20A3C031F9D6D64002B670A /* geometry */ = {
+			isa = PBXGroup;
+			children = (
+				F20A3C041F9D6D91002B670A /* Matrix.swift */,
+				F20A3C061F9D6E41002B670A /* Rect.swift */,
+				F20A3C081F9D6E75002B670A /* Point.swift */,
+			);
+			path = geometry;
+			sourceTree = "<group>";
+		};
+		F281D3991F8D0CCE006A7B2B /* state */ = {
+			isa = PBXGroup;
+			children = (
+				F281D39A1F8D0CE2006A7B2B /* itemstates */,
+			);
+			path = state;
+			sourceTree = "<group>";
+		};
+		F281D39A1F8D0CE2006A7B2B /* itemstates */ = {
+			isa = PBXGroup;
+			children = (
+				F281D3971F8D0ADD006A7B2B /* ItemState.swift */,
+				F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */,
+				F20A3BC31F9576A6002B670A /* PathItemState.swift */,
+				F20A3BC51F9579C3002B670A /* InkItemState.swift */,
+			);
+			path = itemstates;
+			sourceTree = "<group>";
+		};
+		F2EB83171F9D7D520099683D /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				F2D611051F8131E800872F8C /* PenTool.swift */,
+				F2EB83181F9D7D900099683D /* MagicEraserTool.swift */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
+		F2EB831A1F9D7DF90099683D /* itemTs */ = {
+			isa = PBXGroup;
+			children = (
+				F2EB831D1F9D7E200099683D /* PrePathItemT.swift */,
+			);
+			path = itemTs;
+			sourceTree = "<group>";
+		};
+		F2EB831F1F9D7ED80099683D /* items */ = {
+			isa = PBXGroup;
+			children = (
+				F2D611031F8131C400872F8C /* PathItem.swift */,
+				F2349C501F89EDCB00DDE5FD /* Item.swift */,
+			);
+			path = items;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,10 +351,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D611061F8131E800872F8C /* PenTool.swift in Sources */,
-				1F3E80F11F7D295C00632EB3 /* SceneViewController.swift in Sources */,
+				1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */,
+				F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */,
 				F2D611081F81792F00872F8C /* Scene.swift in Sources */,
+				F2EB831E1F9D7E200099683D /* PrePathItemT.swift in Sources */,
+				F2EB83191F9D7D900099683D /* MagicEraserTool.swift in Sources */,
+				F20A3C091F9D6E75002B670A /* Point.swift in Sources */,
 				F2D611041F8131C400872F8C /* PathItem.swift in Sources */,
+				F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */,
+				F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */,
+				F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */,
+				F20A3C051F9D6D91002B670A /* Matrix.swift in Sources */,
 				1F3E80EF1F7D295C00632EB3 /* AppDelegate.swift in Sources */,
+				F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */,
+				F20A3C071F9D6E41002B670A /* Rect.swift in Sources */,
 				1F3E811F1F7D29CB00632EB3 /* SceneView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
