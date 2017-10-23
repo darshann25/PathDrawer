@@ -9,19 +9,19 @@
 import Foundation
 
 class Scene {
-    var pathItems = [PathItem]();
+    var items = [Item]();
     
     init() {
         
     }
     
-    func addPathItem(pathItem: PathItem) {
-        pathItems.append(pathItem);
+    func addItem(item: Item) {
+        items.append(item);
     }
     
     func draw(){
-        for path in pathItems{
-            path.draw();
+        for item in items{
+            item.draw();
         }
     }
 }
