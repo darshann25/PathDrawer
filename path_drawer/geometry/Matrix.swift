@@ -9,7 +9,7 @@
 import Foundation
 
 class Matrix{
- /*
+ 
      var a=0.00;
      var b=0.00;
      var c=0.00;
@@ -94,7 +94,7 @@ class Matrix{
      
      func inverse()-> Matrix{ //prototype conversion pending
      
-     let det = Double(self.det);
+     let det = Double(self.det());
      
      return Matrix (a: Double(self.d)/Double(det),
      b: Double(-self.b) / Double(det),
@@ -120,7 +120,7 @@ class Matrix{
      }
      
     
- */
+
 }
 
 
