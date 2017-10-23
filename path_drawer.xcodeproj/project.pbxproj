@@ -17,6 +17,9 @@
 		1F3E811F1F7D29CB00632EB3 /* SceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3E811E1F7D29CB00632EB3 /* SceneView.swift */; };
 		F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC31F9576A6002B670A /* PathItemState.swift */; };
 		F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC51F9579C3002B670A /* InkItemState.swift */; };
+		F20A3C051F9D6D91002B670A /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C041F9D6D91002B670A /* Matrix.swift */; };
+		F20A3C071F9D6E41002B670A /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C061F9D6E41002B670A /* Rect.swift */; };
+		F20A3C091F9D6E75002B670A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C081F9D6E75002B670A /* Point.swift */; };
 		F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2349C501F89EDCB00DDE5FD /* Item.swift */; };
 		F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D3971F8D0ADD006A7B2B /* ItemState.swift */; };
 		F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */; };
@@ -59,6 +62,9 @@
 		1F3E811E1F7D29CB00632EB3 /* SceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneView.swift; sourceTree = "<group>"; };
 		F20A3BC31F9576A6002B670A /* PathItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemState.swift; sourceTree = "<group>"; };
 		F20A3BC51F9579C3002B670A /* InkItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkItemState.swift; sourceTree = "<group>"; };
+		F20A3C041F9D6D91002B670A /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		F20A3C061F9D6E41002B670A /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
+		F20A3C081F9D6E75002B670A /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F2349C501F89EDCB00DDE5FD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F281D3971F8D0ADD006A7B2B /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemState.swift; sourceTree = "<group>"; };
@@ -115,6 +121,7 @@
 		1F3E80ED1F7D295C00632EB3 /* path_drawer */ = {
 			isa = PBXGroup;
 			children = (
+				F20A3C031F9D6D64002B670A /* geometry */,
 				1F3E80EE1F7D295C00632EB3 /* AppDelegate.swift */,
 				1F3E80F01F7D295C00632EB3 /* BoardViewController.swift */,
 				1F3E80F21F7D295C00632EB3 /* Main.storyboard */,
@@ -123,7 +130,6 @@
 				1F3E80FA1F7D295C00632EB3 /* Info.plist */,
 				1F3E811E1F7D29CB00632EB3 /* SceneView.swift */,
 				F2D611031F8131C400872F8C /* PathItem.swift */,
-				3C0F48CC1F8D926800A2D1C8 /* ImageItem.swift */,
 				F2D611051F8131E800872F8C /* PenTool.swift */,
 				F2D611071F81792F00872F8C /* Scene.swift */,
 				F2349C501F89EDCB00DDE5FD /* Item.swift */,
@@ -148,6 +154,16 @@
 				1F3E81101F7D295C00632EB3 /* Info.plist */,
 			);
 			path = path_drawerUITests;
+			sourceTree = "<group>";
+		};
+		F20A3C031F9D6D64002B670A /* geometry */ = {
+			isa = PBXGroup;
+			children = (
+				F20A3C041F9D6D91002B670A /* Matrix.swift */,
+				F20A3C061F9D6E41002B670A /* Rect.swift */,
+				F20A3C081F9D6E75002B670A /* Point.swift */,
+			);
+			path = geometry;
 			sourceTree = "<group>";
 		};
 		F281D3991F8D0CCE006A7B2B /* state */ = {
@@ -308,12 +324,15 @@
 				1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */,
 				F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */,
 				F2D611081F81792F00872F8C /* Scene.swift in Sources */,
+				F20A3C091F9D6E75002B670A /* Point.swift in Sources */,
 				F2D611041F8131C400872F8C /* PathItem.swift in Sources */,
 				F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */,
 				F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */,
 				F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */,
+				F20A3C051F9D6D91002B670A /* Matrix.swift in Sources */,
 				1F3E80EF1F7D295C00632EB3 /* AppDelegate.swift in Sources */,
 				F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */,
+				F20A3C071F9D6E41002B670A /* Rect.swift in Sources */,
 				1F3E811F1F7D29CB00632EB3 /* SceneView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

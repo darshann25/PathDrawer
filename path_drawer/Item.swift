@@ -114,9 +114,8 @@ class Item {
     func getPdfgenData(matrix: Matrix) {
         return NSNull;
     }
-    
+    */
     func draw() {
         // null
     }
-     */
 }

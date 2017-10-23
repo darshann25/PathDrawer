@@ -42,7 +42,7 @@ class PathItem : Item {
         return PathItemState(ID: Id, matrix: self.matrix.copy, resc: self.resource, begin: self.beginIndex, end: self.endIndex, color: self.color, size: self.size, alpha: self.opacity )
     }*/
 
-    func draw() {
+    override func draw() {
         var prevPoint = points[0];
         var i = 1;
         while(i < points.count) {
