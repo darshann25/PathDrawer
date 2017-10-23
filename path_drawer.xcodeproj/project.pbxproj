@@ -26,6 +26,7 @@
 		F2D611041F8131C400872F8C /* PathItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611031F8131C400872F8C /* PathItem.swift */; };
 		F2D611061F8131E800872F8C /* PenTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611051F8131E800872F8C /* PenTool.swift */; };
 		F2D611081F81792F00872F8C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611071F81792F00872F8C /* Scene.swift */; };
+		F2EB83191F9D7D900099683D /* MagicEraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB83181F9D7D900099683D /* MagicEraserTool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		F2D611031F8131C400872F8C /* PathItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItem.swift; sourceTree = "<group>"; };
 		F2D611051F8131E800872F8C /* PenTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenTool.swift; sourceTree = "<group>"; };
 		F2D611071F81792F00872F8C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		F2EB83181F9D7D900099683D /* MagicEraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicEraserTool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 		1F3E80ED1F7D295C00632EB3 /* path_drawer */ = {
 			isa = PBXGroup;
 			children = (
+				F2EB83171F9D7D520099683D /* tools */,
 				F20A3C031F9D6D64002B670A /* geometry */,
 				1F3E80EE1F7D295C00632EB3 /* AppDelegate.swift */,
 				1F3E80F01F7D295C00632EB3 /* BoardViewController.swift */,
@@ -130,7 +133,6 @@
 				1F3E80FA1F7D295C00632EB3 /* Info.plist */,
 				1F3E811E1F7D29CB00632EB3 /* SceneView.swift */,
 				F2D611031F8131C400872F8C /* PathItem.swift */,
-				F2D611051F8131E800872F8C /* PenTool.swift */,
 				F2D611071F81792F00872F8C /* Scene.swift */,
 				F2349C501F89EDCB00DDE5FD /* Item.swift */,
 				F281D3991F8D0CCE006A7B2B /* state */,
@@ -183,6 +185,15 @@
 				F20A3BC51F9579C3002B670A /* InkItemState.swift */,
 			);
 			path = itemstates;
+			sourceTree = "<group>";
+		};
+		F2EB83171F9D7D520099683D /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				F2D611051F8131E800872F8C /* PenTool.swift */,
+				F2EB83181F9D7D900099683D /* MagicEraserTool.swift */,
+			);
+			path = tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,6 +335,7 @@
 				1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */,
 				F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */,
 				F2D611081F81792F00872F8C /* Scene.swift in Sources */,
+				F2EB83191F9D7D900099683D /* MagicEraserTool.swift in Sources */,
 				F20A3C091F9D6E75002B670A /* Point.swift in Sources */,
 				F2D611041F8131C400872F8C /* PathItem.swift in Sources */,
 				F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */,
