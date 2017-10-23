@@ -125,9 +125,11 @@
 		1F3E80ED1F7D295C00632EB3 /* path_drawer */ = {
 			isa = PBXGroup;
 			children = (
+				F2EB831F1F9D7ED80099683D /* items */,
 				F2EB831A1F9D7DF90099683D /* itemTs */,
 				F2EB83171F9D7D520099683D /* tools */,
 				F20A3C031F9D6D64002B670A /* geometry */,
+				F281D3991F8D0CCE006A7B2B /* state */,
 				1F3E80EE1F7D295C00632EB3 /* AppDelegate.swift */,
 				1F3E80F01F7D295C00632EB3 /* BoardViewController.swift */,
 				1F3E80F21F7D295C00632EB3 /* Main.storyboard */,
@@ -135,10 +137,7 @@
 				1F3E80F71F7D295C00632EB3 /* LaunchScreen.storyboard */,
 				1F3E80FA1F7D295C00632EB3 /* Info.plist */,
 				1F3E811E1F7D29CB00632EB3 /* SceneView.swift */,
-				F2D611031F8131C400872F8C /* PathItem.swift */,
 				F2D611071F81792F00872F8C /* Scene.swift */,
-				F2349C501F89EDCB00DDE5FD /* Item.swift */,
-				F281D3991F8D0CCE006A7B2B /* state */,
 			);
 			path = path_drawer;
 			sourceTree = "<group>";
@@ -205,6 +204,15 @@
 				F2EB831D1F9D7E200099683D /* PrePathItemT.swift */,
 			);
 			path = itemTs;
+			sourceTree = "<group>";
+		};
+		F2EB831F1F9D7ED80099683D /* items */ = {
+			isa = PBXGroup;
+			children = (
+				F2D611031F8131C400872F8C /* PathItem.swift */,
+				F2349C501F89EDCB00DDE5FD /* Item.swift */,
+			);
+			path = items;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
