@@ -10,19 +10,37 @@ import Foundation
 import UIKit
 
 class ToolManager {
-    
-    var penTool = PenTool()
-    
-    penTool.setSize(10)
-    penTool.setAlpha(1.0)
-    penTool.setColor(UIColor.black.cgColor)
-    
-    var highlighterTool = PenTool()
-    
-    highlighterTool.setSize(25)
-    highlighterTool.setAlpha(0.7)
-    highlighterTool.setColor(UIColor.yellow.cgColor)
-    
-    var magicEraserTool = MagicEraserTool()
 
+    
+        //PEN TOOL
+        var penTool = PenTool()
+
+            //NEED TO FIGURE OUT HOW TO CALL FUNCTIONS IN CLASS
+            penTool.setSize(to: 10)
+            penTool.setAlpha(to: 1.0)
+            penTool.setColor(to: UIColor.black.cgColor)
+    
+        //HIGHLIGHTER TOOL
+        var highlighterTool = PenTool()
+    
+            highlighterTool.setSize(to: 25)
+            highlighterTool.setAlpha(to: 0.7)
+            highlighterTool.setColor(to: UIColor.yellow.cgColor)
+    
+    
+        //ERASER TOOL
+        var magicEraserTool = MagicEraserTool()
+
+    
+                func getPenTool() -> Any{
+                    return penTool
+                }
+    
+                func getHighlighterTool () -> Any{
+                    return highlighterTool
+                }
+    
+                func getEraserTool () -> Any{
+                    return magicEraserTool
+                }
 }
