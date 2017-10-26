@@ -15,14 +15,15 @@ import UIKit
  @param {ItemState} state The state of the item.
  */
 class Item {
-    /*
-    public var id;
-    public var devId;
-    public var state;
-    internal Scene scene;
-    internal Matrix matrix;
-    internal Matrix inverseMatrix;
-    internal CGRect boundingRect;
+    
+    
+     var id : Int
+     var devId : Int
+     var state : Int
+     var scene = Scene()
+     //var matrix = Matrix()
+     //var inverseMatrix InverseMatrix()
+     var boundingRect : CGRect
     
     init(state: ItemState){
         
@@ -30,9 +31,9 @@ class Item {
         // public //
         ////////////
 
-        self.id = state.id;
-        self.devId = state.devId;
-        self.state = state;
+        //self.id = state.id;
+        //self.devId = state.devId;
+        //self.state = state
         
         ///////////////
         // protected //
@@ -41,12 +42,12 @@ class Item {
         // Represents the transformation of the item.
         //   This transformation is applied to the item, so if it is scale by 2, then the ite appears twice as large.
         //    Do not access this property directly--use getMatrix() and setMatrix() instead. (Otherwise inverseMatrix and boundingRect might be wrong.)
-        self.scene = NSNull;
-        self.matrix = state.matrix;
-        self.inverseMatrix = state.matrix.inverse();
+        //self.scene = NSNull
+        //self.matrix = state.matrix;
+        //self.inverseMatrix = state.matrix.inverse();
         
         // if boundingRect is null, it will be recomputed on a call to getBoundingRect()
-        self.boundingRect = NSNull;
+        //self.boundingRect = nil
         
         
     }
