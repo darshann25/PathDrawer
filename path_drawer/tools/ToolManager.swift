@@ -12,4 +12,17 @@ import UIKit
 class ToolManager {
     
     var penTool = PenTool()
+    
+    penTool.setSize(10)
+    penTool.setAlpha(1.0)
+    penTool.setColor(UIColor.black.cgColor)
+    
+    var highlighterTool = PenTool()
+    
+    highlighterTool.setSize(25)
+    highlighterTool.setAlpha(0.7)
+    highlighterTool.setColor(UIColor.yellow.cgColor)
+    
+    var magicEraserTool = MagicEraserTool()
+
 }

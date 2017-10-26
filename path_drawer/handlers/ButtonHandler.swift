@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-class ButtonHandlers {
+class ButtonHandler {
 
-    var test = 0
 }

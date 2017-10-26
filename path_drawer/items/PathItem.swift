@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class PathItem : Item {
+    var toolManager = ToolManager()
+    var penTool = PenTool()
+    var prePathItemT = PrePathItemT()
+    
     var points = [CGPoint]();
     
     init (pointsArr: [CGPoint]) {
@@ -43,20 +47,22 @@ class PathItem : Item {
     }*/
 
     override func draw() {
+        
         var prevPoint = points[0];
         var i = 1;
         while(i < points.count) {
             let point = points[i];
             
             if let context = UIGraphicsGetCurrentContext() {
-                
-                context.setStrokeColor(UIColor.blue.cgColor)
-                context.setLineWidth(5)
+                context.setStrokeColor(penTool.color)
+                context.setLineWidth(penTool.size)
+                context.setAlpha(penTool.alpha)
                 context.beginPath() //start drawing
                 context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)) // move to old points
                 context.addLine(to: CGPoint(x: point.x, y: point.y)) // add line to new points
                 context.strokePath() //fill the path
             }
+
             prevPoint = point;
             i+=1;
         }
@@ -84,7 +90,8 @@ class PathItem : Item {
     }
     }*/
     
-    /*func getBoundingRect(){
+    /*
+    func getBoundingRect(){
         if(self.boundingRect = NSNull){
         var rect = self.path.computeBoundingRectCubic(self.matrix)
         var thickness = self.size * Math.sqrt(self.matrix.det())

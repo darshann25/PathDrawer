@@ -9,6 +9,11 @@
 import UIKit
 
 class BoardViewController: UIViewController {
+    var penTool = PenTool()
+    
+    @IBAction func Test(_ sender: UIButton) {
+        penTool.setSize(to: 30)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
