@@ -10,41 +10,44 @@ import Foundation
 
 class InkItemState : ItemState {
     
-    /*
-     var resource;
+    var m_id : Int;
+    var m_devId : Int;
+    var m_matrix : Matrix;
+    var m_resource : Resource;
      
-     func InkItemState(id : var, devId : var, matrix : Matrix, resource : var) {
-         super(ItemType.Image, id, devId, matrix);
-         self.resource = resource;
-     }
+    init(id : Int, devId : Int, matrix : Matrix, resource : Resource) {
+        self.m_id = id;
+        self.m_devId = devId;
+        self.m_matrix = matrix;
+        self.m_resource = resource;
+        
+        super.init(type : Item.ItemType.Image, id: id, devId: devId, matrix: matrix);
+    }
      
-     // TODO : Understand what minify  does and port it from website
-     //ImageItemState.prototype = Object.create(ItemState.prototype);
-     //ImageItemState.prototype.constructor = ImageItemState;
-     /*
-     ImageItemState.prototype.minify = function() {
-         return {
-             version: 1, // TODO: use a constant
-             itemType: Item.types.ImageItem,
-             id: this.id,
-             devId: this.devId,
-             matrix: this.matrix.toArray(),
-             resource: {
-             id: this.resource.id,
-             devId: this.resource.devId,
-         },
-     }; */
-     
-     // protected (invoke ItemState.unminify outside this file)
-     internal func unminify(mini : ItemState) {
-         var id = mini.id;
-         var matrix = Matrix.fromArray(mini.matrix);
-         var resourceId = mini.resource.id;
-         var resourceDevId = mini.resource.devId;
-         var resource = boardStateManager.getResource(resourceId, resourceDevId);
-         return InkItemState(id, mini.devId, matrix, resource);
-     }
-     */
+    func minify() -> Dictionary<String, Any> {
+        var obj = [String: Any]();
+        obj["version"] = 1;
+        obj["itemType"] = Item.ItemType.Image;
+        obj["id"] = self.m_id;
+        obj["devId"] = self.m_devId;
+        obj["matrix"] = self.m_matrix;
+        obj["resource"] = self.m_resource;
+        
+        return obj;
+    }
+    
+    func unminify(mini : Dictionary<String, Any>) -> InkItemState {
+        // Uncomment once boardStateManager is defined
+        /*
+         var r_id = mini["resource_id"] as! Int;
+         var r_devId = mini["resource_devId"] as! Int;
+         var resource = boardstateManager.getResource(r_id, r_devId);
+         */
+        
+        return InkItemState(id : mini["id"] as! Int, devId : mini["devId"] as! Int, matrix : mini["matrix"] as! Matrix,
+                            resource : mini["resource"] as! Resource);
+    }
+    
     
 }
 
