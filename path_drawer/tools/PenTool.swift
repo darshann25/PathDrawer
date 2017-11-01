@@ -15,9 +15,9 @@ class PenTool {
     var alpha : CGFloat
     
     init () {
-        color = UIColor.black.cgColor
-        size = CGFloat(10)
-        alpha = CGFloat(1.0)
+        color = UIColor.blue.cgColor
+        size = CGFloat(5)
+        alpha = CGFloat(1)
     }
     
     var points = [CGPoint]();
