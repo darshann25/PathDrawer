@@ -1,5 +1,5 @@
 //
-//  ButtonHandlers.swift
+//  ButtonHandler.swift
 //  path_drawer
 //
 //  Created by Henry Stahl on 10/25/17.
@@ -65,4 +65,3 @@ class ButtonHandler {
         penTool.setSize(to: 20)
     }
 }
-

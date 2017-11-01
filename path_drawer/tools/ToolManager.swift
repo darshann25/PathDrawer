@@ -30,7 +30,7 @@ class ToolManager {
         highlighterTool.setSize(to: 25)
         highlighterTool.setAlpha(to: 0.7)
         highlighterTool.setColor(to: UIColor.yellow.cgColor)
-    
+        
         self.magicEraserTool = MagicEraserTool();
     }
     
@@ -47,4 +47,3 @@ class ToolManager {
         return magicEraserTool
     }
 }
-
