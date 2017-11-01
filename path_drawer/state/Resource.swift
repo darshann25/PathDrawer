@@ -18,12 +18,12 @@ import Foundation
 
 // class Resource
 class Resource {
-    var id : Int
-    var devId : Int
-    var data : Any
-    var imageCanvas : Any
+    var id : Int;
+    var devId : Int;
+    var data : [Any];
+    var imageCanvas : Any;
     
-    init (id : Int, devId : Int, data : Any) {
+    init (id : Int, devId : Int, data : [Any]) {
         self.id = id;
         self.devId = devId;
         self.data = data;
@@ -44,7 +44,7 @@ class Resource {
     
     // inverse of minify
     func unminify(obj : Dictionary<String, Any>) -> Resource {
-        return Resource(id: obj["id"] as! Int, devId: obj["devId"] as! Int, data: obj["data"]);
+        return Resource(id: obj["id"] as! Int, devId: obj["devId"] as! Int, data: obj["data"] as! [Any]);
     }
     
     
