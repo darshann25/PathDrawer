@@ -59,9 +59,10 @@ class ItemState {
         
         // all minify implementations must contain a version number
         var version = -1;
-        
-        /*if (!(version in obj)) {
-            version = obj.version;
+        /*
+        var index = obj.index(of: version)
+        if (index != nil) {
+            version = obj.index(of: version);
         } else {
             console.log("ItemState has no version");
         }
