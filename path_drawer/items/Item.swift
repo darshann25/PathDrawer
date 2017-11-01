@@ -14,16 +14,17 @@ import UIKit
  @class Item
  @param {ItemState} state The state of the item.
  */
+
 class Item {
     
     
-     var id : Int
-     var devId : Int
-     var state : Int
-     var scene = Scene()
+     //var id : Int
+     //var devId : Int
+     //var state : Int
+     //var scene = Scene()
      //var matrix = Matrix()
      //var inverseMatrix InverseMatrix()
-     var boundingRect : CGRect
+     //var boundingRect : CGRect
     
     init(state: ItemState){
         
@@ -48,8 +49,6 @@ class Item {
         
         // if boundingRect is null, it will be recomputed on a call to getBoundingRect()
         //self.boundingRect = nil
-        
-        
     }
     
     /**
@@ -111,7 +110,7 @@ class Item {
     /**
      @abstract
      @todo Currently this has a default implementation that returns null. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
-     */
+     
     func getPdfgenData(matrix: Matrix) {
         return NSNull;
     }

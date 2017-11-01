@@ -11,29 +11,33 @@ import UIKit
 class SceneView : UIView {
 
     // tuple of points
-    var pT = PenTool();
+    var penTool = PenTool();
     var scene = Scene();
+    var primaryTool = PenTool()
+    var secondaryTool = PenTool()
     
     override func draw(_ rect: CGRect){
         scene.draw();
     }
     
     override func touchesBegan(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
-        pT.onDown(touches: touchPoints, sceneView: self);
+        penTool.onDown(touches: touchPoints, sceneView: self);
     }
     
     override func touchesMoved(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
-        pT.onMove(touches: touchPoints, sceneView: self);
+        penTool.onMove(touches: touchPoints, sceneView: self);
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        pT.onUp(scene: &scene, sceneView: self);
+        penTool.onUp(scene: &scene, sceneView: self);
         // setNeedsDisplay();
-            
+    }
+    
+    func setPrimaryTool(to: Any){
+        primaryTool = to as! PenTool
     }
     
     func refreshView() {
         setNeedsDisplay();
     }
-    
 }

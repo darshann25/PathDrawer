@@ -11,18 +11,40 @@ import UIKit
 
 class ToolManager {
     
-    var penTool = PenTool()
     
-    penTool.setSize(10)
-    penTool.setAlpha(1.0)
-    penTool.setColor(UIColor.black.cgColor)
     
-    var highlighterTool = PenTool()
+    //PEN TOOL
+    var penTool : PenTool
+    //ERASER TOOL
+    var magicEraserTool : MagicEraserTool
+    //HIGHLIGHTER TOOL
+    var highlighterTool : PenTool
     
-    highlighterTool.setSize(25)
-    highlighterTool.setAlpha(0.7)
-    highlighterTool.setColor(UIColor.yellow.cgColor)
+    init() {
+        self.penTool = PenTool()
+        penTool.setSize(to: 10)
+        penTool.setAlpha(to: 1.0)
+        penTool.setColor(to: UIColor.black.cgColor)
+        
+        self.highlighterTool = PenTool();
+        highlighterTool.setSize(to: 25)
+        highlighterTool.setAlpha(to: 0.7)
+        highlighterTool.setColor(to: UIColor.yellow.cgColor)
     
-    var magicEraserTool = MagicEraserTool()
-
+        self.magicEraserTool = MagicEraserTool();
+    }
+    
+    
+    func getPenTool() -> PenTool{
+        return penTool
+    }
+    
+    func getHighlighterTool () -> PenTool{
+        return highlighterTool
+    }
+    
+    func getEraserTool () -> MagicEraserTool{
+        return magicEraserTool
+    }
 }
+
