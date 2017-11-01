@@ -39,7 +39,7 @@ class ImageItemState : ItemState {
         return obj;
     }
     
-    func unminify(mini : Dictionary<String, Any>) -> ImageItemState{
+    static func unminify(mini : Dictionary<String, Any>) -> ImageItemState{
         
         // Uncomment once boardStateManager is defined
         /*

@@ -55,7 +55,7 @@ class PathItemState : ItemState {
         return obj;
     }
     
-    func unminify(mini : Dictionary<String, Any>) -> PathItemState {
+    static func unminify(mini : Dictionary<String, Any>) -> PathItemState {
         return PathItemState(id : mini["id"] as! Int, devId : mini["devId"] as! Int, matrix : mini["matrix"] as! Matrix,
                              resource : mini["resource"] as! Resource, beginIndex : mini["beginIndex"] as! Int,
                              endIndex : mini["endIndex"] as! Int, color : mini["color"] as! CGColor,

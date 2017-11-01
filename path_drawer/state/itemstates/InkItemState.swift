@@ -36,7 +36,7 @@ class InkItemState : ItemState {
         return obj;
     }
     
-    func unminify(mini : Dictionary<String, Any>) -> InkItemState {
+    static func unminify(mini : Dictionary<String, Any>) -> InkItemState {
         // Uncomment once boardStateManager is defined
         /*
          var r_id = mini["resource_id"] as! Int;

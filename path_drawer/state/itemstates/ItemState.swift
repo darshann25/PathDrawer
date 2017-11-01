@@ -25,13 +25,21 @@ class ItemState {
         self.matrix = matrix;
         
     }
- 
+    
+    // defined for 'Unknown' ItemType
+    init(type : Item.ItemType) {
+        self.type = type;
+        self.id = -1;
+        self.devId = -1;
+        self.matrix = Matrix();
+    }
+    
     
     // Set id and dev id for pasted item
     func setIdAndDevId(id : Int, devId : Int) -> Bool {
         // Checks that original ids are -1 to ensure method is used for copy/paste
         if (self.id != -1 || self.devId != -1) {
-            print("Id and DevId are not -1. This method is only intended for copy/paste.");
+            NSLog("Id and DevId are not -1. This method is only intended for copy/paste.");
             return false;
         }
         self.id = id;
@@ -55,54 +63,60 @@ class ItemState {
 }
 
 
-    func unminify(obj : [Int], devId : Int) {
+    func unminify(obj : Dictionary<String, Any>, devId : Int) -> ItemState{
         
         // all minify implementations must contain a version number
-        var version = -1;
-        /*
-        var index = obj.index(of: version)
-        if (index != nil) {
-            version = obj.index(of: version);
+        var type = Item.ItemType.Unknown;
+        
+        if(obj["version"] != nil) {
+            var _ = obj["version"] as! Int;
         } else {
-            console.log("ItemState has no version");
+            NSLog("ItemState has no version.");
         }
-
-        if ('itemType' in obj) {
-            var type = obj.itemType;
+        
+        if(obj["itemType"] != nil) {
+            type = obj["itemType"] as! Item.ItemType;
         } else {
-            console.log('ItemState has no itemType');
-        return;
+            NSLog("ItemState has no itemType");
         }
-      
+        
         switch (type) {
-            case Item.types.PathItem:
-                return PathItemState.unminify(obj);
+            case Item.ItemType.Path:
+                return PathItemState.unminify(mini : obj);
+            
+            case Item.ItemType.Image:
+                return ImageItemState.unminify(mini : obj);
+            
+            case Item.ItemType.Ink:
+                return InkItemState.unminify(mini : obj);
+            
+            // TODO : Define GroupItemState
+            case Item.ItemType.Group:
+                // do nothing
+                return ItemState(type : Item.ItemType.Group);
+            
+            // TODO : Define RichTextItemState
+            case Item.ItemType.RichText:
+                // analytics.unexpected('ItemState.unminify(): deprecated type: RichText');
+                return ItemState(type : Item.ItemType.RichText);
+            
+            // TODO : Define TextItemState
+            case Item.ItemType.Text:
+                return ItemState(type : Item.ItemType.Text);
 
-            case Item.types.ImageItem:
-                return ImageItemState.unminify(obj);
+            // TODO : Define EquationItemState
+            case Item.ItemType.Equation:
+                return ItemState(type : Item.ItemType.Equation);
 
-            case Item.types.InkItem:
-                return InkItemState.unminify(obj);
-
-            case Item.types.GroupItem:
-                return GroupItemState.unminify(obj);
-
-            // backward compatibility; remove me when we delete all RichText items.
-            case 'RichText':
-                analytics.unexpected('ItemState.unminify(): deprecated type: RichText');
-            // fall through
-            case Item.types.TextItem:
-                return TextItemState.unminify(obj);
-
-            case Item.types.EquationItem:
-                return EquationItemState.unminify(obj);
-
-            case Item.types.RegionItem:
-                return RegionItemState.unminify(obj);
-
+            // TODO : Define RegionItemState
+            case Item.ItemType.Region:
+                return ItemState(type : Item.ItemType.Region);
+    
             default:
-                analytics.unexpected(`ItemState.unminify(): unknown type: ${ type }`);
-                return null;
-          }*/
+                // analytics.unexpected(`ItemState.unminify(): unknown type: ${ type }`);
+                return ItemState(type : Item.ItemType.Unknown);
+            
+        }
+        
 }
 

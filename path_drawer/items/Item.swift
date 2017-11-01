@@ -63,8 +63,9 @@ class Item {
         case Ink
         case Group
         case Text
-        case Eqn
+        case Equation
         case Region
+        case RichText
         case Unknown
     }
     
