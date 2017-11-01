@@ -10,15 +10,14 @@ import Foundation
 
 class ItemState {
    
-    /*
     
-    public var type = Item.ItemType.Null;
-    public var id = 0;
-    public var devId = 0;
-    public var matrix = -1;
+    public var type : Item.ItemType;
+    public var id : Int;
+    public var devId : Int;
+    public var matrix : Matrix;
     
     // abstract class ItemState
-    init(type : Item.ItemType, id : Int, devId: Int, matrix : Int) {
+    init(type : Item.ItemType, id : Int, devId: Int, matrix : Matrix) {
         
         self.type = type;  // corresponds to Item.types enum
         self.id = id;
@@ -49,17 +48,21 @@ class ItemState {
         // null
     }
     
+    func getMatrix() -> Matrix {
+        return self.matrix;
+    }
+    
 }
 
 
-    func unminify(obj : NSObject, devId : Int) {
+    func unminify(obj : [Int], devId : Int) {
         
         // all minify implementations must contain a version number
         var version = -1;
-        
         /*
-        if (!(version in obj)) {
-            version = obj.version;
+        var index = obj.index(of: version)
+        if (index != nil) {
+            version = obj.index(of: version);
         } else {
             console.log("ItemState has no version");
         }
@@ -100,8 +103,6 @@ class ItemState {
             default:
                 analytics.unexpected(`ItemState.unminify(): unknown type: ${ type }`);
                 return null;
-          }
-         */
-     */
+          }*/
 }
 

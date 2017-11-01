@@ -10,11 +10,10 @@ import Foundation
 
 class ImageItemState : ItemState {
     
-    /*
-    var resource;
+    var resource : Resource;
     
-    func ImageItemState(id : var, devId : var, matrix : Matrix, resource : var) {
-        super(ItemType.Image, id, devId, matrix);
+    init (id : Int, devId : Int, matrix : Matrix, resource : Resource) {
+        super.init(ItemType.Image, id, devId, matrix);
         self.resource = resource;
     }
     
@@ -33,7 +32,7 @@ class ImageItemState : ItemState {
             id: this.resource.id,
             devId: this.resource.devId,
         },
-    }; */
+    };
     
     // protected (invoke ItemState.unminify outside this file)
     internal func unminify(mini : ItemState) {
@@ -45,6 +44,5 @@ class ImageItemState : ItemState {
         return ImageItemState(id, mini.devId, matrix, resource);
     }
     */
-    
 }
 

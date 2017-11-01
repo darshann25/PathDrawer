@@ -17,9 +17,12 @@ class PathItem : Item {
     var points = [CGPoint]();
     
     init (pointsArr: [CGPoint]) {
+        self.pstate = ItemState(type : ItemType.Path, id: 1, devId : 1, matrix : Matrix())
+        
         for point in pointsArr {
             points.append(point)
         }
+        super.init(state : self.pstate)
     }
     
     /*init (state: PathItemState) {

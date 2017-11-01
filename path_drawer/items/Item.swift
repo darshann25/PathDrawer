@@ -17,14 +17,13 @@ import UIKit
 
 class Item {
     
-    
-     //var id : Int
-     //var devId : Int
-     //var state : Int
-     //var scene = Scene()
-     //var matrix = Matrix()
-     //var inverseMatrix InverseMatrix()
-     //var boundingRect : CGRect
+    public var id : Int;
+    public var devId : Int;
+    public var state : ItemState;
+    internal var scene : Scene;
+    internal var matrix : Matrix;
+    internal var inverseMatrix : Matrix;
+    internal var boundingRect : CGRect;
     
     init(state: ItemState){
         
@@ -43,12 +42,14 @@ class Item {
         // Represents the transformation of the item.
         //   This transformation is applied to the item, so if it is scale by 2, then the ite appears twice as large.
         //    Do not access this property directly--use getMatrix() and setMatrix() instead. (Otherwise inverseMatrix and boundingRect might be wrong.)
-        //self.scene = NSNull
-        //self.matrix = state.matrix;
-        //self.inverseMatrix = state.matrix.inverse();
+        self.scene = Scene();
+        self.matrix = state.getMatrix();
+        self.inverseMatrix = state.getMatrix().inverse();
         
         // if boundingRect is null, it will be recomputed on a call to getBoundingRect()
-        //self.boundingRect = nil
+        self.boundingRect = CGRect();
+        
+        
     }
     
     /**
@@ -64,7 +65,7 @@ class Item {
         case Text
         case Eqn
         case Region
-        case Null
+        case Unknown
     }
     
     //////////////////////
@@ -112,9 +113,9 @@ class Item {
      @todo Currently this has a default implementation that returns null. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
      
     func getPdfgenData(matrix: Matrix) {
-        return NSNull;
+        //return nil;
     }
-    */
+    
     func draw() {
         // null
     }
