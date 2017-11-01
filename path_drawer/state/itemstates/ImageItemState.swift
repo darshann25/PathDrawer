@@ -13,8 +13,8 @@ class ImageItemState : ItemState {
     var resource : Resource;
     
     init (id : Int, devId : Int, matrix : Matrix, resource : Resource) {
-        super.init(ItemType.Image, id, devId, matrix);
         self.resource = resource;
+        super.init(type : Item.ItemType.Image, id: id, devId: devId, matrix: matrix);
     }
     
     // TODO : Understand what minify  does and port it from website

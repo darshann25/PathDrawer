@@ -10,19 +10,23 @@ import Foundation
 import UIKit
 
 class PathItem : Item {
-    var toolManager = ToolManager()
-    var penTool = PenTool()
-    var prePathItemT = PrePathItemT()
+    var penTool : PenTool
+    var prePathItemT : PrePathItemT
     
-    var points = [CGPoint]();
+    var points : [CGPoint]
+    var pstate : ItemState
     
     init (pointsArr: [CGPoint]) {
-        self.pstate = ItemState(type : ItemType.Path, id: 1, devId : 1, matrix : Matrix())
+        self.pstate = ItemState(type : ItemType.Path, id: 1, devId : 1, matrix : Matrix());
+        self.points = [CGPoint]();
         
         for point in pointsArr {
-            points.append(point)
+            self.points.append(point);
         }
-        super.init(state : self.pstate)
+        //penTool = ToolManager.getPenTool();
+        penTool = PenTool();
+        prePathItemT = PrePathItemT();
+        super.init(state : self.pstate);
     }
     
     /*init (state: PathItemState) {

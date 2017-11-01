@@ -10,6 +10,8 @@ import UIKit
 import Foundation
 
 class PrePathItemT {
-
+    init(){
+        
+    }
 }
 

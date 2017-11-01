@@ -31,9 +31,9 @@ class Item {
         // public //
         ////////////
 
-        //self.id = state.id;
-        //self.devId = state.devId;
-        //self.state = state
+        self.id = state.id;
+        self.devId = state.devId;
+        self.state = state
         
         ///////////////
         // protected //
@@ -111,7 +111,7 @@ class Item {
     /**
      @abstract
      @todo Currently this has a default implementation that returns null. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
-     
+     */
     func getPdfgenData(matrix: Matrix) {
         //return nil;
     }

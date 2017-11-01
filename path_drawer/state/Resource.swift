@@ -38,11 +38,13 @@ class Resource {
         obj["devId"] = self.devId;
         obj["data"] = self.data;
         // TODO: serialize imageCanvas?
+        
+        return obj;
     }
     
     // inverse of minify
     func unminify(obj : Dictionary<String, Any>) -> Resource {
-        return Resource(obj["id"], obj["devId"], obj["data"]);
+        return Resource(id: obj["id"] as! Int, devId: obj["devId"] as! Int, data: obj["data"]);
     }
     
     
