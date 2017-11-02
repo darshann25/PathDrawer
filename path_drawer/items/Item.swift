@@ -117,7 +117,7 @@ class Item {
         //return nil;
     }
     
-    func draw() {
+    func draw(toolManager : ToolManager) {
         // null
     }
 }

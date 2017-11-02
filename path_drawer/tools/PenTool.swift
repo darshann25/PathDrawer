@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 
 class PenTool {
-    var color : CGColor
-    var size : CGFloat
-    var alpha : CGFloat
+    var color : CGColor;
+    var size : CGFloat;
+    var alpha : CGFloat;
     
     init () {
-        color = UIColor.blue.cgColor
-        size = CGFloat(5)
-        alpha = CGFloat(1)
+        color = UIColor.black.cgColor;
+        size = CGFloat(5);
+        alpha = CGFloat(1);
     }
     
     var points = [CGPoint]();

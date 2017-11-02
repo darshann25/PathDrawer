@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 class PathItem : Item {
-    var penTool : PenTool
-    var prePathItemT : PrePathItemT
+    var prePathItemT : PrePathItemT;
     
     var points : [CGPoint]
     var pstate : ItemState
@@ -23,8 +22,6 @@ class PathItem : Item {
         for point in pointsArr {
             self.points.append(point);
         }
-        //penTool = ToolManager.getPenTool();
-        penTool = PenTool();
         prePathItemT = PrePathItemT();
         super.init(state : self.pstate);
     }
@@ -53,7 +50,7 @@ class PathItem : Item {
         return PathItemState(ID: Id, matrix: self.matrix.copy, resc: self.resource, begin: self.beginIndex, end: self.endIndex, color: self.color, size: self.size, alpha: self.opacity )
     }*/
 
-    override func draw() {
+    override func draw(toolManager : ToolManager) {
         
         var prevPoint = points[0];
         var i = 1;
@@ -61,13 +58,13 @@ class PathItem : Item {
             let point = points[i];
             
             if let context = UIGraphicsGetCurrentContext() {
-                context.setStrokeColor(penTool.color)
-                context.setLineWidth(penTool.size)
-                context.setAlpha(penTool.alpha)
-                context.beginPath() //start drawing
-                context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)) // move to old points
-                context.addLine(to: CGPoint(x: point.x, y: point.y)) // add line to new points
-                context.strokePath() //fill the path
+                context.setStrokeColor(toolManager.penTool.color);
+                context.setLineWidth(toolManager.penTool.size);
+                context.setAlpha(toolManager.penTool.alpha);
+                context.beginPath(); //start drawing
+                context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)); // move to old points
+                context.addLine(to: CGPoint(x: point.x, y: point.y)); // add line to new points
+                context.strokePath(); //fill the path
             }
 
             prevPoint = point;

@@ -19,9 +19,9 @@ class Scene {
         items.append(item);
     }
     
-    func draw(){
+    func draw(toolManager : ToolManager){
         for item in items{
-            item.draw();
+            item.draw(toolManager : toolManager);
         }
     }
 }
