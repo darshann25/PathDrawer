@@ -26,14 +26,10 @@ class ItemState {
         
     }
     
-    // defined for 'Unknown' ItemType
-    init(type : Item.ItemType) {
-        self.type = type;
-        self.id = -1;
-        self.devId = -1;
-        self.matrix = Matrix();
+    // defined for 'Unknown' and currently not defined ItemTypes
+    convenience init(type : Item.ItemType) {
+        self.init(type: type, id : -1, devId : -1, matrix : Matrix());
     }
-    
     
     // Set id and dev id for pasted item
     func setIdAndDevId(id : Int, devId : Int) -> Bool {
