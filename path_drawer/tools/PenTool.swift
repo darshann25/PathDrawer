@@ -9,21 +9,28 @@
 import Foundation
 import UIKit
 
-class PenTool {
+class PenTool : Tool {
     var color : CGColor;
     var size : CGFloat;
     var alpha : CGFloat;
-    
-    init () {
-        color = UIColor.black.cgColor;
-        size = CGFloat(5);
-        alpha = CGFloat(1);
-    }
-    
-    var points = [CGPoint]();
+    var points : [CGPoint];
     var startPoint = CGPoint.zero;
     
-    func onDown(touches: Set<UITouch>, sceneView: SceneView) {
+    init(color : CGColor, size : CGFloat, alpha : CGFloat) {
+        self.color = color;
+        self.size = size;
+        self.alpha = alpha;
+        
+        points = [CGPoint]();
+        super.init(type : Tool.ToolType.Pen);
+    }
+    
+    convenience init() {
+        self.init(color: UIColor.black.cgColor, size : CGFloat(5), alpha : CGFloat(1));
+    }
+    
+    
+    override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView);
             if startPoint == point {
@@ -35,7 +42,7 @@ class PenTool {
         }
     }
     
-    func onMove(touches: Set<UITouch>, sceneView: SceneView){
+    override func onMove(touches: Set<UITouch>, sceneView: SceneView){
         // holds the distance of the interpolation between two points
         // var euclid_dist = 0;
         
@@ -48,12 +55,12 @@ class PenTool {
         }
     }
     
-    func onUp(scene: inout Scene, sceneView: SceneView){
+    override func onUp(scene: inout Scene, sceneView: SceneView){
         //points.append(point);
         let lastPoint = points[points.count - 1];
         
         if lastPoint != startPoint {
-            let pItem = PathItem(pointsArr: points);
+            let pItem = PathItem(pointsArr: points, penTool : self);
             scene.addItem(item: pItem);
         }
         points = [CGPoint]();
@@ -62,20 +69,20 @@ class PenTool {
     
     
     func euclidean_dist(start : CGPoint, end : CGPoint) -> Int {
-        let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2))
-        return Int(dist)
+        let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
+        return Int(dist);
     }
     
     func setColor(to: CGColor){
-        color = to
+        self.color = to;
     }
     
     func setSize(to: CGFloat){
-        size = to
+        self.size = to;
     }
     
     func setAlpha(to: CGFloat){
-        alpha = to
+        self.alpha = to;
     }
     
     

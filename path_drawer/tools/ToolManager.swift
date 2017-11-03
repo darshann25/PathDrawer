@@ -19,12 +19,12 @@ class ToolManager {
     var highlighterTool : PenTool;
     
     init() {
-        self.penTool = PenTool()
+        self.penTool = PenTool(color: UIColor.black.cgColor, size : CGFloat(5), alpha : CGFloat(1));
         
         self.highlighterTool = PenTool();
-        self.highlighterTool.setSize(to: 25)
-        self.highlighterTool.setAlpha(to: 0.7)
-        self.highlighterTool.setColor(to: UIColor.yellow.cgColor)
+        self.highlighterTool.setSize(to: 25);
+        self.highlighterTool.setAlpha(to: 0.7);
+        self.highlighterTool.setColor(to: UIColor.yellow.cgColor);
         
         self.magicEraserTool = MagicEraserTool();
     }
