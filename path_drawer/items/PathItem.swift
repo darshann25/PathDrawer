@@ -10,19 +10,26 @@ import Foundation
 import UIKit
 
 class PathItem : Item {
-    var prePathItemT : PrePathItemT;
+    //var prePathItemT : PrePathItemT;
+    var points : [CGPoint];
+    var pstate : ItemState;
+    var pathItemColor : CGColor;
+    var pathItemSize : CGFloat;
+    var pathItemAlpha : CGFloat;
     
-    var points : [CGPoint]
-    var pstate : ItemState
-    
-    init (pointsArr: [CGPoint]) {
+    init(pointsArr: [CGPoint], penTool : PenTool) {
         self.pstate = ItemState(type : ItemType.Path, id: 1, devId : 1, matrix : Matrix());
-        self.points = [CGPoint]();
         
+        // The Stroke properties are immutably set from the PenTool on initialization
+        self.pathItemColor = penTool.color;
+        self.pathItemSize = penTool.size
+        self.pathItemAlpha = penTool.alpha;
+        
+        self.points = [CGPoint]();
         for point in pointsArr {
             self.points.append(point);
         }
-        prePathItemT = PrePathItemT();
+        //prePathItemT = PrePathItemT();
         super.init(state : self.pstate);
     }
     
@@ -50,7 +57,7 @@ class PathItem : Item {
         return PathItemState(ID: Id, matrix: self.matrix.copy, resc: self.resource, begin: self.beginIndex, end: self.endIndex, color: self.color, size: self.size, alpha: self.opacity )
     }*/
 
-    override func draw(toolManager : ToolManager) {
+    override func draw() {
         
         var prevPoint = points[0];
         var i = 1;
@@ -58,9 +65,9 @@ class PathItem : Item {
             let point = points[i];
             
             if let context = UIGraphicsGetCurrentContext() {
-                context.setStrokeColor(toolManager.penTool.color);
-                context.setLineWidth(toolManager.penTool.size);
-                context.setAlpha(toolManager.penTool.alpha);
+                context.setStrokeColor(self.pathItemColor);
+                context.setLineWidth(self.pathItemSize);
+                context.setAlpha(self.pathItemAlpha);
                 context.beginPath(); //start drawing
                 context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)); // move to old points
                 context.addLine(to: CGPoint(x: point.x, y: point.y)); // add line to new points

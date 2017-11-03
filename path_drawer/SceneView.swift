@@ -17,7 +17,7 @@ class SceneView : UIView {
     //var secondaryTool : PenTool;
     
     override func draw(_ rect: CGRect){
-        scene.draw(toolManager : self.toolManager);
+        scene.draw();
     }
     
     override func touchesBegan(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
