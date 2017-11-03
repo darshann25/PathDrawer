@@ -23,6 +23,7 @@
 		F20A3C071F9D6E41002B670A /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C061F9D6E41002B670A /* Rect.swift */; };
 		F20A3C091F9D6E75002B670A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C081F9D6E75002B670A /* Point.swift */; };
 		F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2349C501F89EDCB00DDE5FD /* Item.swift */; };
+		F23670A01FACD35A00E67052 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236709F1FACD35A00E67052 /* Tool.swift */; };
 		F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D3971F8D0ADD006A7B2B /* ItemState.swift */; };
 		F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */; };
 		F2B526911FA962DC0077680F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B526901FA962DC0077680F /* Resource.swift */; };
@@ -73,6 +74,7 @@
 		F20A3C061F9D6E41002B670A /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
 		F20A3C081F9D6E75002B670A /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F2349C501F89EDCB00DDE5FD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		F236709F1FACD35A00E67052 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		F281D3971F8D0ADD006A7B2B /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemState.swift; sourceTree = "<group>"; };
 		F2B526901FA962DC0077680F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				F2D611051F8131E800872F8C /* PenTool.swift */,
 				F2EB83181F9D7D900099683D /* MagicEraserTool.swift */,
 				3CBC1C0B1FA112FA0048B652 /* ToolManager.swift */,
+				F236709F1FACD35A00E67052 /* Tool.swift */,
 			);
 			path = tools;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				F2D611061F8131E800872F8C /* PenTool.swift in Sources */,
 				1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */,
 				F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */,
+				F23670A01FACD35A00E67052 /* Tool.swift in Sources */,
 				F2D611081F81792F00872F8C /* Scene.swift in Sources */,
 				F2EB831E1F9D7E200099683D /* PrePathItemT.swift in Sources */,
 				F2EB83191F9D7D900099683D /* MagicEraserTool.swift in Sources */,
