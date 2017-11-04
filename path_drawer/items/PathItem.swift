@@ -17,13 +17,13 @@ class PathItem : Item {
     var pathItemSize : CGFloat;
     var pathItemAlpha : CGFloat;
     
-    init(pointsArr: [CGPoint], penTool : PenTool) {
+    init(pointsArr: [CGPoint], color : CGColor, size : CGFloat, alpha : CGFloat) {
         self.pstate = ItemState(type : ItemType.Path, id: 1, devId : 1, matrix : Matrix());
         
         // The Stroke properties are immutably set from the PenTool on initialization
-        self.pathItemColor = penTool.color;
-        self.pathItemSize = penTool.size
-        self.pathItemAlpha = penTool.alpha;
+        self.pathItemColor = color;
+        self.pathItemSize = size
+        self.pathItemAlpha = alpha;
         
         self.points = [CGPoint]();
         for point in pointsArr {
