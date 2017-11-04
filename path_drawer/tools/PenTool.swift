@@ -22,10 +22,10 @@ class PenTool : Tool {
         self.alpha = alpha;
         
         points = [CGPoint]();
-        super.init(type : Tool.ToolType.Pen);
+        super.init();
     }
     
-    convenience init() {
+    convenience override init() {
         self.init(color: UIColor.black.cgColor, size : CGFloat(5), alpha : CGFloat(1));
     }
     

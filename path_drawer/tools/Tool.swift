@@ -16,24 +16,13 @@ import UIKit
  */
 
 class Tool {
-    var type : Tool.ToolType;
     
-    init(type : Tool.ToolType) {
-        self.type = type;
-    }
-    
-    convenience init() {
-        self.init(type : Tool.ToolType.Unknown);
+    init() {
+        
     }
     
     func onDown(touches: Set<UITouch>, sceneView: SceneView) {}
     func onMove(touches: Set<UITouch>, sceneView: SceneView){}
     func onUp(scene: inout Scene, sceneView: SceneView){}
-    
-    enum ToolType {
-        case Pen
-        case MagicEraser
-        case Unknown
-    }
     
 }
