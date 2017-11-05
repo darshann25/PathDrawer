@@ -12,7 +12,7 @@ import Foundation
  * MagicEraserTool is responsible for removing entire items that are hit by the mouse drag.
  */
 
-class MagicEraserTool {
+class MagicEraserTool : Tool {
     /*
     // Used to determine the swipe segment, which is used to locate any items.
     var previousPoint;

@@ -10,12 +10,27 @@ import Foundation
 import UIKit
 
 class PathItem : Item {
-    var points = [CGPoint]();
+    //var prePathItemT : PrePathItemT;
+    var points : [CGPoint];
+    var pstate : ItemState;
+    var pathItemColor : CGColor;
+    var pathItemSize : CGFloat;
+    var pathItemAlpha : CGFloat;
     
-    init (pointsArr: [CGPoint]) {
+    init(pointsArr: [CGPoint], color : CGColor, size : CGFloat, alpha : CGFloat) {
+        self.pstate = ItemState(type : ItemType.Path, id: 1, devId : 1, matrix : Matrix());
+        
+        // The Stroke properties are immutably set from the PenTool on initialization
+        self.pathItemColor = color;
+        self.pathItemSize = size
+        self.pathItemAlpha = alpha;
+        
+        self.points = [CGPoint]();
         for point in pointsArr {
-            points.append(point)
+            self.points.append(point);
         }
+        //prePathItemT = PrePathItemT();
+        super.init(state : self.pstate);
     }
     
     /*init (state: PathItemState) {
@@ -43,20 +58,22 @@ class PathItem : Item {
     }*/
 
     override func draw() {
+        
         var prevPoint = points[0];
         var i = 1;
         while(i < points.count) {
             let point = points[i];
             
             if let context = UIGraphicsGetCurrentContext() {
-                
-                context.setStrokeColor(UIColor.blue.cgColor)
-                context.setLineWidth(5)
-                context.beginPath() //start drawing
-                context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)) // move to old points
-                context.addLine(to: CGPoint(x: point.x, y: point.y)) // add line to new points
-                context.strokePath() //fill the path
+                context.setStrokeColor(self.pathItemColor);
+                context.setLineWidth(self.pathItemSize);
+                context.setAlpha(self.pathItemAlpha);
+                context.beginPath(); //start drawing
+                context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)); // move to old points
+                context.addLine(to: CGPoint(x: point.x, y: point.y)); // add line to new points
+                context.strokePath(); //fill the path
             }
+
             prevPoint = point;
             i+=1;
         }
@@ -84,7 +101,8 @@ class PathItem : Item {
     }
     }*/
     
-    /*func getBoundingRect(){
+    /*
+    func getBoundingRect(){
         if(self.boundingRect = NSNull){
         var rect = self.path.computeBoundingRectCubic(self.matrix)
         var thickness = self.size * Math.sqrt(self.matrix.det())

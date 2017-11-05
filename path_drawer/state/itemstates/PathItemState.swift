@@ -7,91 +7,59 @@
 //
 
 import Foundation
+import UIKit
 
 // PathItemState inherits from ItemState
 class PathItemState : ItemState {
     
-    /*
-    // private variables to PathItemState
-    var resource;
-    var beginIndex;
-    var endIndex;
-    var color;
-    var size;
-    var opacity;
+    var m_id : Int;
+    var m_devId : Int;
+    var m_matrix : Matrix;
+    var m_resource : Resource;
+    var m_beginIndex : Any;
+    var m_endIndex : Any;
+    var m_color : CGColor;
+    var m_size : Int;
+    var m_opacity : Int;
     
-    func PathItemState(id : var, devId : var, matrix : Matrix, resource : var, beginIndex : var, endIndex : var, color : var, size : var, opacity : var) {
+    init(id : Int, devId : Int, matrix : Matrix, resource : Resource, beginIndex : Int, endIndex : Int, color : CGColor,
+                       size : Int, opacity : Int) {
+        self.m_id = id;
+        self.m_devId = devId;
+        self.m_matrix = matrix;
+        self.m_resource = resource;
+        self.m_beginIndex = beginIndex;
+        self.m_endIndex = endIndex;
+        self.m_color = color;
+        self.m_size = size;
+        self.m_opacity = opacity;
         
-        convenience init(ItemType.Path, id, devId, matrix);
-        self.resource = resource;
-        self.beginIndex = beginIndex;
-        self.endIndex = endIndex;
-        self.color = color;
-        self.size = size;
-        self.opacity = opacity;
+        super.init(type : Item.ItemType.Path, id: id, devId : devId, matrix : matrix);
     }
-    
-    
-     PathItemState.prototype = Object.create(ItemState.prototype);
-     PathItemState.prototype.constructor = PathItemState;
-     PathItemState.prototype.minify = function() {
-    
-    func minify() {
-        var resource_json : [String: Int] = [
-            "id": self.resource["id"],
-            "devId": self.resource["devId"]
-        ]
-    
-        var json : [String: var] = [
-            "version": 1,   // TODO: use a constant
-            "itemType": ItemType.Path,
-            "id": self.id,
-            "devId": self.devId,
-            "matrix": self.matrix.toArray(),
-            "resource": resource_json,
-            "beginIndex": ("beginIndex" in json ? self.beginIndex : 0),
-            // "endIndex": ("endIndex" in json ? self.endIndex : self.resource.data[0].length - 1)
-            "color": self.color,
-            "size": self.size,
-            "opacity": self.opacity
-        ]
-    
-    }
-    
-        return {
-             version: 1, // TODO: use a constant
-             itemType: Item.types.PathItem,
-             id: this.id,
-             devId: this.devId,
-             matrix: this.matrix.toArray(),
-             resource: {
-                 id: this.resource.id,
-                 devId: this.resource.devId,
-             },
-             beginIndex: ('beginIndex' in this ? this.beginIndex : 0),
-             endIndex: ('endIndex' in this ? this.endIndex : this.resource.data[0].length - 1),
-             color: this.color,
-             size: this.size,
-             opacity: this.opacity,
-         };
-     };
-    
-    
-    // protected (invoke ItemState.unminify outside this file)
-    internal func unminify(mini : ItemState) {
-        var id = mini.id;
-        var matrix = Matrix.fromArray(mini.matrix);
-        var resourceId = mini.resource.id;
-        var resourceDevId = mini.resource.devId;
-        var resource = boardStateManager.getResource(resourceId, resourceDevId);
-        // var beginIndex = ('beginIndex' in mini ? mini.beginIndex : 0);
-        // var endIndex = ('endIndex' in mini ? mini.endIndex : resource.data[0].length - 1);
-        var color = mini.color;
-        var size = mini.size;
-        var opacity = mini.opacity;
-        return PathItemState(id, mini.devId, matrix, resource, beginIndex, endIndex, color, size, opacity);
 
+    
+    func minify() -> Dictionary<String, Any> {
+        var obj = [String: Any]();
+        obj["version"] = 1;
+        obj["itemType"] = Item.ItemType.Path;
+        obj["id"] = self.m_id;
+        obj["devId"] = self.m_devId;
+        obj["matrix"] = self.m_matrix;
+        obj["resource"] = self.m_resource;
+        obj["beginIndex"] = self.m_beginIndex is Int ? self.m_beginIndex : 0;
+        obj["endIndex"] = self.m_endIndex is Int ? self.m_endIndex : self.m_resource.data;
+        obj["color"] = self.m_color;
+        obj["size"] = self.m_size;
+        obj["opacity"] = self.m_opacity;
+        
+        return obj;
     }
-     */
+    
+    static func unminify(mini : Dictionary<String, Any>) -> PathItemState {
+        return PathItemState(id : mini["id"] as! Int, devId : mini["devId"] as! Int, matrix : mini["matrix"] as! Matrix,
+                             resource : mini["resource"] as! Resource, beginIndex : mini["beginIndex"] as! Int,
+                             endIndex : mini["endIndex"] as! Int, color : mini["color"] as! CGColor,
+                             size : mini["size"] as! Int, opacity : mini["opacity"] as! Int);
+    }
     
 }
