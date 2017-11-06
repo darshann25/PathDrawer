@@ -12,10 +12,13 @@
 import Foundation
 import UIKit
 
-class ButtonHandler {
-    var sceneView = SceneView()
-    
-    
+let sceneView = SceneView()
+
+    func onHighlighterButtonClicked(){
+        let highlighterTool = sceneView.toolManager.getHighlighterTool()
+        sceneView.setPrimaryTool(tool: highlighterTool)
+    }
+
     func onPenBtnClicked(){
         let penTool = sceneView.toolManager.getPenTool()
         sceneView.setPrimaryTool(tool : penTool)
@@ -63,4 +66,3 @@ class ButtonHandler {
         let penTool = sceneView.toolManager.getPenTool()
         penTool.setSize(to: 20)
     }
-}

@@ -9,10 +9,10 @@
 import UIKit
 
 class BoardViewController: UIViewController {
+   let sceneView = SceneView()
     
-    
-    @IBAction func Test(_ sender: UIButton) {
-        
+    @IBAction func test(){
+        print("working")
     }
     
     override func viewDidLoad() {

@@ -13,8 +13,13 @@ class SceneView : UIView {
     // tuple of points
     var scene = Scene();
     var toolManager = ToolManager();
-    //var primaryTool : PenTool;
-    //var secondaryTool : PenTool;
+    //var primaryTool : PenTool
+    //var secondaryTool : PenTool
+  
+    
+    @IBAction func highligherButton(_ sender: Any) {
+        onHighlighterButtonClicked()
+    }
     
     override func draw(_ rect: CGRect){
         scene.draw();
@@ -34,10 +39,11 @@ class SceneView : UIView {
     }
     
     func setPrimaryTool(tool : PenTool){
+        print("function successfully called")
         // TODO:
         // since we cannot make another PenTool object, we need to figure out how to
         // set a primaryTool to an empty PenTool
-        var primaryTool = tool;
+        //var primaryTool = tool;
     }
     
     func refreshView() {
