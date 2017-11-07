@@ -6,9 +6,6 @@
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
-//Right now, the buttons call the pentool straight from the class, this needs to be changed to get them
-//from the current instance
-
 import Foundation
 import UIKit
 
@@ -51,18 +48,23 @@ let sceneView = SceneView()
     func onPenSize1BtnClicked() {
         let penTool = sceneView.toolManager.getPenTool()
         penTool.setSize(to: 5)
+        sceneView.setPrimaryTool(tool : penTool)
     }
     
     func onPenSize2BtnClicked() {
         let penTool = sceneView.toolManager.getPenTool()
         penTool.setSize(to: 10)
-        
+        sceneView.setPrimaryTool(tool : penTool)
     }
+
     func onPenSize3BtnClicked() {
         let penTool = sceneView.toolManager.getPenTool()
         penTool.setSize(to: 15)
+        sceneView.setPrimaryTool(tool : penTool)
     }
+
     func onPenSize4BtnClicked() {
         let penTool = sceneView.toolManager.getPenTool()
         penTool.setSize(to: 20)
+        sceneView.setPrimaryTool(tool : penTool)
     }

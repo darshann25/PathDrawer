@@ -13,12 +13,48 @@ class SceneView : UIView {
     // tuple of points
     var scene = Scene();
     var toolManager = ToolManager();
-    //var primaryTool : PenTool
-    //var secondaryTool : PenTool
-  
     
-    @IBAction func highligherButton(_ sender: Any) {
+    // TODO : What does frame hold?
+    // var frame = super.frame;
+    
+    /*
+    var primaryTool : PenTool;
+    var secondaryTool : PenTool;
+    
+    init(){
+        super.init(frame: self.frame);
+        
+        self.primaryTool = toolManager.getPenTool()
+        self.secondaryTool = toolManager.getPenTool()
+        // super.frame = CGRect();
+        
+       
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+ */
+    
+    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: self)
+        if let view = recognizer.view {
+            view.center = CGPoint(x:view.center.x + translation.x,
+                                  y:view.center.y + translation.y)
+        }
+        recognizer.setTranslation(CGPoint.zero, in: self)
+    }
+    
+    @IBAction func highlighterButton(_ sender: Any) {
         onHighlighterButtonClicked()
+    }
+    
+    @IBAction func penSize2(_ sender: Any) {
+        onPenSize2BtnClicked()
+    }
+    
+    @IBAction func penSize4(_ sender: Any) {
+        onPenSize4BtnClicked()
     }
     
     override func draw(_ rect: CGRect){
@@ -39,10 +75,6 @@ class SceneView : UIView {
     }
     
     func setPrimaryTool(tool : PenTool){
-        print("function successfully called")
-        // TODO:
-        // since we cannot make another PenTool object, we need to figure out how to
-        // set a primaryTool to an empty PenTool
         //var primaryTool = tool;
     }
     

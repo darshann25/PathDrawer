@@ -21,24 +21,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjK-cy-zhE">
-                                <rect key="frame" x="16" y="615" width="29" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVH-nS-NsO">
+                                <rect key="frame" x="16" y="629" width="85" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Highlighter" image="highlighter (1).ico"/>
+                                <state key="normal" title="Highlighter"/>
                                 <connections>
-                                    <action selector="highligher:" destination="OJt-oX-OX1" eventType="touchUpInside" id="aXB-iT-IpD"/>
+                                    <action selector="highlighterButton:" destination="OJt-oX-OX1" eventType="touchUpInside" id="Zoj-QD-2Rw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oG7-w0-yUR">
+                                <rect key="frame" x="16" y="553" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pen 2"/>
+                                <connections>
+                                    <action selector="Minus:" destination="OJt-oX-OX1" eventType="touchUpInside" id="Rif-My-rLj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rsq-vM-1o1">
+                                <rect key="frame" x="16" y="591" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pen 4"/>
+                                <connections>
+                                    <action selector="Plus:" destination="OJt-oX-OX1" eventType="touchUpInside" id="VgF-Jf-tKI"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Phq-4U-Mrh" appends="YES" id="agD-m6-ObP"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="2" id="Phq-4U-Mrh">
+                    <connections>
+                        <action selector="handlePanWithRecognizer:" destination="BYZ-38-t0r" id="5QG-qc-kAu"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="122.78860569715144"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="highlighter (1).ico" width="32" height="32"/>
-    </resources>
 </document>

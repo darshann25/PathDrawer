@@ -12,7 +12,7 @@ import UIKit
 class ToolManager {
     
     //PEN TOOL
-    var penTool : PenTool;
+    var penTool : PenTool!
     //ERASER TOOL
     var magicEraserTool : MagicEraserTool;
     //HIGHLIGHTER TOOL

@@ -18,6 +18,7 @@
 		3CBC1C0C1FA112FA0048B652 /* ToolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBC1C0B1FA112FA0048B652 /* ToolManager.swift */; };
 		3CBC1C0F1FA11D9C0048B652 /* ButtonHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBC1C0E1FA11D9C0048B652 /* ButtonHandler.swift */; };
 		3CD7FC901FB0DCBB00EFD970 /* highlighter (1).ico in Resources */ = {isa = PBXBuildFile; fileRef = 3CD7FC8F1FB0DCBB00EFD970 /* highlighter (1).ico */; };
+		3CD7FC921FB1F4AF00EFD970 /* TouchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FC911FB1F4AF00EFD970 /* TouchHandler.swift */; };
 		F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC31F9576A6002B670A /* PathItemState.swift */; };
 		F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC51F9579C3002B670A /* InkItemState.swift */; };
 		F20A3C051F9D6D91002B670A /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C041F9D6D91002B670A /* Matrix.swift */; };
@@ -70,6 +71,7 @@
 		3CBC1C0B1FA112FA0048B652 /* ToolManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolManager.swift; sourceTree = "<group>"; };
 		3CBC1C0E1FA11D9C0048B652 /* ButtonHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonHandler.swift; sourceTree = "<group>"; };
 		3CD7FC8F1FB0DCBB00EFD970 /* highlighter (1).ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; name = "highlighter (1).ico"; path = "../../Downloads/highlighter (1).ico"; sourceTree = "<group>"; };
+		3CD7FC911FB1F4AF00EFD970 /* TouchHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchHandler.swift; sourceTree = "<group>"; };
 		F20A3BC31F9576A6002B670A /* PathItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemState.swift; sourceTree = "<group>"; };
 		F20A3BC51F9579C3002B670A /* InkItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkItemState.swift; sourceTree = "<group>"; };
 		F20A3C041F9D6D91002B670A /* Matrix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				3CBC1C0E1FA11D9C0048B652 /* ButtonHandler.swift */,
+				3CD7FC911FB1F4AF00EFD970 /* TouchHandler.swift */,
 			);
 			path = handlers;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */,
 				F20A3C051F9D6D91002B670A /* Matrix.swift in Sources */,
 				1F3E80EF1F7D295C00632EB3 /* AppDelegate.swift in Sources */,
+				3CD7FC921FB1F4AF00EFD970 /* TouchHandler.swift in Sources */,
 				3CBC1C0C1FA112FA0048B652 /* ToolManager.swift in Sources */,
 				F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */,
 				F20A3C071F9D6E41002B670A /* Rect.swift in Sources */,
