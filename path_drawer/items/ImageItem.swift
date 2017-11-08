@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ImageItem : Item {
-    
+ /*
  init (state: ImageItemState) {
  
     self.imageCanvas = NSNull
@@ -46,4 +46,7 @@ class ImageItem : Item {
         }
     
     }
+ 
+}
+ */
 }

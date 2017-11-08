@@ -16,6 +16,7 @@ class SceneView : UIView {
     
     // TODO : What does frame hold?
     // var frame = super.frame;
+
     
     /*
     var primaryTool : PenTool;
