@@ -13,29 +13,33 @@ class SceneView : UIView {
     // tuple of points
     var scene = Scene();
     var toolManager = ToolManager();
-    
-    // TODO : What does frame hold?
-    // var frame = super.frame;
 
+    //TODO: Primary and secondary tool are not initialized by tool manager when called
     
-    /*
+/*
     var primaryTool : PenTool;
     var secondaryTool : PenTool;
     
-    init(){
-        super.init(frame: self.frame);
-        
-        self.primaryTool = toolManager.getPenTool()
-        self.secondaryTool = toolManager.getPenTool()
-        // super.frame = CGRect();
-        
-       
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        didLoad()
     }
-    
+ 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        didLoad()
     }
- */
+ 
+    convenience init() {
+        self.init(frame: CGRect.zero)
+        didLoad()
+ }
+    
+    func didLoad(){
+        primaryTool = toolManager.getPenTool()
+        secondaryTool = toolManager.getPenTool()
+    }
+    */
     
     @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self)

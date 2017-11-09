@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class PathItem : Item {
-    //var prePathItemT : PrePathItemT;
+    var prePathItemT : PrePathItemT;
     var points : [CGPoint];
     var pstate : ItemState;
     var pathItemColor : CGColor;
@@ -29,7 +29,7 @@ class PathItem : Item {
         for point in pointsArr {
             self.points.append(point);
         }
-        //prePathItemT = PrePathItemT();
+        prePathItemT = PrePathItemT();
         super.init(state : self.pstate);
     }
     

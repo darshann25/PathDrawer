@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class PrePathItemT {
+class PrePathItemT : ItemT {
     init(){
         
     }
