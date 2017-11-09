@@ -9,11 +9,7 @@
 import UIKit
 
 class BoardViewController: UIViewController {
-    
-    
-    @IBAction func Test(_ sender: UIButton) {
-        
-    }
+   let sceneView = SceneView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
