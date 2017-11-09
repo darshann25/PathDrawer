@@ -7,6 +7,9 @@
 //
 
 import Foundation
+
 class ItemT {
-    
+    init() {
+        
+    }
 }
