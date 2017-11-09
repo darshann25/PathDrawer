@@ -27,8 +27,8 @@ class Scene {
     var keyResponders : [Item];
     
     // The responders to the most recent event.
-    var activeHoverResponder : Item;
-    var activeClickResponder : Item;
+    //var activeHoverResponder : Item;
+    //var activeClickResponder : Item;
     
     // This is a list of all SceneViews that are watching the Scene.
     var sceneViews : [SceneView];
@@ -42,8 +42,8 @@ class Scene {
         self.clickResponders = [Item]();
         self.keyResponders = [Item]();
         
-        self.activeHoverResponder = Item();
-        self.activeClickResponder = Item();
+        //self.activeHoverResponder = Item();
+        //self.activeClickResponder = Item();
         
         // This is a list of all SceneViews that are watching the Scene.
         self.sceneViews = [SceneView]();
@@ -255,7 +255,7 @@ class Scene {
     }
 
     /////////////////////
-    // legacy           //
+    // legacy          //
     /////////////////////
     
     func addItem(item: Item) {
