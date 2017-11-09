@@ -96,7 +96,6 @@
 		3CD7FD341FB2B6AB00EFD970 /* NewItemDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD331FB2B6AB00EFD970 /* NewItemDelta.swift */; };
 		3CD7FD361FB2B6BB00EFD970 /* ReleaseItemsDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD351FB2B6BB00EFD970 /* ReleaseItemsDelta.swift */; };
 		3CD7FD381FB2B6CC00EFD970 /* TransformItemsDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD371FB2B6CC00EFD970 /* TransformItemsDelta.swift */; };
-		3CD7FD3A1FB2B6F500EFD970 /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD391FB2B6F500EFD970 /* ImageItemState.swift */; };
 		3CD7FD3C1FB2B74700EFD970 /* TextItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD3B1FB2B74700EFD970 /* TextItemState.swift */; };
 		F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC31F9576A6002B670A /* PathItemState.swift */; };
 		F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC51F9579C3002B670A /* InkItemState.swift */; };
@@ -228,7 +227,6 @@
 		3CD7FD331FB2B6AB00EFD970 /* NewItemDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemDelta.swift; sourceTree = "<group>"; };
 		3CD7FD351FB2B6BB00EFD970 /* ReleaseItemsDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseItemsDelta.swift; sourceTree = "<group>"; };
 		3CD7FD371FB2B6CC00EFD970 /* TransformItemsDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformItemsDelta.swift; sourceTree = "<group>"; };
-		3CD7FD391FB2B6F500EFD970 /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageItemState.swift; path = ../ImageItemState.swift; sourceTree = "<group>"; };
 		3CD7FD3B1FB2B74700EFD970 /* TextItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextItemState.swift; sourceTree = "<group>"; };
 		F20A3BC31F9576A6002B670A /* PathItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemState.swift; sourceTree = "<group>"; };
 		F20A3BC51F9579C3002B670A /* InkItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkItemState.swift; sourceTree = "<group>"; };
@@ -456,7 +454,6 @@
 		F281D39A1F8D0CE2006A7B2B /* itemstates */ = {
 			isa = PBXGroup;
 			children = (
-				3CD7FD391FB2B6F500EFD970 /* ImageItemState.swift */,
 				F281D3971F8D0ADD006A7B2B /* ItemState.swift */,
 				F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */,
 				F20A3BC31F9576A6002B670A /* PathItemState.swift */,
@@ -695,7 +692,6 @@
 				3CD7FD081FB2B3CF00EFD970 /* SaveManager.swift in Sources */,
 				3CD7FD361FB2B6BB00EFD970 /* ReleaseItemsDelta.swift in Sources */,
 				3CD7FC991FB2ADFC00EFD970 /* Path.swift in Sources */,
-				3CD7FD3A1FB2B6F500EFD970 /* ImageItemState.swift in Sources */,
 				3CD7FCE51FB2B24300EFD970 /* RichTextLines.swift in Sources */,
 				3CD7FCE31FB2B23400EFD970 /* RichTextInput.swift in Sources */,
 				3CD7FD121FB2B46E00EFD970 /* WheelEventHandler.swift in Sources */,
@@ -892,6 +888,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -901,7 +898,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
