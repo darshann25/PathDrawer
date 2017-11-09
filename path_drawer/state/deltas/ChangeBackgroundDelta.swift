@@ -7,3 +7,6 @@
 //
 
 import Foundation
+class ChangeBackgroundDelta : Delta {
+    
+}
