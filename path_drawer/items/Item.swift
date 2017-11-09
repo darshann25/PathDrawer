@@ -52,6 +52,12 @@ class Item {
         
     }
     
+    convenience init(){
+        let _state = ItemState(type: Item.ItemType.Unknown);
+        
+        self.init(state: _state);
+    }
+    
     /**
      Enumeration for all item types.
      @readonly
