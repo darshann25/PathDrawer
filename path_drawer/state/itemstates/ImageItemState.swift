@@ -10,16 +10,11 @@ import Foundation
 
 class ImageItemState : ItemState {
     
-    var m_id : Int;
-    var m_devId : Int;
-    var m_matrix: Matrix;
-    var m_resource : Resource;
+    var resource : Resource;
     
     init (id : Int, devId : Int, matrix : Matrix, resource : Resource) {
-        self.m_id = id;
-        self.m_devId = devId;
-        self.m_matrix = matrix;
-        self.m_resource = resource;
+        self.resource = resource;
+        
         super.init(type : Item.ItemType.Image, id: id, devId: devId, matrix: matrix);
     }
     
@@ -27,14 +22,14 @@ class ImageItemState : ItemState {
         var obj = [String: Any]();
         obj["version"] = 1;
         obj["itemType"] = Item.ItemType.Image;
-        obj["id"] = self.m_id;
-        obj["devId"] = self.m_devId;
-        obj["matrix"] = self.m_matrix;
-        obj["resource_id"] = self.m_resource.id;
-        obj["resoruce_devId"] = self.m_resource.devId;
+        obj["id"] = self.id;
+        obj["devId"] = self.devId;
+        obj["matrix"] = self.matrix;
+        obj["resource_id"] = self.resource.id;
+        obj["resoruce_devId"] = self.resource.devId;
         
         // remove once boardStateManager is defined
-        obj["resource"] = self.m_resource;
+        obj["resource"] = self.resource;
     
         return obj;
     }
