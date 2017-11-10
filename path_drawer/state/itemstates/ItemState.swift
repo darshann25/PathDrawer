@@ -11,10 +11,10 @@ import Foundation
 class ItemState {
    
     
-    public var type : Item.ItemType;
-    public var id : Int;
-    public var devId : Int;
-    public var matrix : Matrix;
+    var type : Item.ItemType;
+    var id : Int;
+    var devId : Int;
+    var matrix : Matrix;
     
     // abstract class ItemState
     init(type : Item.ItemType, id : Int, devId: Int, matrix : Matrix) {

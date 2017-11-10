@@ -12,27 +12,21 @@ import UIKit
 // PathItemState inherits from ItemState
 class PathItemState : ItemState {
     
-    var m_id : Int;
-    var m_devId : Int;
-    var m_matrix : Matrix;
-    var m_resource : Resource;
-    var m_beginIndex : Any;
-    var m_endIndex : Any;
-    var m_color : CGColor;
-    var m_size : Int;
-    var m_opacity : Int;
+    var resource : Resource;
+    var beginIndex : Any;
+    var endIndex : Any;
+    var color : CGColor;
+    var size : Int;
+    var opacity : Int;
     
     init(id : Int, devId : Int, matrix : Matrix, resource : Resource, beginIndex : Int, endIndex : Int, color : CGColor,
                        size : Int, opacity : Int) {
-        self.m_id = id;
-        self.m_devId = devId;
-        self.m_matrix = matrix;
-        self.m_resource = resource;
-        self.m_beginIndex = beginIndex;
-        self.m_endIndex = endIndex;
-        self.m_color = color;
-        self.m_size = size;
-        self.m_opacity = opacity;
+        self.resource = resource;
+        self.beginIndex = beginIndex;
+        self.endIndex = endIndex;
+        self.color = color;
+        self.size = size;
+        self.opacity = opacity;
         
         super.init(type : Item.ItemType.Path, id: id, devId : devId, matrix : matrix);
     }
@@ -42,15 +36,15 @@ class PathItemState : ItemState {
         var obj = [String: Any]();
         obj["version"] = 1;
         obj["itemType"] = Item.ItemType.Path;
-        obj["id"] = self.m_id;
-        obj["devId"] = self.m_devId;
-        obj["matrix"] = self.m_matrix;
-        obj["resource"] = self.m_resource;
-        obj["beginIndex"] = self.m_beginIndex is Int ? self.m_beginIndex : 0;
-        obj["endIndex"] = self.m_endIndex is Int ? self.m_endIndex : self.m_resource.data;
-        obj["color"] = self.m_color;
-        obj["size"] = self.m_size;
-        obj["opacity"] = self.m_opacity;
+        obj["id"] = self.id;
+        obj["devId"] = self.devId;
+        obj["matrix"] = self.matrix;
+        obj["resource"] = self.resource;
+        obj["beginIndex"] = self.beginIndex is Int ? self.beginIndex : 0;
+        obj["endIndex"] = self.endIndex is Int ? self.endIndex : self.resource.data;
+        obj["color"] = self.color;
+        obj["size"] = self.size;
+        obj["opacity"] = self.opacity;
         
         return obj;
     }
