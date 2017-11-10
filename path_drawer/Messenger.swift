@@ -21,7 +21,7 @@ class Messenger {
     var inboxes : Dictionary<String, Any>;
     
     init() {
-        handlers = [String: Any]();
+        handlers = [String: (Any, Any) -> Any]();
         inboxes = [String: Any]();
     }
     
@@ -41,7 +41,9 @@ class Messenger {
     
     }
     
-    func onmessage(type: String, f : String) {
+    typealias myFunc = (String, String) -> ();
+    
+    func onMessage(type: String, f : @escaping myFunc) {
         handlers[type] = f;
     }
     
