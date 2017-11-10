@@ -7,6 +7,6 @@
 //
 
 import Foundation
-class TextTool : tool {
+class TextTool : Tool {
     
 }

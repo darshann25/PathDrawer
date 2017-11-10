@@ -7,6 +7,6 @@
 //
 
 import Foundation
-class Point Buffer {
+class PointBuffer {
     
 }
