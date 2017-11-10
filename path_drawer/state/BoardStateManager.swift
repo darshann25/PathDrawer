@@ -24,7 +24,13 @@ class BoardStateManager {
     
     // this holds the messenger passed from the BoardViewController
     var messenger : Messenger;
-
+    
+    ///////////////////////////////////
+    // initialization of board state //
+    ///////////////////////////////////
+    
+    // either another device relays the board state through a message with id "entire_board_state" or (if there are no other current devices) the server will deliver a message
+    
     init(msngr : Messenger) {
         self.nextResourceId = 1;
         self.nextItemId = 1;
@@ -33,20 +39,15 @@ class BoardStateManager {
         self.saveManager = SaveManager(boardState : boardState);
         self.loaded = false;
         self.messenger = msngr;
+        
+        self.messenger.onMessage(type : "entire_board_state", f: {message, type in
+            
+        });
     }
     
-    ///////////////////////////////////
-    // initialization of board state //
-    ///////////////////////////////////
-
-    // either another device relays the board state through a message with id "entire_board_state" or (if there are no other current devices) the server will deliver a message
     
     
     
-    
-    
-    // self.messenger.onmessage('entire_board_state', function(message, from) {
-    // }
     
     func onBoardStateFromServer(rawdata : String) {
     
