@@ -11,8 +11,8 @@ import Foundation
 
 class Point{
     
-    var x=0.00;
-    var y=0.00;
+    var x = 0.00;
+    var y = 0.00;
     
     init(x: Double,y: Double){
         
@@ -27,25 +27,17 @@ class Point{
         
     }
     
-    func fromArray(a: Array<Double>)->Point{
+    func fromArray(a: Array<Double>)-> Point{
         
-        return Point (x: Double(a[0]), y: Double(a[1]));
+        return Point(x: Double(a[0]), y: Double(a[1]));
         
     }
     
-    func translate (xDist: Double,yDist: Double)-> Point{    //prototype conversion pending
+    func translate (xDist: Double,yDist: Double)-> Point {    //prototype conversion pending
         
         return Point(x: self.x + xDist, y: self.y + yDist);
         
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 

@@ -9,7 +9,7 @@
 import UIKit
 
 class BoardViewController: UIViewController {
-   let sceneView = SceneView()
+    let sceneView = SceneView();
     
     override func viewDidLoad() {
         super.viewDidLoad()

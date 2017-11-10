@@ -14,54 +14,125 @@ class SceneView : UIView {
     var scene = Scene();
     var toolManager = ToolManager();
 
-    //TODO: Primary and secondary tool are not initialized by tool manager when called
+    // The canvas, which acts as the view onto the Scene.
+    @IBOutlet weak var canvas : UIView?;
+    // var canvas = document.getElementById('mainCanvas');
     
-/*
-    var primaryTool : PenTool;
-    var secondaryTool : PenTool;
+    // To determine whether the scene wants the mouse events.
+    var sceneGrabbedMouse = false;
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        didLoad()
+    // These properties define the part of the Scene that the user is viewing
+    var viewLeft = 0;
+    var viewTop = 0;
+    // 1.25^2=1.5625
+    var zoom = Double(1.5625);
+
+    
+    func getWidth() {
+        
     }
- 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        didLoad()
-    }
- 
-    convenience init() {
-        self.init(frame: CGRect.zero)
-        didLoad()
- }
+  
+    func getHeight() {
     
-    func didLoad(){
-        primaryTool = toolManager.getPenTool()
-        secondaryTool = toolManager.getPenTool()
-    }
-    */
-    
-    @IBAction func handlePan(recognizer:UIPanGestureRecognizer) {
-        let translation = recognizer.translation(in: self)
-        if let view = recognizer.view {
-            view.center = CGPoint(x:view.center.x + translation.x,
-                                  y:view.center.y + translation.y)
-        }
-        recognizer.setTranslation(CGPoint.zero, in: self)
     }
     
-    @IBAction func highlighterButton(_ sender: Any) {
-        onHighlighterButtonClicked()
+    func setPrimaryTool(tool : Tool) {
+    
     }
     
-    @IBAction func penSize2(_ sender: Any) {
-        onPenSize2BtnClicked()
+    func setSecondaryTool(tool : Tool) {
+    
     }
     
-    @IBAction func penSize4(_ sender: Any) {
-        onPenSize4BtnClicked()
+    // internal
+    func onViewRectChanged() {
+    
     }
     
+    func getViewPoint() {
+    
+    }
+    
+    func setViewXY(x : Double, y : Double) {
+    
+    }
+    
+    // factor usually close to 1, x,y are in view coordinates
+    func zoomAtXY(factor : Double, sceneX : Double, sceneY : Double) {
+    
+    }
+    
+    func zoomIn() {
+    
+    }
+    
+    func zoomOut() {
+    
+    }
+    
+    func onDown(event : UIEvent, clientX : Double, clientY : Double) {
+    
+    }
+    
+    // mouseEventHandler.setSceneViewOnDown(onDown);
+    // touchEventHandler.setSceneViewOnDown(onDown);
+    
+    func onMove(event : UIEvent, clientX : Double, clientY : Double) {
+    
+    }
+    // mouseEventHandler.setSceneViewOnMove(onMove);
+    // touchEventHandler.setSceneViewOnMove(onMove);
+    
+    func onMoveInSceneOnly(event : UIEvent, clientX : Double, clientY : Double) {
+    
+    }
+    // mouseEventHandler.setSceneViewOnMoveInSceneOnly(onMoveInSceneOnly);
+    // touchEventHandler.setSceneViewOnMoveInSceneOnly(onMoveInSceneOnly);
+    
+    func onUp(event : UIEvent) {
+    
+    }
+    // mouseEventHandler.setSceneViewOnUp(onUp);
+    // touchEventHandler.setSceneViewOnUp(onUp);
+    
+    // right-click (contextMenu)
+    func onContextMenu(event : UIEvent, clientX : Double, clientY : Double) {
+    
+    }
+    // contextMenuEventHandler.setSceneViewOnContextMenu(onContextMenu);
+    
+    func doPaste() {
+    
+    }
+    
+    // TODO: Add log message
+    func onKeyDown(event : UIEvent) {
+    
+    }
+    // keyEventHandler.setSceneViewOnKeyDown(onKeyDown);
+    
+    func onSelectAll() {
+    
+    }
+    
+    func onZoom(event : UIEvent, clientX : Double, clientY : Double, scaleFactor : Double) {
+    
+    }
+    // wheelEventHandler.setSceneViewOnZoom(onZoom);
+    // touchEventHandler.setSceneViewOnChangeZoom(onZoom);
+    
+    func onPan(event : UIEvent, deltaX : Double, deltaY : Double) {
+    
+    }
+    // wheelEventHandler.setSceneViewOnPan(onPan);
+    // touchEventHandler.setSceneViewOnChangePan(onPan);
+    
+    // Initialize the SceneView.
+    
+    
+    ////////////////////////////
+    // Legacy   ////////////////
+    ////////////////////////////
     override func draw(_ rect: CGRect){
         scene.draw();
     }
@@ -79,9 +150,6 @@ class SceneView : UIView {
         // setNeedsDisplay();
     }
     
-    func setPrimaryTool(tool : PenTool){
-        //var primaryTool = tool;
-    }
     
     func refreshView() {
         setNeedsDisplay();
