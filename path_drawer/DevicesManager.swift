@@ -19,7 +19,7 @@ class DevicesManager {
     
     init (thisDevice: Any){
         // create this device even before knowing the data for the constructor
-        self.thisDevice = Device(id: -1, peerId: -1, accessLevel: "unknown")
+        self.thisDevice = Device(id: -1, peerId: -1, accessLevel: -1)
     }
     
     func thisDeviceJoined(data: Any) {
