@@ -29,7 +29,7 @@ class ToolManager {
         self.highlighterTool.setAlpha(to: 0.7);
         self.highlighterTool.setColor(to: UIColor.yellow.cgColor);
         
-        self.magicEraserTool = MagicEraserTool();
+        self.magicEraserTool = MagicEraserTool(point : Point(x: 0, y: 0), id : -1);
     }
     
     func getPenTool() -> PenTool{
