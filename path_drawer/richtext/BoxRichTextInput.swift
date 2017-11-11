@@ -9,4 +9,29 @@
 import Foundation
 class BoxRichTextInput {
     
+    var textInput: RichTextInput
+
+    var width: Float
+    var ascent: Float
+    var type: String
+    
+    init(){
+
+        //TextInput.call(self);
+        
+        self.type = "box"
+        self.width=1
+        self.ascent=1
+        
+        self.textInput = RichTextInput();
+    }
+    
+    //BoxTextInput.prototype = Object.create(TextInput.prototype);
+    
+
+    func fromObject(object: BoxRichTextInput)->BoxRichTextInput{
+    
+        return BoxRichTextInput()
+        
+    }
 }

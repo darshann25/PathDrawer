@@ -10,22 +10,21 @@ import Foundation
 import UIKit
 
 class ChangeBackgroundDelta : Delta {
-    var from : Int
-    var to : Int
+    var from : ItemState
+    var to : ItemState
     
-
-    init( actId: Int, devId: Int,from : Int /*should be changed*/ , to : Int /*should be changed*/ ) {
+    init( actId: Int, devId: Int,from : ItemState, to : ItemState) {
         self.from = from
         self.to = to
         
-        super.init(type: Delta.types.NewItemDelta/*should be changed to ChangeBackgroundDelta*/,actId: actId,devId: devId)
+        super.init(type: Delta.types.ChangeBackgroundDelta,actId: actId,devId: devId)
         
     }
     
     enum types {
-        case Param
-        case doc
-        case page
+        case Parameter
+        case Document
+        case Page
     }
 
     func minify() -> Dictionary<String,Any>{
@@ -40,51 +39,50 @@ class ChangeBackgroundDelta : Delta {
         return obj
     }
     
-    func unminify(mini: Dictionary<String, Any>) ->ChangeBackgroundDelta{
-        return ChangeBackgroundDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int,from:  mini["from"] as! Int,to: mini["to"] as! Int);
+    static func unminify(mini: Dictionary<String, Any>) ->ChangeBackgroundDelta{
+        return ChangeBackgroundDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int,from:  mini["from"] as! ItemState,to: mini["to"] as! ItemState);
 
     }
     
-    func applyToScene() //Needs to be completely implemented
-    {/*
-        var background = scene.getBackground()
+    //UNCOMMENT AFTER scene fully implemented
+    func applyToScene()
+    {
+        //var background = sceneView.scene.getBackground()
             var change = self.to
-        if(change.type == ChangeBackgroundDelta.types.Document){
-            if(change.value == NSNull)
-            {
-                background.removeDocument(change.id,change.devId)
-            }
-            else
-                background.addDocument(Document(change.value))
-        }*/
+        //if(change.type = ChangeBackgroundDelta.types.Document){
+            //if(change.value == NSNull)
+            //{
+                //background.removeDocument(change.id,change.devId)
+            //}
+            //else{
+                //background.addDocument(Document(change.value))
+        //}
     }
     
     
     
-    //Needs to be implemented
-    func applyToBoardState (/*boardState*/ /*Type needs to be given*/)
+    //UNCOMMENT AFTER
+    func applyToBoardState (boardState: BoardState)
     {
-        /*
+        
         var change = self.to;
         var devId = change.devId;
         var id = change.id;
         var state = boardState.getBackground();
-        if (change.type === ChangeBackgroundDelta.types.Document)
-        {
-            if (change.value == NSNull) {
-                delete state.documents[devId][id];
-            }
-            else
-            {
-                if (!(devId in state.documents)) {
-                    state.documents[devId] = {}
-                }
-                state.documents[devId][id] = change.value;
-            }
+        //if (change.type == ChangeBackgroundDelta.types.Document)
+        //{
+            //if (change.value == NSNull) {
+                //deletestate.documents[devId][id];
+            //}
+            //else
+            //{
+                //if (!(devId in state.documents)) {
+                    //state.documents[devId] = {}
+                //}
+                //state.documents[devId][id] = change.value;
+            //}
     }
-    boardState.setBackground(state);
-         */
-    }
+    //boardState.setBackground(state)
     
 }
 

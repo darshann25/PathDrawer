@@ -8,6 +8,33 @@
 
 import Foundation
 
+var DELAY = 1500
+
 class MyScriptItemT : ItemT {
+    /*
+    var tool : Any
+   // var timer : HaloItem
+    
+    var timer = NSNull()
+    
+ //   var prePathItemTs
+    
+    
+    init(tool: Any){
+        
+        self.respondsToClickEvents =  true
+        
+        self.tool = tool
+        self.timer = NSNull()
+        
+ //       self.prePathItemTs = [Any]()
+        
+//        self.svg = NSNull()
+        
+    
+    
+    
+    }
+    */
     
 }

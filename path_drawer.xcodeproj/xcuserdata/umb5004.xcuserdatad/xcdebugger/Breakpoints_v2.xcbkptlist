@@ -9,13 +9,45 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PenTool.swift"
-            timestampString = "528771569.79129"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532067057.355607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "onMove(touches:sceneView:)"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "init(initialRect:options:buttonOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532067132.98986"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "draw(ctx:zoomX:zoomY:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068323.424389"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "acceptsHover(x:y:zoom:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,78 +57,85 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PenTool.swift"
-            timestampString = "528771569.791649"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068384.124786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "onDown(touches:sceneView:)"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "acceptsHover(x:y:zoom:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PenTool.swift"
-            timestampString = "528771569.79191"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068610.406649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "onDown(touches:sceneView:)"
-            landmarkType = "7">
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "drawRectAccountingForZooms(ctx:rect:zoomX:zoomY:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PenTool.swift"
-            timestampString = "528771569.792156"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068611.534969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "onMove(touches:sceneView:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "path_drawer/PenTool.swift"
-            timestampString = "528771569.792405"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "onMove(touches:sceneView:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "528771569.792654"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             startingLineNumber = "35"
             endingLineNumber = "35"
             landmarkName = "getHeight()"
             landmarkType = "7">
+=======
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "drawRectAccountingForZooms(ctx:rect:zoomX:zoomY:)"
+            landmarkType = "9">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068612.127137"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "drawRectAccountingForZooms(ctx:rect:zoomX:zoomY:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068616.518771"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "draw(ctx:zoomX:zoomY:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -105,14 +144,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PathItem.swift"
-            timestampString = "528771569.792704"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068617.342318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "draw()"
-            landmarkType = "7">
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "draw(ctx:zoomX:zoomY:)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -121,30 +160,21 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PathItem.swift"
-            timestampString = "528771569.792748"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532068766.941803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "draw()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "path_drawer/Scene.swift"
-            timestampString = "528589967.313353"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             startingLineNumber = "23"
             endingLineNumber = "23"
             landmarkName = "Scene"
             landmarkType = "3">
+=======
+            startingLineNumber = "272"
+            endingLineNumber = "272"
+            landmarkName = "getButton(x:y:zoomX:zoomY:)"
+            landmarkType = "7">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -153,13 +183,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/PenTool.swift"
-            timestampString = "528771569.792815"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532069120.648203"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "onMove(touches:sceneView:)"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "onDown(x:y:zoom:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -169,13 +199,19 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "528771569.793066"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532069121.912022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             startingLineNumber = "30"
             endingLineNumber = "30"
             landmarkName = "getWidth()"
+=======
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "onDown(x:y:zoom:)"
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -185,14 +221,21 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "528771569.793111"
+            filePath = "path_drawer/itemTs/MatrixControl.swift"
+            timestampString = "532069210.554676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             startingLineNumber = "26"
             endingLineNumber = "26"
             landmarkName = "SceneView"
             landmarkType = "3">
+=======
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "onDrag(x:y:zoom:)"
+            landmarkType = "7">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -201,14 +244,21 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "528771569.793152"
+            filePath = "path_drawer/itemTs/HaloItemT.swift"
+            timestampString = "532070625.547816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             startingLineNumber = "22"
             endingLineNumber = "22"
             landmarkName = "SceneView"
             landmarkType = "3">
+=======
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "updateLocation(x:y:)"
+            landmarkType = "7">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -217,13 +267,19 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "528771569.793192"
+            filePath = "path_drawer/itemTs/HaloItemT.swift"
+            timestampString = "532071757.693938"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             startingLineNumber = "31"
             endingLineNumber = "31"
             landmarkName = "getWidth()"
+=======
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "drawOnCanvas(canvas:left:top:zoom:)"
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

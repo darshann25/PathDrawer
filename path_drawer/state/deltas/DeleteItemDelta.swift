@@ -27,13 +27,13 @@ class DeleteItemDelta : Delta {
         
         return obj
     }
-    func unminify(mini: Dictionary <String,Any>) -> DeleteItemDelta{
+    static func unminify(mini: Dictionary <String,Any>) -> DeleteItemDelta{
         return DeleteItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, itemState: mini["itemState"] as! ItemState)
     }
     
     //UNCOMMENT AFTER item fully implemented
     func applyToScene (){
-        //var item = scene.getItemById(self.itemState)
+        //var item = sceneView.scene.getItemById(self.itemState)
         //Scene.addSceneItem(item)
     }
     

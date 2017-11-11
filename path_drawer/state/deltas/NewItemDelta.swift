@@ -27,7 +27,7 @@ class NewItemDelta : Delta {
         
         return obj
     }
-    func unminify(mini: Dictionary <String,Any>) -> NewItemDelta{
+    static func unminify(mini: Dictionary <String,Any>) -> NewItemDelta{
         return NewItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, itemState: mini["itemState"] as! ItemState)
     }
     
