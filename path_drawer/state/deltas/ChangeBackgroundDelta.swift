@@ -10,15 +10,15 @@ import Foundation
 import UIKit
 
 class ChangeBackgroundDelta : Delta {
-    var from : Int
-    var to : Int
+    var from : ItemState
+    var to : ItemState
     
 
-    init( actId: Int, devId: Int,from : Int /*should be changed*/ , to : Int /*should be changed*/ ) {
+    init( actId: Int, devId: Int,from : ItemState, to : ItemState) {
         self.from = from
         self.to = to
         
-        super.init(type: Delta.types.NewItemDelta/*should be changed to ChangeBackgroundDelta*/,actId: actId,devId: devId)
+        super.init(type: Delta.types.ChangeBackgroundDelta,actId: actId,devId: devId)
         
     }
     
@@ -41,7 +41,7 @@ class ChangeBackgroundDelta : Delta {
     }
     
     func unminify(mini: Dictionary<String, Any>) ->ChangeBackgroundDelta{
-        return ChangeBackgroundDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int,from:  mini["from"] as! Int,to: mini["to"] as! Int);
+        return ChangeBackgroundDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int,from:  mini["from"] as! ItemState,to: mini["to"] as! ItemState);
 
     }
     
@@ -62,7 +62,7 @@ class ChangeBackgroundDelta : Delta {
     
     
     //Needs to be implemented
-    func applyToBoardState (/*boardState*/ /*Type needs to be given*/)
+    func applyToBoardState (boardState: BoardState)
     {
         /*
         var change = self.to;

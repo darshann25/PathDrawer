@@ -23,10 +23,10 @@ class GrabItemsDelta : Delta {
         super.init(type: Delta.types.GrabItemsDelta, actId: actId, devId: devId)
     }
     
-    //UNCOMMENT AFTER implementing ReleaseItemsDelta
-    //func inverse (actId: Int, devId: Int) -> ReleaseItemsDelta{
-        //return ReleaseItemsDelta(actId: actId, devId: devId, holderDevId: holderDevId, uids:uids, initialMatrix:initialMatrix, intent:intent)
-    //}
+    
+    func inverse (actId: Int, devId: Int) -> ReleaseItemsDelta{
+        return ReleaseItemsDelta(actId: actId, devId: devId, holderDevId: holderDevId, uids:uids, finalMatrix:initialMatrix, intent:intent)
+    }
     
     enum intents {
         case SelectionItemT
@@ -53,32 +53,32 @@ class GrabItemsDelta : Delta {
     
     //UNCOMMENT AFTER implementing scene
     func applyToScene (){
-        //Scene.beginChanges()
+        sceneView.scene.beginChanges()
         var items = [Item]()
         var initialMatrixInverse = self.initialMatrix.inverse()
         var i = 0
         while (i < uids.count) {
-            var itemId = self.uids[i].id
-            var itemDevId = self.uids[i].devId
-            //var item = Scene.getItemById(itemId, itemDevId)
-            //Scene.removeSceneItem(item)
+            let itemId = self.uids[i].id
+            let itemDevId = self.uids[i].devId
+            let item = sceneView.scene.getItemById(id: itemId, devId: itemDevId)
+            sceneView.scene.removeSceneItem(item: item)
             //item.setMatrix(initialMatrixInverse.times(item.getMatrix()))
             //item.push(item)
             i += i
         }
         
         //UNCOMMENT AFTER implementing DevicesManager, SelectionItemT, ItemT
-        //var isMyGrab = (self.holderDevId == DevicesManager.getMyDeviceId())
+        var isMyGrab = (self.holderDevId == boardContext.devicesManager.getMyDeviceId())
         var itemT : ItemT
         switch (intent) {
         case GrabItemsDelta.intents.SelectionItemT:
             //itemT = SelectionItemT(items, isMyGrab)
-            //DevicesManager.getDevice(self.holderDevId).context.selectionItemT = itemT
+            //boardContext.devicesManager.getDevice(devId: self.holderDevId).context()["selectionItemT"] = itemT
             //itemT.setMatrix(self.initialMatrix)
             break
         case GrabItemsDelta.intents.PreTextItemT:
             //itemT = items[0].createPreTextItemT
-            //DevicesManager.getDevice(self.holderDevId).context.preTextItemT = itemT
+            //boardContext.devicesManager.getDevice(self.holderDevId).context()["preTextItemT"] = itemT
             //if (isMyGrab) {
             //    detailsMenuController.switchToTextMenu();
             //}
@@ -102,6 +102,6 @@ class GrabItemsDelta : Delta {
          */
     }
     func applyToBoardState (boardState: BoardState){
-        //BoardState.grabItems(self.holderDevId, self.uids, self.initialMatrix, self.intent)
+        boardState.grabItems(devId: self.holderDevId, uids: self.uids, initialMatrix: self.initialMatrix, intent: self.intent)
     }
 }
