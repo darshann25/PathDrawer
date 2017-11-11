@@ -11,10 +11,6 @@ import UIKit
 
 class Unimplemented {
     static func method (funcName : String) {
-        //throw Errors.errorcase
-        
-        //var message :NSString = "Error"
-        
         NSLog( "Unimplemented function '%@'",funcName);
     }
 }
