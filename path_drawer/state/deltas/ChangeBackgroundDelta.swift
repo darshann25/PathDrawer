@@ -22,21 +22,6 @@ class ChangeBackgroundDelta : Delta {
         
     }
     
-    /* Untouched website code
-     
-     
-     ChangeBackgroundDelta.prototype = Object.create(Delta.prototype);
-     ChangeBackgroundDelta.prototype.constructor = ChangeBackgroundDelta;
-     
-     // enum
-     ChangeBackgroundDelta.types = {
-     Parameter: 'param',
-     Document: 'doc',
-     Page: 'page',
-     };
-
-     
-     */
     enum types {
         case Param
         case doc
