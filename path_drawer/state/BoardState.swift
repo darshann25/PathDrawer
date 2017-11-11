@@ -12,20 +12,20 @@ import Intents
 
 class BoardState {
 
-    var background : Dictionary<Int, Any>;
+    private var background : Dictionary<Int, Any>;
     
     // both tables organized by devId, then id
     var resources : Dictionary<Int, Resource>;
     var itemstates : Dictionary<Int, ItemState>;
     // organized by devId
-    var holds : Dictionary<Int, Any>;
+    var holds : Dictionary<Int, Item>;
 
     init() {
         
         self.background = [Int: Any]();
         self.resources = [Int: Resource]();
         self.itemstates = [Int: ItemState]();
-        self.holds = [Int: Any]();
+        self.holds = [Int: Item]();
     
     }
 
@@ -50,8 +50,8 @@ class BoardState {
     
     }
 
-    func minify() {
-    
+    func minify() -> Dictionary<String, Any> {
+        return [String: Any]();
     }
 
     // call this to set the board state
@@ -82,5 +82,29 @@ class BoardState {
     func getIntentForDeviceHold(devId : Int) {
     
     }
-
+    
+    func getBackground() -> Dictionary<Int, Any> {
+        return self.background;
+    }
+    
+    func setBackground(b : Dictionary<Int, Any>) {
+        self.background = b;
+    }
+    
+    func getResource(id : Int, devId : Int) -> Resource {
+        return resources[devId]!;
+    }
+    
+    func getItemState(id : Int, devId : Int) -> ItemState {
+        return itemstates[devId]!;
+        
+    }
+    
+    func removeItemState(id : Int, devId : Int) {
+        itemstates.removeValue(forKey: id);
+    }
+    
+    func transformItems(devId : Int, matrix : Matrix) {
+        holds[devId]!.matrix = matrix;
+    }
 }
