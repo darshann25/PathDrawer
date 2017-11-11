@@ -26,20 +26,20 @@ class Delta {
         case GrabItemsDelta
         case TransformItemsDelta
         case ReleaseItemsDelta
-        case ChangeBackgroundDelta 
+        case ChangeBackgroundDelta
+        case Unknown
     }
     
     func minify(){
     }
     
-    func unminify(obj: Dictionary <String,Any>){
+    func unminify(obj: Dictionary <String,Any>) -> Delta{
         var version : Int = -1
         if (!(obj["version"] != nil)) {
             version = obj["version"] as! Int
         }
         else {
             print ("Delta has no version")
-            return
         }
         if (obj["deltaType"] != nil) {
             let type = obj["deltaType"]
@@ -47,31 +47,33 @@ class Delta {
         else {
             print ("Delta has no deltaType")
         }
-        /*switch (type) {
+        
+        switch (type) {
          case types.NewItemDelta:
-         return unminify(obj:NewItemDelta)
+            return NewItemDelta.unminify(mini: obj)
          
          case types.ChangeItemDelta:
-         return unminify(obj:ChangeItemDelta)
+            return ChangeItemDelta.unminify(mini: obj)
          
          case types.DeleteItemDelta:
-         return unminify(obj:DeleteItemDelta)
+            return DeleteItemDelta.unminify(mini: obj)
          
          case types.GrabItemsDelta:
-         return unminify(obj:GrabItemsDelta)
+            return GrabItemsDelta.unminify(mini: obj)
          
          case types.TransformItemsDelta:
-         return unminify(obj:TransformItemsDelta)
+            return TransformItemsDelta.unminify(mini: obj)
          
          case types.ReleaseItemsDelta:
-         return unminify(obj:ReleaseItemsDelta)
+            return ReleaseItemsDelta.unminify(mini: obj)
          
          case types.ChangeBackgroundDelta:
-         return unminify(obj:ChangeBackgroundDelta)
+            return ChangeBackgroundDelta.unminify(mini: obj)
          
          default:
          print ("Delta.unminify(): unknown type")
-         }*/
+            return Delta(type: types.Unknown, actId: actId, devId: devId)
+         }
     }
 }
 

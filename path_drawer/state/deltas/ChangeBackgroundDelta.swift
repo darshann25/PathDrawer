@@ -13,7 +13,6 @@ class ChangeBackgroundDelta : Delta {
     var from : ItemState
     var to : ItemState
     
-
     init( actId: Int, devId: Int,from : ItemState, to : ItemState) {
         self.from = from
         self.to = to
@@ -23,9 +22,9 @@ class ChangeBackgroundDelta : Delta {
     }
     
     enum types {
-        case Param
-        case doc
-        case page
+        case Parameter
+        case Document
+        case Page
     }
 
     func minify() -> Dictionary<String,Any>{
@@ -40,51 +39,50 @@ class ChangeBackgroundDelta : Delta {
         return obj
     }
     
-    func unminify(mini: Dictionary<String, Any>) ->ChangeBackgroundDelta{
+    static func unminify(mini: Dictionary<String, Any>) ->ChangeBackgroundDelta{
         return ChangeBackgroundDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int,from:  mini["from"] as! ItemState,to: mini["to"] as! ItemState);
 
     }
     
-    func applyToScene() //Needs to be completely implemented
-    {/*
-        var background = scene.getBackground()
+    //UNCOMMENT AFTER scene fully implemented
+    func applyToScene()
+    {
+        //var background = sceneView.scene.getBackground()
             var change = self.to
-        if(change.type == ChangeBackgroundDelta.types.Document){
-            if(change.value == NSNull)
-            {
-                background.removeDocument(change.id,change.devId)
-            }
-            else
-                background.addDocument(Document(change.value))
-        }*/
+        //if(change.type = ChangeBackgroundDelta.types.Document){
+            //if(change.value == NSNull)
+            //{
+                //background.removeDocument(change.id,change.devId)
+            //}
+            //else{
+                //background.addDocument(Document(change.value))
+        //}
     }
     
     
     
-    //Needs to be implemented
+    //UNCOMMENT AFTER
     func applyToBoardState (boardState: BoardState)
     {
-        /*
+        
         var change = self.to;
         var devId = change.devId;
         var id = change.id;
         var state = boardState.getBackground();
-        if (change.type === ChangeBackgroundDelta.types.Document)
-        {
-            if (change.value == NSNull) {
-                delete state.documents[devId][id];
-            }
-            else
-            {
-                if (!(devId in state.documents)) {
-                    state.documents[devId] = {}
-                }
-                state.documents[devId][id] = change.value;
-            }
+        //if (change.type == ChangeBackgroundDelta.types.Document)
+        //{
+            //if (change.value == NSNull) {
+                //deletestate.documents[devId][id];
+            //}
+            //else
+            //{
+                //if (!(devId in state.documents)) {
+                    //state.documents[devId] = {}
+                //}
+                //state.documents[devId][id] = change.value;
+            //}
     }
-    boardState.setBackground(state);
-         */
-    }
+    //boardState.setBackground(state)
     
 }
 

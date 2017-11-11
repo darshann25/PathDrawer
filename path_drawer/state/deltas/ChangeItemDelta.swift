@@ -36,7 +36,7 @@ class ChangeItemDelta : Delta {
         return obj
     }
     
-    func unminify(mini: Dictionary <String,Any>) -> ChangeItemDelta{
+    static func unminify(mini: Dictionary <String,Any>) -> ChangeItemDelta{
         return ChangeItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, from: mini["from"] as! ItemState, to: mini["to"] as! ItemState )
     }
     

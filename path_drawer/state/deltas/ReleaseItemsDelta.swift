@@ -41,7 +41,7 @@ class ReleaseItemsDelta : Delta {
         return obj
     }
     
-    func unminify(mini: Dictionary<String,Any>) -> ReleaseItemsDelta {
+    static func unminify(mini: Dictionary<String,Any>) -> ReleaseItemsDelta {
         return ReleaseItemsDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, holderDevId: mini["holderDevId"] as! Int, uids: mini["uids"] as! [(id: Int, devId: Int)], finalMatrix: mini["finalMatrix"] as! Matrix, intent: mini["intent"] as! GrabItemsDelta.intents)
     }
     
