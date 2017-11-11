@@ -7,7 +7,31 @@
 //
 
 import Foundation
+import UIKit
 
 class EquationItemState : ItemState {
+    var equation : Any
+    var eqnType : Any
+    init(id : Int , devId : Int, matrix : Matrix, equation :Any, eqnType:Any)
+    {
+        self.eqnType = eqnType
+        self.equation = equation
+        
+        super.init(type : Item.ItemType.Path /*Should not be .Path should be .EquationItem*/, id: id, devId :devId , matrix: matrix);
+    }
     
+    func minify() -> Dictionary<String,Any>{
+        var obj = [String: Any]();
+        obj["version"] = 1;
+        obj["itemType"] = Item.ItemType.Path; /*Should not be .Path should be .EquationItem*/
+        obj["id"] = self.id;
+        obj["devId"] = self.devId;
+        obj["matrix"] = self.matrix;
+        obj["equation"] = self.equation;
+        obj["eqnType"] = self.eqnType;
+        
+
+        
+        return obj;
+    }
 }
