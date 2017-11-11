@@ -38,7 +38,7 @@ class Messenger {
         ]
         
         let JSONdata = JSONSerialization.isValidJSONObject(data);
-        socket.emit(type : "relay", data : JSONdata);
+        //socket.emit(type : "relay", data : JSONdata);
     }
     
     // similar to broadcast, but only to another device
@@ -95,7 +95,7 @@ class Messenger {
             if (inboxes[from] == nil) {
                 inboxes[from] = [(String, String)]();
             }
-            inboxes[from].append((type, message));
+            //inboxes[from].append((type, message));
         }
     }
     

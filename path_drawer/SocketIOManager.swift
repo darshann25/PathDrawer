@@ -7,19 +7,19 @@
 //
 
 import Foundation
-import SocketIO
+//import SocketIO
 
 // TODO : Import all handlers from public/js/socketioclient.js
 class SocketIOManager {
     
-    let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress]);
+    //let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress]);
     
     let boardId = "ABCD1234";
     
     
     
     func connect() {
-        
+        /*
         socket.on(clientEvent: .connect) {
             var params : [String : Any] = [
                 "boardId": boardId,
@@ -32,6 +32,7 @@ class SocketIOManager {
         };
         
         socket.connect();
+         */
     }
     
     func emit(type : String, data : String) {
