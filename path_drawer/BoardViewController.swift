@@ -9,8 +9,6 @@
 import UIKit
 
 class BoardViewController: UIViewController {
-    let sceneView = SceneView();
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,7 +24,7 @@ class BoardViewController: UIViewController {
     class BoardContext {
         
         var messenger : Messenger;
-        // var devicesManager : DevicesManager;
+        var devicesManager : DevicesManager;
         var boardStateManager : BoardStateManager;
         var peersManager : PeersManager;
         // var itemStateFactory : ItemStateFactory;
@@ -37,7 +35,7 @@ class BoardViewController: UIViewController {
         
         init(boardId : Int, scene : Scene) {
             self.messenger = Messenger();
-            // self.devicesManager = DevicesManager();
+            self.devicesManager = DevicesManager();
             self.boardStateManager = BoardStateManager(msngr : messenger);
             self.peersManager = PeersManager(peer: Peer(peerId : 1), peersWidgetController : PeersWidgetController());
             // self.itemStateFactory = ItemStateFactory();
@@ -49,6 +47,10 @@ class BoardViewController: UIViewController {
      
     }
 
-
 }
 
+////////////////////////////////////
+// GLOBAL INSTANCES  - SINGLETONS //
+////////////////////////////////////
+var sceneView = SceneView();
+var boardContext = BoardViewController.BoardContext(boardId : 1, scene : sceneView.scene);

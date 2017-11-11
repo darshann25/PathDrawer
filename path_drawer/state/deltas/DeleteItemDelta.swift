@@ -33,7 +33,7 @@ class DeleteItemDelta : Delta {
     
     //UNCOMMENT AFTER item fully implemented
     func applyToScene (){
-        //var item = scene.getItemById(self.itemState)
+        //var item = sceneView.scene.getItemById(self.itemState)
         //Scene.addSceneItem(item)
     }
     

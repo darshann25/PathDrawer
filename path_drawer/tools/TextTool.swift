@@ -9,4 +9,7 @@
 import Foundation
 class TextTool : Tool {
     
+    func setFormattingToDefault() {
+        
+    }
 }

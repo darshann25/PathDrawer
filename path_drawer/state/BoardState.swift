@@ -37,7 +37,7 @@ class BoardState {
     
     }
 
-    func grabItems(devId : Int, uids : [Int], initialMatrix : Matrix, intent : INIntent) {
+    func grabItems(devId : Int, uids : [(id: Int, devId: Int)], initialMatrix : Matrix, intent : GrabItemsDelta.intents) {
     
     }
 

@@ -12,7 +12,6 @@ class SceneView : UIView {
 
     // tuple of points
     var scene = Scene();
-    var boardContext = BoardViewController.BoardContext(boardId : 1, scene : Scene());
     var toolManager = ToolManager();
     private var width = 0.00
     private var height = 0.00
@@ -157,3 +156,4 @@ class SceneView : UIView {
         setNeedsDisplay();
     }
 }
+
