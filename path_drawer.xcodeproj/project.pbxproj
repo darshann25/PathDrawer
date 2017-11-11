@@ -104,6 +104,7 @@
 		F20A3C091F9D6E75002B670A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C081F9D6E75002B670A /* Point.swift */; };
 		F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2349C501F89EDCB00DDE5FD /* Item.swift */; };
 		F23670A01FACD35A00E67052 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236709F1FACD35A00E67052 /* Tool.swift */; };
+		F23BD9481FB6844800167844 /* TextBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BD9471FB6844800167844 /* TextBuffer.swift */; };
 		F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D3971F8D0ADD006A7B2B /* ItemState.swift */; };
 		F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */; };
 		F2B526911FA962DC0077680F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B526901FA962DC0077680F /* Resource.swift */; };
@@ -235,6 +236,7 @@
 		F20A3C081F9D6E75002B670A /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F2349C501F89EDCB00DDE5FD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F236709F1FACD35A00E67052 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		F23BD9471FB6844800167844 /* TextBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuffer.swift; sourceTree = "<group>"; };
 		F281D3971F8D0ADD006A7B2B /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemState.swift; sourceTree = "<group>"; };
 		F2B526901FA962DC0077680F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		1F3E80ED1F7D295C00632EB3 /* path_drawer */ = {
 			isa = PBXGroup;
 			children = (
+				F23BD9461FB6843700167844 /* text */,
 				3CD7FCC91FB2B11300EFD970 /* richtext */,
 				3CD7FCC01FB2B08500EFD970 /* myscript */,
 				3CD7FC931FB2AD5B00EFD970 /* background */,
@@ -434,6 +437,14 @@
 				3CD7FD1F1FB2B5A100EFD970 /* Parallelogram.swift */,
 			);
 			path = geometry;
+			sourceTree = "<group>";
+		};
+		F23BD9461FB6843700167844 /* text */ = {
+			isa = PBXGroup;
+			children = (
+				F23BD9471FB6844800167844 /* TextBuffer.swift */,
+			);
+			path = text;
 			sourceTree = "<group>";
 		};
 		F281D3991F8D0CCE006A7B2B /* state */ = {
@@ -650,6 +661,7 @@
 				3CD7FCBD1FB2B05100EFD970 /* SelectionItemT.swift in Sources */,
 				3CD7FCB51FB2AFD500EFD970 /* ImageItem.swift in Sources */,
 				3CD7FCCD1FB2B13300EFD970 /* BoxRichTextInput.swift in Sources */,
+				F23BD9481FB6844800167844 /* TextBuffer.swift in Sources */,
 				F2D611061F8131E800872F8C /* PenTool.swift in Sources */,
 				1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */,
 				3CD7FCFF1FB2B35900EFD970 /* BoardStateManager.swift in Sources */,
