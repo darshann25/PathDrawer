@@ -21,6 +21,11 @@ class MagicEraserTool : Tool {
     init(point : Point, id : Int) {
         self.previousPoint = point;
         self.actId = id;
+        
+    }
+    
+    override convenience init() {
+        self.init(point : Point(x: 0, y: 0), id : -1);
     }
     
     func onDown(x : Double, y : Double) {
@@ -34,22 +39,21 @@ class MagicEraserTool : Tool {
         
         if(items.count > 0) {
             if(actId != -1) {
-                self.actId = sceneView.boardContext.boardStateManager.getNewActId();
+                self.actId = boardContext.boardStateManager.getNewActId();
             }
             
-            let deviceId = sceneView.boardContext.devicesManager.getMyDeviceId();
+            //let deviceId = sceneView.boardContext.devicesManager.getMyDeviceId();
+            let deviceId = -1;
             sceneView.scene.beginChanges();
-            //self.messenger.onMessage(type : "entire_board_state", f: {message, type in
-            //});
             
             items.forEach{item in
                 let delta = DeleteItemDelta(actId: self.actId, devId: deviceId, itemState: item.state);
-                sceneView.boardContext.boardStateManager.addDelta(delta : delta);
-                sceneView.boardContext.devicesManager.enqueueDelta(delta : delta);
+                boardContext.boardStateManager.addDelta(delta : delta);
+                boardContext.devicesManager.enqueueDelta(delta : delta);
                 delta.applyToScene(); // scene.removeSceneItem(item);
             };
             sceneView.scene.endChanges();
-            sceneView.boardContext.devicesManager.send();
+            boardContext.devicesManager.send();
         }
         self.previousPoint = point;
     }
