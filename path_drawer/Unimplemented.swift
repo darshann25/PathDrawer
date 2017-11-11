@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 
 class Unimplemented {
-    enum Errors: Error{
-        case errorcase
-    }
     static func method (funcName : String) {
         //throw Errors.errorcase
         
