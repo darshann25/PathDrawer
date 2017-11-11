@@ -34,7 +34,7 @@ class MagicEraserTool : Tool {
         
         if(items.count > 0) {
             if(actId is Int) {
-                //self.actId = boardStateManager.getNewActId();
+                self.actId = sceneView.boardContext.boardStateManager.getNewActId();
             }
         }
     }

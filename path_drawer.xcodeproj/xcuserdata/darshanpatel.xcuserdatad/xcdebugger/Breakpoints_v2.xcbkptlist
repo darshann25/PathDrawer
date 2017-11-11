@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.732033"
+            timestampString = "532062588.203559"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
@@ -63,8 +63,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
             endingLineNumber = "23"
-            landmarkName = "draw()"
-            landmarkType = "7">
+            landmarkName = "Scene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.732914"
+            timestampString = "532062588.207116"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "SceneView"
             landmarkType = "3">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.733179"
+            timestampString = "532062588.207715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "SceneView"
             landmarkType = "3">
          </BreakpointContent>
@@ -106,29 +106,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.733353"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "SceneView"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.733519"
+            timestampString = "532062588.208114"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "touchesEnded(_:with:)"
-            landmarkType = "7">
+            landmarkName = "SceneView"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,7 +138,7 @@
                   moduleName = "path_drawer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/darshanpatel/Desktop/Desktop/ScratchWorkTool/PathDrawer-Darshan/path_drawer/tools/Tool.swift"
-                  timestampString = "532055304.62117"
+                  timestampString = "532062588.406027"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -169,7 +153,7 @@
                   moduleName = "path_drawer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/darshanpatel/Desktop/Desktop/ScratchWorkTool/PathDrawer-Darshan/path_drawer/tools/Tool.swift"
-                  timestampString = "532055304.625384"
+                  timestampString = "532062588.40927"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
