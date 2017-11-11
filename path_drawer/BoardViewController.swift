@@ -26,7 +26,7 @@ class BoardViewController: UIViewController {
     class BoardContext {
         
         var messenger : Messenger;
-        // var devicesManager : DevicesManager;
+        var devicesManager : DevicesManager;
         var boardStateManager : BoardStateManager;
         var peersManager : PeersManager;
         // var itemStateFactory : ItemStateFactory;
@@ -37,7 +37,7 @@ class BoardViewController: UIViewController {
         
         init(boardId : Int, scene : Scene) {
             self.messenger = Messenger();
-            // self.devicesManager = DevicesManager();
+            self.devicesManager = DevicesManager();
             self.boardStateManager = BoardStateManager(msngr : messenger);
             self.peersManager = PeersManager(peer: Peer(peerId : 1), peersWidgetController : PeersWidgetController());
             // self.itemStateFactory = ItemStateFactory();
