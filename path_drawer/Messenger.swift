@@ -11,6 +11,7 @@
  */
 
 import Foundation
+import SocketIO
 
 class Messenger {
     
@@ -20,6 +21,9 @@ class Messenger {
     // used to save messages received before a device instance is created (indexed by deviceId)
     var inboxes : Dictionary<String, Any>;
     
+    let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress])
+    
+    
     init() {
         handlers = [String: (Any, Any) -> Any]();
         inboxes = [String: Any]();
@@ -27,7 +31,14 @@ class Messenger {
     
     // sends message to a list of devices through the server
     func sendMessageViaServer(type : String, message : String, to : String) {
+        let data : [String : Any] = [
+            "to": to,
+            "type": type,
+            "message": message
+        ]
         
+        let JSONdata = JSONSerialization.isValidJSONObject(data);
+        socket.emit("relay", JSONdata);
     }
     
     // similar to broadcast, but only to another device
