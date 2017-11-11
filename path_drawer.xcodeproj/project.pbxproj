@@ -65,7 +65,7 @@
 		3CD7FCF31FB2B2D400EFD970 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCF21FB2B2D400EFD970 /* Page.swift */; };
 		3CD7FCF51FB2B2E400EFD970 /* CallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCF41FB2B2E400EFD970 /* CallController.swift */; };
 		3CD7FCF71FB2B2FF00EFD970 /* InkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCF61FB2B2FF00EFD970 /* InkItem.swift */; };
-		3CD7FCF91FB2B31300EFD970 /* BoxPreSelectionItemT..swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT..swift */; };
+		3CD7FCF91FB2B31300EFD970 /* BoxPreSelectionItemT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT.swift */; };
 		3CD7FCFB1FB2B32D00EFD970 /* SelectDetailsMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCFA1FB2B32D00EFD970 /* SelectDetailsMenuController.swift */; };
 		3CD7FCFD1FB2B34F00EFD970 /* BoardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCFC1FB2B34F00EFD970 /* BoardState.swift */; };
 		3CD7FCFF1FB2B35900EFD970 /* BoardStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FCFE1FB2B35900EFD970 /* BoardStateManager.swift */; };
@@ -96,7 +96,6 @@
 		3CD7FD341FB2B6AB00EFD970 /* NewItemDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD331FB2B6AB00EFD970 /* NewItemDelta.swift */; };
 		3CD7FD361FB2B6BB00EFD970 /* ReleaseItemsDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD351FB2B6BB00EFD970 /* ReleaseItemsDelta.swift */; };
 		3CD7FD381FB2B6CC00EFD970 /* TransformItemsDelta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD371FB2B6CC00EFD970 /* TransformItemsDelta.swift */; };
-		3CD7FD3A1FB2B6F500EFD970 /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD391FB2B6F500EFD970 /* ImageItemState.swift */; };
 		3CD7FD3C1FB2B74700EFD970 /* TextItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD3B1FB2B74700EFD970 /* TextItemState.swift */; };
 		F20A3BC41F9576A6002B670A /* PathItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC31F9576A6002B670A /* PathItemState.swift */; };
 		F20A3BC61F9579C3002B670A /* InkItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3BC51F9579C3002B670A /* InkItemState.swift */; };
@@ -105,6 +104,7 @@
 		F20A3C091F9D6E75002B670A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20A3C081F9D6E75002B670A /* Point.swift */; };
 		F2349C511F89EDCB00DDE5FD /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2349C501F89EDCB00DDE5FD /* Item.swift */; };
 		F23670A01FACD35A00E67052 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F236709F1FACD35A00E67052 /* Tool.swift */; };
+		F23BD9481FB6844800167844 /* TextBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23BD9471FB6844800167844 /* TextBuffer.swift */; };
 		F281D3981F8D0ADD006A7B2B /* ItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D3971F8D0ADD006A7B2B /* ItemState.swift */; };
 		F281D39C1F8D9A87006A7B2B /* ImageItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */; };
 		F2B526911FA962DC0077680F /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B526901FA962DC0077680F /* Resource.swift */; };
@@ -197,7 +197,7 @@
 		3CD7FCF21FB2B2D400EFD970 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
 		3CD7FCF41FB2B2E400EFD970 /* CallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallController.swift; sourceTree = "<group>"; };
 		3CD7FCF61FB2B2FF00EFD970 /* InkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkItem.swift; sourceTree = "<group>"; };
-		3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxPreSelectionItemT..swift; sourceTree = "<group>"; };
+		3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxPreSelectionItemT.swift; sourceTree = "<group>"; };
 		3CD7FCFA1FB2B32D00EFD970 /* SelectDetailsMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDetailsMenuController.swift; sourceTree = "<group>"; };
 		3CD7FCFC1FB2B34F00EFD970 /* BoardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardState.swift; sourceTree = "<group>"; };
 		3CD7FCFE1FB2B35900EFD970 /* BoardStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardStateManager.swift; sourceTree = "<group>"; };
@@ -228,7 +228,6 @@
 		3CD7FD331FB2B6AB00EFD970 /* NewItemDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewItemDelta.swift; sourceTree = "<group>"; };
 		3CD7FD351FB2B6BB00EFD970 /* ReleaseItemsDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReleaseItemsDelta.swift; sourceTree = "<group>"; };
 		3CD7FD371FB2B6CC00EFD970 /* TransformItemsDelta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformItemsDelta.swift; sourceTree = "<group>"; };
-		3CD7FD391FB2B6F500EFD970 /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageItemState.swift; path = ../ImageItemState.swift; sourceTree = "<group>"; };
 		3CD7FD3B1FB2B74700EFD970 /* TextItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextItemState.swift; sourceTree = "<group>"; };
 		F20A3BC31F9576A6002B670A /* PathItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItemState.swift; sourceTree = "<group>"; };
 		F20A3BC51F9579C3002B670A /* InkItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkItemState.swift; sourceTree = "<group>"; };
@@ -237,6 +236,7 @@
 		F20A3C081F9D6E75002B670A /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F2349C501F89EDCB00DDE5FD /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		F236709F1FACD35A00E67052 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		F23BD9471FB6844800167844 /* TextBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBuffer.swift; sourceTree = "<group>"; };
 		F281D3971F8D0ADD006A7B2B /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemState.swift; sourceTree = "<group>"; };
 		F2B526901FA962DC0077680F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
@@ -295,6 +295,7 @@
 		1F3E80ED1F7D295C00632EB3 /* path_drawer */ = {
 			isa = PBXGroup;
 			children = (
+				F23BD9461FB6843700167844 /* text */,
 				3CD7FCC91FB2B11300EFD970 /* richtext */,
 				3CD7FCC01FB2B08500EFD970 /* myscript */,
 				3CD7FC931FB2AD5B00EFD970 /* background */,
@@ -438,6 +439,14 @@
 			path = geometry;
 			sourceTree = "<group>";
 		};
+		F23BD9461FB6843700167844 /* text */ = {
+			isa = PBXGroup;
+			children = (
+				F23BD9471FB6844800167844 /* TextBuffer.swift */,
+			);
+			path = text;
+			sourceTree = "<group>";
+		};
 		F281D3991F8D0CCE006A7B2B /* state */ = {
 			isa = PBXGroup;
 			children = (
@@ -456,7 +465,6 @@
 		F281D39A1F8D0CE2006A7B2B /* itemstates */ = {
 			isa = PBXGroup;
 			children = (
-				3CD7FD391FB2B6F500EFD970 /* ImageItemState.swift */,
 				F281D3971F8D0ADD006A7B2B /* ItemState.swift */,
 				F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */,
 				F20A3BC31F9576A6002B670A /* PathItemState.swift */,
@@ -491,7 +499,7 @@
 				3CD7FCBA1FB2B04300EFD970 /* MyScriptItemT.swift */,
 				3CD7FCBC1FB2B05100EFD970 /* SelectionItemT.swift */,
 				3CD7FCBE1FB2B06400EFD970 /* ViewRectItemT.swift */,
-				3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT..swift */,
+				3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT.swift */,
 				3CD7FD231FB2B5E600EFD970 /* ItemT.swift */,
 			);
 			path = itemTs;
@@ -653,6 +661,7 @@
 				3CD7FCBD1FB2B05100EFD970 /* SelectionItemT.swift in Sources */,
 				3CD7FCB51FB2AFD500EFD970 /* ImageItem.swift in Sources */,
 				3CD7FCCD1FB2B13300EFD970 /* BoxRichTextInput.swift in Sources */,
+				F23BD9481FB6844800167844 /* TextBuffer.swift in Sources */,
 				F2D611061F8131E800872F8C /* PenTool.swift in Sources */,
 				1F3E80F11F7D295C00632EB3 /* BoardViewController.swift in Sources */,
 				3CD7FCFF1FB2B35900EFD970 /* BoardStateManager.swift in Sources */,
@@ -695,7 +704,6 @@
 				3CD7FD081FB2B3CF00EFD970 /* SaveManager.swift in Sources */,
 				3CD7FD361FB2B6BB00EFD970 /* ReleaseItemsDelta.swift in Sources */,
 				3CD7FC991FB2ADFC00EFD970 /* Path.swift in Sources */,
-				3CD7FD3A1FB2B6F500EFD970 /* ImageItemState.swift in Sources */,
 				3CD7FCE51FB2B24300EFD970 /* RichTextLines.swift in Sources */,
 				3CD7FCE31FB2B23400EFD970 /* RichTextInput.swift in Sources */,
 				3CD7FD121FB2B46E00EFD970 /* WheelEventHandler.swift in Sources */,
@@ -745,7 +753,7 @@
 				F2B526911FA962DC0077680F /* Resource.swift in Sources */,
 				3CD7FCA71FB2AECC00EFD970 /* PdfGenerator.swift in Sources */,
 				3CD7FCD31FB2B17100EFD970 /* HyphenBreakRichTextOutput.swift in Sources */,
-				3CD7FCF91FB2B31300EFD970 /* BoxPreSelectionItemT..swift in Sources */,
+				3CD7FCF91FB2B31300EFD970 /* BoxPreSelectionItemT.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,6 +900,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -901,7 +910,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

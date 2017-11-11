@@ -10,15 +10,20 @@ import Foundation
 
 class Matrix{
 
-    var a=0.00;
-    var b=0.00;
-    var c=0.00;
-    var d=0.00;
-    var e=0.00;
-    var f=0.00;
+    var a : Double;
+    var b : Double;
+    var c : Double;
+    var d : Double;
+    var e : Double;
+    var f : Double;
 
     init() {
-
+        self.a = 0;
+        self.b = 0;
+        self.c = 0;
+        self.d = 0;
+        self.e = 0;
+        self.f = 0;
     }
 
 
@@ -68,7 +73,7 @@ class Matrix{
     }
 
     // type verification
-    func timesPoint (point:Point)->Point{     //prototype conversion pending
+    func timesPoint (point: Point) -> Point{     //prototype conversion pending
         // pending connection to point class
         return Point(x: self.a * point.x + self.c * point.y + self.e,
         y: self.b * point.x + self.d * point.y + self.f);

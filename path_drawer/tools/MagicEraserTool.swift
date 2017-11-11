@@ -7,59 +7,67 @@
 //
 
 import Foundation
+import UIKit
 
 /*
  * MagicEraserTool is responsible for removing entire items that are hit by the mouse drag.
  */
 
 class MagicEraserTool : Tool {
-    /*
     // Used to determine the swipe segment, which is used to locate any items.
-    var previousPoint;
-    var actId = null;
+    var previousPoint : Point;
+    var actId : Int;
     
-    func onDown() {
-        previousPoint = [CGPoint]();
-        actId = null;
+    init(point : Point, id : Int) {
+        self.previousPoint = point;
+        self.actId = id;
+        
     }
     
-    func onDrag() {
-        var point = CGPoint.zero;
-        var items = scene.getItemsIntersectingSegment(point, previousPoint);
-        if (items.length > 0) {
-            if (!actId) {
-                actId = boardStateManager.getNewActId();
+    override convenience init() {
+        self.init(point : Point(x: 0, y: 0), id : -1);
+    }
+    
+    func onDown(x : Double, y : Double) {
+        self.previousPoint = Point(x : x, y : y);
+        actId = -1;
+    }
+    
+    func onDrag(_x : Double, _y : Double) {
+        let point = Point(x : _x, y : _y);
+        let items = sceneView.scene.getItemsIntersectingSegment(end1: point, end2: self.previousPoint);
+        
+        if(items.count > 0) {
+            if(actId != -1) {
+                self.actId = boardContext.boardStateManager.getNewActId();
             }
-            var deviceId = devicesManager.getMyDeviceId();
-            scene.beginChanges();
-            items.forEach(function(item) {
-                var delta = DeleteItemDelta(actId,
-                                            deviceId,
-                                            item.state);
-                boardStateManager.addDelta(delta);
-                devicesManager.enqueueDelta(delta);
+            
+            //let deviceId = sceneView.boardContext.devicesManager.getMyDeviceId();
+            let deviceId = -1;
+            sceneView.scene.beginChanges();
+            
+            items.forEach{item in
+                let delta = DeleteItemDelta(actId: self.actId, devId: deviceId, itemState: item.state);
+                boardContext.boardStateManager.addDelta(delta : delta);
+                boardContext.devicesManager.enqueueDelta(delta : delta);
                 delta.applyToScene(); // scene.removeSceneItem(item);
-            });
-            scene.endChanges();
-            devicesManager.send();
+            };
+            sceneView.scene.endChanges();
+            boardContext.devicesManager.send();
         }
-        previousPoint = point;
+        self.previousPoint = point;
     }
     
     func onUp() {
-        // Just to be safe...
-        previousPoint = null;
-        actId = null;
+        // TODO : Null previousPoint
+        self.previousPoint = Point(x : 0, y : 0);
+        self.actId = -1;
     }
     
-    var public_interface = {
-        onDown: onDown;
-        onDrag: onDrag;
-        onUp: onUp,
-        func getCursor();
-    };
-    return public_interface;
-*/
+    func getCursor() -> String {
+        return "default";
+    }
+    
 }
 
 

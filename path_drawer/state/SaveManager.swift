@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class SaveManager {
+    init(boardState : BoardState){
+        
+    }
+}
