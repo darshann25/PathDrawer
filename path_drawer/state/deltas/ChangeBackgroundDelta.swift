@@ -37,7 +37,12 @@ class ChangeBackgroundDelta : Delta {
 
      
      */
-    
+    enum types {
+        case Param
+        case doc
+        case page
+    }
+
     func minify() -> Dictionary<String,Any>{
         
         var obj = [String : Any]()
