@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.732033"
+            timestampString = "532070430.347079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
             endingLineNumber = "35"
-            landmarkName = "SceneView"
-            landmarkType = "3">
+            landmarkName = "getHeight()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -63,8 +63,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
             endingLineNumber = "23"
-            landmarkName = "draw()"
-            landmarkType = "7">
+            landmarkName = "Scene"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.732914"
+            timestampString = "532070430.347637"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "SceneView"
             landmarkType = "3">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.733179"
+            timestampString = "532070430.347819"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "SceneView"
             landmarkType = "3">
          </BreakpointContent>
@@ -106,28 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.733353"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "SceneView"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "path_drawer/SceneView.swift"
-            timestampString = "531429679.733519"
+            timestampString = "532070430.347949"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
             endingLineNumber = "31"
-            landmarkName = "touchesEnded(_:with:)"
+            landmarkName = "getWidth()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "path_drawer/tools/Tool.swift"
-            timestampString = "531527046.212126"
+            timestampString = "532072385.920801"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "4"
@@ -154,7 +138,7 @@
                   moduleName = "path_drawer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/darshanpatel/Desktop/Desktop/ScratchWorkTool/PathDrawer-Darshan/path_drawer/tools/Tool.swift"
-                  timestampString = "532055304.62117"
+                  timestampString = "532072386.087812"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -169,11 +153,59 @@
                   moduleName = "path_drawer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/darshanpatel/Desktop/Desktop/ScratchWorkTool/PathDrawer-Darshan/path_drawer/tools/Tool.swift"
-                  timestampString = "532055304.625384"
+                  timestampString = "532072386.092247"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "path_drawer/handlers/ButtonHandler.swift"
+            timestampString = "532069862.716216"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "globalinit_33_F7D5E4D6E957268ABC4DD7BB9C787535_func0"
+                  moduleName = "path_drawer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/darshanpatel/Desktop/Desktop/ScratchWorkTool/PathDrawer-Darshan/path_drawer/handlers/ButtonHandler.swift"
+                  timestampString = "532072386.098898"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "path_drawer.sceneView.unsafeMutableAddressor : path_drawer.SceneView"
+                  moduleName = "path_drawer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/darshanpatel/Desktop/Desktop/ScratchWorkTool/PathDrawer-Darshan/path_drawer/handlers/ButtonHandler.swift"
+                  timestampString = "532072386.101518"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
                   offsetFromSymbolStart = "4">
                </Location>
             </Locations>
