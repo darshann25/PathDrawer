@@ -109,8 +109,9 @@ class DevicesManager {
     
     }
 
+    //NEEDS IMPLEMENTED
     func getDevice(devId: Int) -> Device {
-        return Device(id: <#T##Int#>, peerId: <#T##Int#>, accessLevel: <#T##String#>)
+        return Device(id: -1, peerId: -1, accessLevel: "unknown")
     
     }
 
