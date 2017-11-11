@@ -48,7 +48,7 @@ class DevicesManager {
         self.deltasToSend = [()];
         self.boardStateFromServerTimerId = -1;
         
-        self.messenger = sceneView.boardContext.messenger;
+        self.messenger = boardContext.messenger;
         
         
         ///////////////

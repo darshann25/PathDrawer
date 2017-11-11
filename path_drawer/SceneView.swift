@@ -12,7 +12,6 @@ class SceneView : UIView {
 
     // tuple of points
     var scene = Scene();
-    var boardContext = BoardViewController.BoardContext(boardId : 1, scene : Scene());
     var toolManager = ToolManager();
 
     // The canvas, which acts as the view onto the Scene.

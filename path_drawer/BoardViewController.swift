@@ -8,8 +8,6 @@
 
 import UIKit
 
-var sceneView = SceneView();
-
 class BoardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,3 +49,8 @@ class BoardViewController: UIViewController {
 
 }
 
+////////////////////////////////////
+// GLOBAL INSTANCES  - SINGLETONS //
+////////////////////////////////////
+var sceneView = SceneView();
+var boardContext = BoardViewController.BoardContext(boardId : 1, scene : sceneView.scene);
