@@ -13,15 +13,16 @@ import UIKit
 
 func drawRectAccountingForZooms(ctx: CGContext ,rect: Rect,zoomX: Double,zoomY: Double){
     
-    let lineWidth = ctx.setLineWidth(<#CGFloat#>);
+    let ctx = UIGraphicsGetCurrentContext()
+    let lineWidth = ctx?.setLineWidth(<#T##width: CGFloat##CGFloat#>);
     // Draw horizontal lines
-    ctx.beginPath()
-    ctx.setlineWidth = lineWidth / zoomY;
-    ctx.move(to: (rect.left,rect.top));
-    ctx.addLine(to: (rect.right(), rect.top));
-    ctx.move(to: (rect.left, rect.bottom()));
-    ctx.addLine(to:(rect.right(), rect.bottom()));
-    ctx.strokePath();
+ /*   ctx?.beginPath()
+    ctx?.setLineWidth = lineWidth / zoomY;
+    ctx?.move(to: (rect.left,rect.top));
+    ctx?.addLine(to: (rect.right(), rect.top));
+    ctx?.move(to: (rect.left, rect.bottom()));
+    ctx?.addLine(to:(rect.right(), rect.bottom()));
+    ctx?.strokePath();
     
     
     // Draw vertical lines
@@ -31,7 +32,7 @@ func drawRectAccountingForZooms(ctx: CGContext ,rect: Rect,zoomX: Double,zoomY: 
     ctx.addLine(to: (rect.left, rect.bottom()));
     ctx.move(to: (rect.right(), rect.top));
     ctx.addLine(to:(rect.right(), rect.bottom()));
-    ctx.strokePath();
+    ctx.strokePath();*/
  
  }
  
@@ -58,17 +59,20 @@ func MatrixControlButton(cx : Double, cy : Double, width: Double, height: Double
         var radiusY = VISIBLE_TO_CLICK_RATIO * height / (2 * zoomY);
         var rect = Rect(left: cx - radiusX, top : cy - radiusY, width: 2 * radiusX, height : 2 * radiusY);
         // Draw the white rectangle
-        
-        ctx.setFillColor(color: "White");
-        ctx.setLineWidth = thickness;
-        ctx.fillRect(rect.left, rect.top, rect.width, rect.height);
-        // Draw the coloured border
-        ctx.strokeStyle = color;
-        ctx.lineWidth = thickness;
-        drawRectAccountingForZooms(ctx: ctx, rect: rect, zoomX: zoomX, zoomY: zoomY);
+        if let ctx = UIGraphicsGetCurrentContext(){
+/*
+            ctx.setFillColor(color: "White");
+            ctx.setLineWidth = thickness;
+            ctx.fillRect(rect.left, rect.top, rect.width, rect.height);
+            // Draw the coloured border
+            ctx.strokeStyle = color;
+            ctx.lineWidth = thickness;
+            drawRectAccountingForZooms(ctx: ctx, rect: rect, zoomX: zoomX, zoomY: zoomY);
+ */
+        }
     }
 
-        
+   /*
     var public_interface = {
         
         containsPoint: containsPoint;
@@ -83,7 +87,7 @@ func MatrixControlButton(cx : Double, cy : Double, width: Double, height: Double
         }
     };
     return public_interface;
-
+*/
     
  
     
@@ -93,7 +97,6 @@ class MatrixControl{
 
     // var color = options.color;
     // var showButtons = options.showButtons;
-    
     var BTN_SIZE = 17.5;
     var LINE_THICKNESS = 1.5;
     
@@ -110,19 +113,19 @@ class MatrixControl{
     var matrix:Matrix;
     var inverseMatrix:Matrix;
     func setMatrix(matrix: Matrix) {
-        matrix = matrix;
+ //       matrix = matrix;
         inverseMatrix = matrix.inverse();
     }
     
-    var downPoint;
-    var downMatrix;
-    var downInverseMatrix;
-    var downButton;
+    var downPoint: Double;
+    var downMatrix: Any;
+    var downInverseMatrix: Any ;
+    var downButton: UIButton;
     
-    var buttons=[];
+    var buttons=[UIButton]();
     
     init (initialRect: Any, options :Any, buttonOptions: Any){
-    
+ /*
         var cx = initialRect.left + initialRect.width / 2;
         var cy = initialRect.top + initialRect.height / 2;
         initialTranslateMatrix = Matrix.translateMatrix(-cx, -cy);
@@ -223,28 +226,29 @@ class MatrixControl{
                 bottom > y );
         };
         buttons.push(cButton);
+ */
     }
    
-    
-    func acceptsHover(x:Double, y:Double, zoom:Double) {
+ 
+    func acceptsHover(x:Double, y:Double, zoom:Double)-> Bool {
         
-        var localPoint = inverseMatrix.timesPoint(point: Point(x, y));
+        var localPoint = inverseMatrix.timesPoint(point: Point(x: x, y: y));
         var zoomX = zoom * matrix.a;
         var zoomY = zoom * matrix.d;
         
         // If the cursor isn't over the large rectangle, don't check each button.
         var dx = BTN_SIZE / (2 * zoomX);
         var dy = BTN_SIZE / (2 * zoomY);
-        if (!rect.expandedBy(dx, dy, dx, dy).containsPointXY(localPoint.x, localPoint.y)) {
+        if (!rect.expandedBy(mdl: dx, mdt: dy, dr: dx, db: dy).containsPointXY(x: localPoint.x, y: localPoint.y)) {
             return false;
         }
-        
+   /*
         // Check the buttons
-        for (var i = 0; i < buttons.length; i += 1) {
+        for  i in 0 ... buttons.length {
             if (buttons[i].containsPoint(localPoint.x, localPoint.y, zoomX, zoomY)) {
                 return true;
             }
-        }
+        }*/
         return false;
 
     
@@ -253,12 +257,12 @@ class MatrixControl{
     
     func getCursor(x:Double, y:Double, zoom:Double) {
         
-        var localPoint = inverseMatrix.timesPoint(point: Point(x, y));
+ //       var localPoint = inverseMatrix.timesPoint(point: Point(x, y));
         var zoomX = zoom * matrix.a;
         var zoomY = zoom * matrix.d;
         
         // Return that button's cursor
-        return getButton(localPoint.x, localPoint.y, zoomX, zoomY).getCursor(matrix);
+//        return getButton(localPoint.x, localPoint.y, zoomX, zoomY).getCursor(matrix);
   
     }
     
@@ -266,14 +270,15 @@ class MatrixControl{
         var button = NSNull();
         
         var i = 0;
-        while (button === NSNull() && i < buttons.length) {
+  /*     while (button === NSNull() && i < buttons.length) {
             if ((buttons[i] as AnyObject).containsPoint(x, y, zoomX, zoomY)) {
                 button = buttons[i] as! NSNull;
             }
+ */
             i += 1;
 
         }
-        
+   /*
         if (((i < buttons.length - 1 && buttons[i].containsPoint(x, y, zoomX, zoomY))
             || (i === buttons.length - 1 && buttons[0].containsPoint(x, y, zoomX, zoomY)))
             && buttons[buttons.length - 1].containsPoint(x, y, zoomX, zoomY)) {
@@ -281,8 +286,9 @@ class MatrixControl{
         }
         return button;
     }
-    
-    func acceptsClick(x:Double, y:Double, zoom:Double) {
+    */
+        
+    func acceptsClick(x:Double, y:Double, zoom:Double)->Bool{
         return acceptsHover(x: x, y: y, zoom: zoom);
     }
     
@@ -291,24 +297,26 @@ class MatrixControl{
         var zoomX = zoom * matrix.a;
         var zoomY = zoom * matrix.d;
         
-        downPoint = Point(localPoint.x, localPoint.y);
+//        downPoint = Point(x: localPoint.x, y: localPoint.y);
         downMatrix = matrix.copy();
         downInverseMatrix = inverseMatrix.copy();
         // ... including the button that was hit
-        downButton = getButton(localPoint.x, localPoint.y, zoomX, zoomY);
+//        downButton = getButton(x: localPoint.x, y: localPoint.y, zoomX: zoomX, zoomY: zoomY);
     }
     
-    func onDrag(x:Double, y:Double, zoom:Double) {
-        var localPoint = downInverseMatrix.timesPoint(point: Point(x, y));
+/*    func onDrag(x:Double, y:Double, zoom:Double) {
+       var localPoint = downInverseMatrix.timesPoint(point: Point(x, y));
         var postMatrix = downButton.computePostMatrix(downPoint, localPoint);
         setMatrix(downMatrix.times(postMatrix));
         totalMatrix = matrix.times(that: initialTranslateMatrix);
 
     }
-    
-    /*func drawOnCanvas(canvas:CGContext, left:Double, top:Double, zoom:Double) {
+ */
         
-        var ctx = canvas.getContext("2d");
+    
+   /* func drawOnCanvas(canvas:SceneView, left:Double, top:Double, zoom:Double) {
+        
+        var ctx = canvas.getCo("2d");
         ctx.save();
         ctx.translate(-left * zoom, -top * zoom);
         ctx.strokeStyle = color;
@@ -366,17 +374,9 @@ class MatrixControl{
     return public_interface;
     
 
-
 */
+
     
 
 
-    
-    
-    
-    
-    
-    
-    
 }
-

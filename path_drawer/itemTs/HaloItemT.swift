@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
-class HaloItem{
+class HaloItem: ItemT {
 
+   // ItemT.call(self)
     
     var peerId: Any;
-    var x: Any
-    var y:Any
-    var radius:Any
+    var x: Float
+    var y: Float
+    var radius:Float
     var alpha:Any
     var activeTimeInterval:Any
     var timer: Any
@@ -38,7 +39,7 @@ class HaloItem{
 
 
 
-    func updateLocation(x:Double, y:Double){
+    func updateLocation(x:Float, y:Float){
         
         self.x=x
         self.y=y
@@ -65,22 +66,22 @@ class HaloItem{
     
     func hide(){
         
-        if(self.timer != NSNull){
+        if(self.timer != nil){
         
-            clearTimeout(self.timer)
+      //      clearTimeout(self.timer)
             self.timer = NSNull()
             
-            if(self.scene){
-                self.scene.redisplay();
+            if((self.scene) != nil){
+      //          self.scene.redisplay();
             }
         }
     
     
     }
     
-    func drawOnCanvas(canvas: CGContext, left:Double, top: Double, zoom : Double){
+    func drawOnCanvas(canvas: CGContext, left:Float, top: Float, zoom : Float){
         
-        if(self.timer == NSNull()){
+        if(self.timer == nil){
             return
         }
         
@@ -88,15 +89,17 @@ class HaloItem{
         var y = (self.y - top) * zoom;
         
         if (x + self.radius < 0 ||
-            x - self.radius > canvas.width ||
+            x - self.radius > Float(canvas.width) ||
             y + self.radius < 0 ||
-            y - self.radius > canvas.height) {
+            y - self.radius > Float(canvas.height)) {
             return;
         }
         
-     /*   var ctx = canvas.getContext('2d');
-        ctx.save();
-        ctx.globalAlpha = this.alpha;
+/*      var ctx = canvas.getContext('2d');
+        
+        var ctx = UIGraphicsGetCurrentContext()
+        ctx?.saveGState();
+       // ctx.globalAlpha = this.alpha;
         ctx.fillStyle = peersManager.getColorForPeerId(this.peerId);
         ctx.beginPath();
         ctx.arc(x, y, this.radius, 0, 2 * Math.PI);

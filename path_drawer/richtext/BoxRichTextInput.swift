@@ -9,4 +9,12 @@
 import Foundation
 class BoxRichTextInput {
     
+    init(){
+
+        var TextInput: RichTextInput
+ //       self.RichTextInput.Text
+        
+    
+    }
+    
 }

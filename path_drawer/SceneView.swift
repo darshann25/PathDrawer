@@ -14,7 +14,8 @@ class SceneView : UIView {
     var scene = Scene();
     var boardContext = BoardViewController.BoardContext(boardId : 1, scene : Scene());
     var toolManager = ToolManager();
-
+    private var width = 0.00
+    private var height = 0.00
     // The canvas, which acts as the view onto the Scene.
     @IBOutlet weak var canvas : UIView?;
     // var canvas = document.getElementById('mainCanvas');
@@ -28,12 +29,13 @@ class SceneView : UIView {
     // 1.25^2=1.5625
     var zoom = Double(1.5625);
     
-    func getWidth() {
+    func getWidth()->Double {
+        return width
         
     }
   
-    func getHeight() {
-    
+    func getHeight()-> Double {
+        return height
     }
     
     func setPrimaryTool(tool : Tool) {
