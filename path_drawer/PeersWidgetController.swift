@@ -9,5 +9,7 @@
 import Foundation
 
 class PeersWidgetController {
-    
+    func relayout(peers : Dictionary<Int, Peer>) {
+        
+    }
 }
