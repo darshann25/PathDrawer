@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import UIKit
+
 class ChangeBackgroundDelta : Delta {
     
+     init(type: Delta.types.ChangeBackgroundDelta, actId: Int, devId: Int,from , to) {
+        
+    }
 }
