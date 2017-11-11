@@ -34,4 +34,11 @@ class EquationItemState : ItemState {
         
         return obj;
     }
+    
+    func unminify(mini : Dictionary<String, Any>)->EquationItemState {
+    
+        return EquationItemState(id: mini["id"] as! Int , devId : mini["devId"] as! Int, matrix : mini["matrix"] as! Matrix, equation: mini["equation"], eqnType: mini["eqnType"]);
+    
+    }
+
 }
