@@ -12,6 +12,7 @@ class SceneView : UIView {
 
     // tuple of points
     var scene = Scene();
+    var boardContext = BoardViewController.BoardContext(boardId : 1, scene : Scene());
     var toolManager = ToolManager();
 
     // The canvas, which acts as the view onto the Scene.
@@ -26,7 +27,6 @@ class SceneView : UIView {
     var viewTop = 0;
     // 1.25^2=1.5625
     var zoom = Double(1.5625);
-
     
     func getWidth() {
         

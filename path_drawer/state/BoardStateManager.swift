@@ -78,4 +78,27 @@ class BoardStateManager {
     
     }
     
+    func getNewResourceId() -> Int{
+        self.nextResourceId += 1;
+        return self.nextResourceId;
+    }
+    
+    func getNewItemId() -> Int {
+        self.nextItemId += 1;
+        return self.nextItemId;
+    }
+    
+    func getNewActId() -> Int {
+        self.nextActId += 1;
+        return self.nextActId;
+    }
+    
+    func getResource(id : Int, devId : Int) -> Resource {
+        return boardState.getResource(id : id, devId : devId);
+    }
+    
+    func getMinifiedState() -> Dictionary<String, Any> {
+        return boardState.minify();
+    }
+    
 }
