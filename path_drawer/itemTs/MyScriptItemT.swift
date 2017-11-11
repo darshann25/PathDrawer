@@ -11,7 +11,7 @@ import Foundation
 var DELAY = 1500
 
 class MyScriptItemT : ItemT {
-    
+    /*
     var tool : Any
    // var timer : HaloItem
     
@@ -35,6 +35,6 @@ class MyScriptItemT : ItemT {
     
     
     }
-    
+    */
     
 }

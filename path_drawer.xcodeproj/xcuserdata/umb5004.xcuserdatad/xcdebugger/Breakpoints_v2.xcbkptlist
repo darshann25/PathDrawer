@@ -93,10 +93,17 @@
             timestampString = "532068611.534969"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "getHeight()"
+            landmarkType = "7">
+=======
             startingLineNumber = "18"
             endingLineNumber = "18"
             landmarkName = "drawRectAccountingForZooms(ctx:rect:zoomX:zoomY:)"
             landmarkType = "9">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -157,10 +164,17 @@
             timestampString = "532068766.941803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "Scene"
+            landmarkType = "3">
+=======
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "getButton(x:y:zoomX:zoomY:)"
             landmarkType = "7">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -189,9 +203,15 @@
             timestampString = "532069121.912022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "getWidth()"
+=======
             startingLineNumber = "296"
             endingLineNumber = "296"
             landmarkName = "onDown(x:y:zoom:)"
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -205,10 +225,17 @@
             timestampString = "532069210.554676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "SceneView"
+            landmarkType = "3">
+=======
             startingLineNumber = "305"
             endingLineNumber = "305"
             landmarkName = "onDrag(x:y:zoom:)"
             landmarkType = "7">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -221,10 +248,17 @@
             timestampString = "532070625.547816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "SceneView"
+            landmarkType = "3">
+=======
             startingLineNumber = "42"
             endingLineNumber = "42"
             landmarkName = "updateLocation(x:y:)"
             landmarkType = "7">
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -237,9 +271,15 @@
             timestampString = "532071757.693938"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD:path_drawer.xcodeproj/xcuserdata/darshanpatel.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "getWidth()"
+=======
             startingLineNumber = "90"
             endingLineNumber = "90"
             landmarkName = "drawOnCanvas(canvas:left:top:zoom:)"
+>>>>>>> 67c81c5ecb2e25798691963904292934bffaae2d:path_drawer.xcodeproj/xcuserdata/umb5004.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

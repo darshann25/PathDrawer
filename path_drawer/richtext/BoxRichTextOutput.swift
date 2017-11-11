@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class BoxRichTextOutput {
-
+/*
     var type: String
     var charPos: Float
     var width:Float
@@ -40,5 +40,5 @@ class BoxRichTextOutput {
 
     
     
-    
+ */
 }

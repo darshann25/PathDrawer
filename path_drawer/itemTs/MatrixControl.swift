@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-
+/*
 
 func drawRectAccountingForZooms(ctx: CGContext ,rect: Rect,zoomX: Double,zoomY: Double){
     
-    let ctx = UIGraphicsGetCurrentContext()
-    let lineWidth = ctx?.setLineWidth(<#T##width: CGFloat##CGFloat#>);
+    let ctx = UIGraphicsGetCurrentContext();
+    // let lineWidth = ctx?.setLineWidth(<#T##width: CGFloat##CGFloat#>);
     // Draw horizontal lines
  /*   ctx?.beginPath()
     ctx?.setLineWidth = lineWidth / zoomY;
@@ -380,3 +380,4 @@ class MatrixControl{
 
 
 }
+*/

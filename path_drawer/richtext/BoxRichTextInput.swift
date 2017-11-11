@@ -9,7 +9,7 @@
 import Foundation
 class BoxRichTextInput {
     
-    var TextInput: RichTextInput
+    var textInput: RichTextInput
 
     var width: Float
     var ascent: Float
@@ -23,6 +23,7 @@ class BoxRichTextInput {
         self.width=1
         self.ascent=1
         
+        self.textInput = RichTextInput();
     }
     
     //BoxTextInput.prototype = Object.create(TextInput.prototype);

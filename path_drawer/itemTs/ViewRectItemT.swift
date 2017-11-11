@@ -10,7 +10,7 @@ import Foundation
 
 class ViewRectItemT : ItemT {
     
-    
+    /*
     var peerId: Double
     var rectArray = [Double]()
     
@@ -71,7 +71,7 @@ class ViewRectItemT : ItemT {
     }
     
 
-    
+    */
     
     
 }

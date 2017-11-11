@@ -34,7 +34,7 @@ class HaloItem: ItemT {
         self.timer = NSNull(); // the halo is visible if this is not null
 
         
-    
+        super.init(scene: sceneView.scene, respondsToHoverEvents: false, respondsToClickEvents: false, respondsToKeyEvents: false)
     }
 
 

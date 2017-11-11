@@ -46,4 +46,10 @@ class Device {
         var haloItemT = HaloItemT(peerID)
     
     }*/
+    
+    // returns true if message successfully sent directly
+    // TODO : WebRTC Support needed
+    func sendMessageDirectly(type : String, message : String) -> Bool {
+        return false;
+    }
 }

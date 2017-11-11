@@ -1,0 +1,6 @@
+framework module Pods_path_drawer {
+  umbrella header "Pods-path_drawer-umbrella.h"
+
+  export *
+  module * { export * }
+}

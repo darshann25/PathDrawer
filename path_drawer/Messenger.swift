@@ -18,27 +18,57 @@ class Messenger {
     var handlers : Dictionary<String, Any>;
     
     // used to save messages received before a device instance is created (indexed by deviceId)
-    var inboxes : Dictionary<String, Any>;
+    var inboxes : Dictionary<String, [(String, String)]>;
     
-    init() {
+    
+    let socket : SocketIOManager;
+    
+    init(socketIOManager : SocketIOManager) {
         handlers = [String: (Any, Any) -> Any]();
-        inboxes = [String: Any]();
+        inboxes = [String: [(String, String)]]();
+        self.socket = socketIOManager;
     }
     
     // sends message to a list of devices through the server
-    func sendMessageViaServer(type : String, message : String, to : String) {
+    func sendMessageViaServer(type : String, message : String, to : [String]) {
+        let data : [String : Any] = [
+            "to": to,
+            "type": type,
+            "message": message
+        ]
         
+        let JSONdata = JSONSerialization.isValidJSONObject(data);
+        //socket.emit(type : "relay", data : JSONdata);
     }
     
     // similar to broadcast, but only to another device
-    //   TODO rename to sendMessageToDevice
+    // TODO rename to sendMessageToDevice
     func sendMessageTo(type : String, message : String, deviceId : String) {
-    
+        let device = boardContext.devicesManager.getDevice(devId : Int(deviceId)!);
+        let success = device.sendMessageDirectly(type: type, message : message);
+        if (!success) {
+            sendMessageViaServer(type : type, message : message, to : [deviceId]);
+        }
     }
 
     // sends message to all other devices as efficiently as possible
     func broadcast(type : String, message : String) {
     
+        var devices = boardContext.devicesManager.getDevices();
+        var to = [String](); // used to relay via server
+        for id in devices.keys {
+            let device = devices[id];
+            let success = device?.sendMessageDirectly(type : type, message : message);
+            if (success != false) {
+                to.append(String(id));
+            }
+        }
+        // send once to server
+        if (to.count > 0) {
+            sendMessageViaServer(type : type, message : message, to : to);
+        }
+        
+        
     }
     
     typealias myFunc = (String, String) -> ();
@@ -49,12 +79,24 @@ class Messenger {
     
     // internal, delivers to the appropriate handler (at this point, the device instance does exist)
     func deliverMessage(type : String, message : String, from : String) {
-    
+        if (handlers["type"] != nil) {
+            //handlers[type](message, from);
+        } else {
+            NSLog("Incoming message had unrecognized type: $@ ", type);
+        }
     }
     
     func incomingMessage(type : String, message : String, from : String) {
-    // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
-    
+        // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
+        if (boardContext.devicesManager.getDevices()[Int(from)!] != nil) {
+            deliverMessage(type : type, message : message, from : from);
+        } else {
+            // there is no device instance, so hold the message in the inbox
+            if (inboxes[from] == nil) {
+                inboxes[from] = [(String, String)]();
+            }
+            //inboxes[from].append((type, message));
+        }
     }
     
     func releaseMessagesFromDeviceWithId(deviceId : String) {
