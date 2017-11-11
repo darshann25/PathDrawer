@@ -16,11 +16,16 @@ import UIKit
 class MagicEraserTool : Tool {
     // Used to determine the swipe segment, which is used to locate any items.
     var previousPoint : Point;
-    var actId : Any;
+    var actId : Int;
     
     init(point : Point, id : Int) {
         self.previousPoint = point;
         self.actId = id;
+        
+    }
+    
+    override convenience init() {
+        self.init(point : Point(x: 0, y: 0), id : -1);
     }
     
     func onDown(x : Double, y : Double) {
@@ -30,65 +35,39 @@ class MagicEraserTool : Tool {
     
     func onDrag(_x : Double, _y : Double) {
         let point = Point(x : _x, y : _y);
-        var items = sceneView.scene.getItemsIntersectingSegment(end1: point, end2: self.previousPoint);
+        let items = sceneView.scene.getItemsIntersectingSegment(end1: point, end2: self.previousPoint);
         
         if(items.count > 0) {
-            if(actId is Int) {
-                //self.actId = boardStateManager.getNewActId();
+            if(actId != -1) {
+                self.actId = boardContext.boardStateManager.getNewActId();
             }
+            
+            //let deviceId = sceneView.boardContext.devicesManager.getMyDeviceId();
+            let deviceId = -1;
+            sceneView.scene.beginChanges();
+            
+            items.forEach{item in
+                let delta = DeleteItemDelta(actId: self.actId, devId: deviceId, itemState: item.state);
+                boardContext.boardStateManager.addDelta(delta : delta);
+                boardContext.devicesManager.enqueueDelta(delta : delta);
+                delta.applyToScene(); // scene.removeSceneItem(item);
+            };
+            sceneView.scene.endChanges();
+            boardContext.devicesManager.send();
         }
+        self.previousPoint = point;
     }
     
-    /*
-     export default function MagicEraserTool() {
-     
-     // Used to determine the swipe segment, which is used to locate any items.
-     var previousPoint;
-     var actId = null;
-     
-     function onDown(x, y) {
-     previousPoint = new Point(x, y);
-     actId = null;
-     }
-     
-     function onDrag(x, y) {
-     var point = new Point(x, y);
-     var items = scene.getItemsIntersectingSegment(point, previousPoint);
-     if (items.length > 0) {
-     if (!actId) {
-     actId = boardStateManager.getNewActId();
-     }
-     var deviceId = devicesManager.getMyDeviceId();
-     scene.beginChanges();
-     items.forEach(function(item) {
-     var delta = new DeleteItemDelta(actId,
-     deviceId,
-     item.state);
-     boardStateManager.addDelta(delta);
-     devicesManager.enqueueDelta(delta);
-     delta.applyToScene(); // scene.removeSceneItem(item);
-     });
-     scene.endChanges();
-     devicesManager.send();
-     }
-     previousPoint = point;
-     }
-     
-     function onUp() {
-     // Just to be safe...
-     previousPoint = null;
-     actId = null;
-     }
-     
-     var public_interface = {
-     onDown: onDown,
-     onDrag: onDrag,
-     onUp: onUp,
-     getCursor: function() { return 'default'; },
-     };
-     return public_interface;
-     }
-     */
+    func onUp() {
+        // TODO : Null previousPoint
+        self.previousPoint = Point(x : 0, y : 0);
+        self.actId = -1;
+    }
+    
+    func getCursor() -> String {
+        return "default";
+    }
+    
 }
 
 

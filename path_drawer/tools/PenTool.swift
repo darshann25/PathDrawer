@@ -16,6 +16,9 @@ class PenTool : Tool {
     var points : [CGPoint];
     var startPoint = CGPoint.zero;
     
+    // The current PrePathItemT
+    // var prePathItemT : PrePathItemT;
+    
     init(color : CGColor, size : CGFloat, alpha : CGFloat) {
         self.color = color;
         self.size = size;
@@ -28,7 +31,6 @@ class PenTool : Tool {
     convenience override init() {
         self.init(color: UIColor.black.cgColor, size : CGFloat(5), alpha : CGFloat(1));
     }
-    
     
     override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
@@ -68,6 +70,18 @@ class PenTool : Tool {
     }
     
     
+    func setColor(_color : CGColor) {
+        self.color = _color;
+    }
+    
+    func setSize(_size : CGFloat) {
+        self.size = _size;
+    }
+    
+    func setAlpha(_alpha : CGFloat) {
+        self.alpha = _alpha;
+    }
+    
     func euclidean_dist(start : CGPoint, end : CGPoint) -> Int {
         let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
         return Int(dist);
@@ -84,35 +98,6 @@ class PenTool : Tool {
     func setAlpha(to: CGFloat){
         self.alpha = to;
     }
-    
-    
-    /*
-     // Fix interpolation
-     func interpolate_points(start: inout CGPoint, end : inout CGPoint) -> Int {
-     var curr = start;
-     
-     while curr != end {
-     if curr.x < end.x {
-     curr.x += 1;
-     }
-     
-     if curr.x > end.x {
-     curr.x -= 1;
-     }
-     
-     if curr.y < end.y {
-     curr.y += 1;
-     }
-     
-     if curr.y > end.y {
-     curr.y -= 1;
-     }
-     
-     points.append(curr)
-     }
-     
-     return euclidean_dist(start: start, end: end)
-     }*/
     
 }
 

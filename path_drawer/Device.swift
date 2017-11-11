@@ -12,9 +12,9 @@ class Device {
     
     var id : Int
     var peerId : Int
-    var accessLevel : Int
+    var accessLevel : String
     
-    init(id: Int, peerId: Int, accessLevel: Int){
+    init(id: Int, peerId: Int, accessLevel: String){
         self.id = id
         self.peerId = peerId
         self.accessLevel = accessLevel
