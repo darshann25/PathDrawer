@@ -19,14 +19,14 @@ class Delta {
         self.devId = devId
     }
     
-    enum types: String {
-        case NewItemDelta = "NewItem"
-        case ChangeItemDelta = "ChangeItem"
-        case DeleteItemDelta = "DeleteItem"
-        case GrabItemsDelta = "GrabItems"
-        case TransformItemsDelta = "TransformItems"
-        case ReleaseItemsDelta = "ReleaseItems"
-        case ChangeBackgroundDelta = "ChangeBackground"
+    enum types {
+        case NewItemDelta
+        case ChangeItemDelta
+        case DeleteItemDelta
+        case GrabItemsDelta
+        case TransformItemsDelta
+        case ReleaseItemsDelta
+        case ChangeBackgroundDelta 
     }
     
     func minify(){
