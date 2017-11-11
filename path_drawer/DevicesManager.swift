@@ -109,8 +109,8 @@ class DevicesManager {
     
     }
 
-    func getDevice(devId: Int) {
-    
+    func getDevice(devId: Int) -> Device {
+        return devices[devId]!;
     }
 
     ////////////////////////////
