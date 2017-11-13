@@ -17,7 +17,7 @@ class SocketIOManager {
     
     init(boardId : String) {
         self.boardId = boardId;
-        self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000/board/")!, config: [.log(true), .compress]);
+        self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000/board")!, config: [.log(true), .compress]);
         print("In SocketIOManager Constructor");
     }
     
@@ -27,10 +27,10 @@ class SocketIOManager {
         socket.on(clientEvent: .connect) {data, ack in
             print("In Socket.connect")
             
-            let params: [String : AnyObject] = [
-                "boardId": self.boardId as AnyObject,
-                "notify": "all" as AnyObject, // a tablet doesn't want halo updates
-                "deviceId": -1 as AnyObject, // -1 indicates new, another id indicates a re-connection
+            let params: [String : Any] = [
+                "boardId": self.boardId,
+                "notify": "all", // a tablet doesn't want halo updates
+                "deviceId": -1, // -1 indicates new, another id indicates a re-connection
             ]
             if (JSONSerialization.isValidJSONObject(params)) {
                 print("Socket about to EMIT!");
@@ -56,34 +56,10 @@ class SocketIOManager {
         }
         socket.connect()
         
-        /*
-        socket.on(clientEvent: .connect) {data, ack in
-            print("Socket connected!");
-            
-            let params : [String : Any] = [
-                "boardId": self.boardId,
-                "notify": "all", // a tablet doesn't want halo updates
-                "deviceId": -1, // -1 indicates new, another id indicates a re-connection
-            ]
-            
-            print("Socket Connection Made!")
-            let JSONParams : Data;
-            do {
-                JSONParams = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
-                print("Socket about to EMIT!");
-                self.socket.emit("join_request", JSONParams);
-            } catch {
-                print(error.localizedDescription)
-            }
-            
-        };
-        print("Socket is about to Connect!");
-        socket.connect();
-        */
     }
     
-    func emitData(type : String, data : Data) {
-        
+    func emitData(type : String, data : Dictionary<String, Any>) {
+    
     }
 
     
