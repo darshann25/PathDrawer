@@ -35,25 +35,25 @@ class MagicEraserTool : Tool {
     
     func onDrag(_x : Double, _y : Double) {
         let point = Point(x : _x, y : _y);
-        let items = sceneView.scene.getItemsIntersectingSegment(end1: point, end2: self.previousPoint);
+        let items = Scene.sharedInstance.getItemsIntersectingSegment(end1: point, end2: self.previousPoint);
         
         if(items.count > 0) {
             if(actId != -1) {
-                self.actId = boardContext.boardStateManager.getNewActId();
+                self.actId = BoardViewController.BoardContext.sharedInstance.boardStateManager.getNewActId();
             }
             
             //let deviceId = sceneView.boardContext.devicesManager.getMyDeviceId();
             let deviceId = -1;
-            sceneView.scene.beginChanges();
+            Scene.sharedInstance.beginChanges();
             
             items.forEach{item in
                 let delta = DeleteItemDelta(actId: self.actId, devId: deviceId, itemState: item.state);
-                boardContext.boardStateManager.addDelta(delta : delta);
-                boardContext.devicesManager.enqueueDelta(delta : delta);
+                BoardViewController.BoardContext.sharedInstance.boardStateManager.addDelta(delta : delta);
+                BoardViewController.BoardContext.sharedInstance.devicesManager.enqueueDelta(delta : delta);
                 delta.applyToScene(); // scene.removeSceneItem(item);
             };
-            sceneView.scene.endChanges();
-            boardContext.devicesManager.send();
+            Scene.sharedInstance.endChanges();
+            BoardViewController.BoardContext.sharedInstance.devicesManager.send();
         }
         self.previousPoint = point;
     }

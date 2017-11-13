@@ -47,7 +47,7 @@ class TransformItemsDelta : Delta {
     }
     
     func applyToScene() {
-        var selectionItemT = boardContext.devicesManager.getDevice(devId: holderDevId).context()["selectionItemT"]
+        var selectionItemT = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId: holderDevId).context()["selectionItemT"]
     }
     
     func applyToBoardState (boardState: BoardState){

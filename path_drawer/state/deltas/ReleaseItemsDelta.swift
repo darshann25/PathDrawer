@@ -47,21 +47,21 @@ class ReleaseItemsDelta : Delta {
     
     //UNCOMMENT WHEN ItemT fully implemented
     func applyToScene () {
-        sceneView.scene.beginChanges()
+        Scene.sharedInstance.beginChanges()
         var itemT : ItemT?
         switch(self.intent){
         case GrabItemsDelta.intents.SelectionItemT:
-            itemT = boardContext.devicesManager.getDevice(devId: self.holderDevId).context()["preTextItemT"] as? ItemT
-            boardContext.devicesManager.getDevice(devId: self.holderDevId).context()["preTextItemT"]
+            itemT = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId: self.holderDevId).context()["preTextItemT"] as? ItemT
+            BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId: self.holderDevId).context()["preTextItemT"]
             //itemT.returnItemToScene
             break
         default:
             NSLog("Error")
         }
         if (itemT != nil){
-            sceneView.scene.removeForefrontItem(itemT: itemT!)
+            Scene.sharedInstance.removeForefrontItem(itemT: itemT!)
         }
-        sceneView.scene.endChanges()
+        Scene.sharedInstance.endChanges()
     }
     
     func applyToBoardState (boardState: BoardState){

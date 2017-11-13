@@ -7,35 +7,48 @@
 //
 
 import Foundation
-//import SocketIO
+import SocketIO
 
 // TODO : Import all handlers from public/js/socketioclient.js
 class SocketIOManager {
     
-    //let socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress]);
+    let socket : SocketIOClient;
     
-    let boardId = "ABCD1234";
+    var boardId : String;
     
-    
+    init(boardId : String) {
+        self.boardId = boardId;
+        self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress]);
+    }
     
     func connect() {
-        /*
-        socket.on(clientEvent: .connect) {
-            var params : [String : Any] = [
-                "boardId": boardId,
+        
+        socket.on(clientEvent: .connect) {data, ack in
+            print("Socket connected!");
+            
+            let params : [String : Any] = [
+                "boardId": self.boardId,
                 "notify": "all", // a tablet doesn't want halo updates
                 "deviceId": -1, // -1 indicates new, another id indicates a re-connection
             ]
             
-            let JSONParams = JSONSerialization.isValidJSONObject(params)
-            socket.emit("join_request", JSONParams);
+            print("Socket Connection Made!")
+            let JSONParams : Data;
+            do {
+                JSONParams = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+                print("Socket about to EMIT!");
+                self.socket.emit("join_request", JSONParams);
+            } catch {
+                print(error.localizedDescription)
+            }
+            
         };
-        
+        print("Socket is about to Connect!");
         socket.connect();
-         */
+        
     }
     
-    func emit(type : String, data : String) {
+    func emit(type : String, data : Data) {
         
     }
     
