@@ -13,14 +13,14 @@ import UIKit
 class PathItemState : ItemState {
     
     var resource : Resource;
-    var beginIndex : Any;
-    var endIndex : Any;
+    var beginIndex : Int;
+    var endIndex : Int;
     var color : CGColor;
-    var size : Int;
-    var opacity : Int;
+    var size : CGFloat;
+    var opacity : CGFloat;
     
     init(id : Int, devId : Int, matrix : Matrix, resource : Resource, beginIndex : Int, endIndex : Int, color : CGColor,
-                       size : Int, opacity : Int) {
+                       size : CGFloat, opacity : CGFloat) {
         self.resource = resource;
         self.beginIndex = beginIndex;
         self.endIndex = endIndex;
@@ -53,7 +53,7 @@ class PathItemState : ItemState {
         return PathItemState(id : mini["id"] as! Int, devId : mini["devId"] as! Int, matrix : mini["matrix"] as! Matrix,
                              resource : mini["resource"] as! Resource, beginIndex : mini["beginIndex"] as! Int,
                              endIndex : mini["endIndex"] as! Int, color : mini["color"] as! CGColor,
-                             size : mini["size"] as! Int, opacity : mini["opacity"] as! Int);
+                             size : mini["size"] as! CGFloat, opacity : mini["opacity"] as! CGFloat);
     }
     
 }

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class Point{
     
@@ -38,6 +38,18 @@ class Point{
         return Point(x: self.x + xDist, y: self.y + yDist);
         
     }
+    
+}
+
+func convertFromCGPoint(point : CGPoint) -> Point {
+    
+    return Point(x : Double(point.x), y : Double(point.y));
+    
+}
+
+func convertToCGPoint(point : Point) -> CGPoint {
+    
+    return CGPoint(x: point.x, y: point.y);
     
 }
 

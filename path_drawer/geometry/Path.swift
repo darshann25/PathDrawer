@@ -8,5 +8,7 @@
 
 import Foundation
 class Path {
-    
+    init(buffer: PointBuffer, begin: Int, end: Int) {
+        
+    }
 }

@@ -12,24 +12,24 @@ import UIKit
 class PenTool : Tool {
     var color : CGColor;
     var size : CGFloat;
-    var alpha : CGFloat;
-    var points : [CGPoint];
+    var opacity : CGFloat;
+    var points : [Point];
     var startPoint = CGPoint.zero;
     
     // The current PrePathItemT
     // var prePathItemT : PrePathItemT;
     
-    init(color : CGColor, size : CGFloat, alpha : CGFloat) {
+    init(color : CGColor, size : CGFloat, opacity : CGFloat) {
         self.color = color;
         self.size = size;
-        self.alpha = alpha;
+        self.opacity = opacity;
         
-        points = [CGPoint]();
+        points = [Point]();
         super.init();
     }
     
     convenience override init() {
-        self.init(color: UIColor.black.cgColor, size : CGFloat(5), alpha : CGFloat(1));
+        self.init(color: UIColor.black.cgColor, size : CGFloat(5), opacity : CGFloat(1));
     }
     
     override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
@@ -39,7 +39,8 @@ class PenTool : Tool {
                 startPoint = CGPoint.zero;
             } else {
                 startPoint = point;
-                points.append(point);
+                let pt = convertFromCGPoint(point : point);
+                points.append(pt);
             }
         }
     }
@@ -53,36 +54,27 @@ class PenTool : Tool {
             //if !(prevPoint.x == point.x && prevPoint.y == point.y){
             //    euclid_dist = interpolate_points(start: &prevPoint, end: &point);
             //}
-            points.append(point);
+            let pt = convertFromCGPoint(point : point);
+            points.append(pt);
         }
     }
     
     override func onUp(scene: inout Scene, sceneView: SceneView){
         //points.append(point);
-        let lastPoint = points[points.count - 1];
+        let lastPt = points[points.count - 1];
+        let lastPoint = convertToCGPoint(point : lastPt);
         
         if lastPoint != startPoint {
-            let pItem = PathItem(pointsArr: points, color : self.color, size : self.size, alpha : self.alpha);
+            let resource = Resource(id: 1, devId: 1, data: points);
+            let pItemState = PathItemState(id: 1, devId: 1, matrix: Matrix(), resource: resource, beginIndex: 0, endIndex: self.points.count, color: self.color, size: self.size, opacity: self.opacity)
+            let pItem = PathItem(state : pItemState);
             scene.addItem(item: pItem);
         }
-        points = [CGPoint]();
+        points = [Point]();
         sceneView.refreshView();
     }
     
-    
-    func setColor(_color : CGColor) {
-        self.color = _color;
-    }
-    
-    func setSize(_size : CGFloat) {
-        self.size = _size;
-    }
-    
-    func setAlpha(_alpha : CGFloat) {
-        self.alpha = _alpha;
-    }
-    
-    func euclidean_dist(start : CGPoint, end : CGPoint) -> Int {
+    func euclidean_dist(start : Point, end : Point) -> Int {
         let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
         return Int(dist);
     }
@@ -95,8 +87,8 @@ class PenTool : Tool {
         self.size = to;
     }
     
-    func setAlpha(to: CGFloat){
-        self.alpha = to;
+    func setOpacity(to: CGFloat){
+        self.opacity = to;
     }
     
 }
