@@ -41,7 +41,7 @@ class Messenger {
         //let JSONdata = JSONSerialization.isValidJSONObject(data);
         do {
             JSONdata = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-            socket.emit(type : "relay", data : JSONdata);
+            socket.emitData(type : "relay", data : JSONdata);
         } catch {
             print(error.localizedDescription)
         }

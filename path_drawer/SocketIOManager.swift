@@ -13,16 +13,50 @@ import SocketIO
 class SocketIOManager {
     
     let socket : SocketIOClient;
-    
     var boardId : String;
     
     init(boardId : String) {
         self.boardId = boardId;
-        self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress]);
+        self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000/board/")!, config: [.log(true), .compress]);
+        print("In SocketIOManager Constructor");
     }
     
-    func connect() {
+    func establistConnection() {
+        print("In establishConnection")
         
+        socket.on(clientEvent: .connect) {data, ack in
+            print("In Socket.connect")
+            
+            let params: [String : AnyObject] = [
+                "boardId": self.boardId as AnyObject,
+                "notify": "all" as AnyObject, // a tablet doesn't want halo updates
+                "deviceId": -1 as AnyObject, // -1 indicates new, another id indicates a re-connection
+            ]
+            if (JSONSerialization.isValidJSONObject(params)) {
+                print("Socket about to EMIT!");
+                self.socket.emit("join_request", params);
+            }
+            
+            /*
+            do {
+                
+                let isValid : Bool = JSONSerialization.isValidJSONObject(params);
+                print(isValid);
+                let JSONParams = try JSONSerialization.data(withJSONObject: params)
+                let JSONString = NSString(data: JSONParams, encoding: String.Encoding.utf8.rawValue)
+                print (params);
+                print(JSONString);
+             
+                
+            } catch {
+                print(error.localizedDescription)
+                print ("ERROR!!!!!!")
+            }
+            */
+        }
+        socket.connect()
+        
+        /*
         socket.on(clientEvent: .connect) {data, ack in
             print("Socket connected!");
             
@@ -45,12 +79,12 @@ class SocketIOManager {
         };
         print("Socket is about to Connect!");
         socket.connect();
-        
+        */
     }
     
-    func emit(type : String, data : Data) {
+    func emitData(type : String, data : Data) {
         
     }
-    
+
     
 }

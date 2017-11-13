@@ -45,7 +45,7 @@ class BoardViewController: UIViewController {
             self.scene = scene;
             
             self.socketIOManager = SocketIOManager(boardId : self.boardId);
-            socketIOManager.connect();
+            // socketIOManager.establistConnection();
             print("Device is connected!");
             
             self.messenger = Messenger(socketIOManager : socketIOManager);
