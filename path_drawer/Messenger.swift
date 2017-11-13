@@ -37,14 +37,21 @@ class Messenger {
             "message": message
         ]
         
-        let JSONdata = JSONSerialization.isValidJSONObject(data);
-        //socket.emit(type : "relay", data : JSONdata);
+        let JSONdata : Data;
+        //let JSONdata = JSONSerialization.isValidJSONObject(data);
+        do {
+            JSONdata = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+            socket.emit(type : "relay", data : JSONdata);
+        } catch {
+            print(error.localizedDescription)
+        }
+        
     }
     
     // similar to broadcast, but only to another device
     // TODO rename to sendMessageToDevice
     func sendMessageTo(type : String, message : String, deviceId : String) {
-        let device = boardContext.devicesManager.getDevice(devId : Int(deviceId)!);
+        let device = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId : Int(deviceId)!);
         let success = device.sendMessageDirectly(type: type, message : message);
         if (!success) {
             sendMessageViaServer(type : type, message : message, to : [deviceId]);
@@ -54,7 +61,7 @@ class Messenger {
     // sends message to all other devices as efficiently as possible
     func broadcast(type : String, message : String) {
     
-        var devices = boardContext.devicesManager.getDevices();
+        var devices = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevices();
         var to = [String](); // used to relay via server
         for id in devices.keys {
             let device = devices[id];
@@ -88,7 +95,7 @@ class Messenger {
     
     func incomingMessage(type : String, message : String, from : String) {
         // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
-        if (boardContext.devicesManager.getDevices()[Int(from)!] != nil) {
+        if (BoardViewController.BoardContext.sharedInstance.devicesManager.getDevices()[Int(from)!] != nil) {
             deliverMessage(type : type, message : message, from : from);
         } else {
             // there is no device instance, so hold the message in the inbox

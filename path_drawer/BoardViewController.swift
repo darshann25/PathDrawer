@@ -9,7 +9,9 @@
 import UIKit
 
 class BoardViewController: UIViewController {
+    
     override func viewDidLoad() {
+
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -23,6 +25,9 @@ class BoardViewController: UIViewController {
     
     class BoardContext {
         
+        // SINGLETON
+        static var sharedInstance = BoardContext(boardId : "rJvtD5IJf", scene : Scene.sharedInstance);
+        
         var socketIOManager : SocketIOManager;
         var messenger : Messenger;
         var devicesManager : DevicesManager;
@@ -30,24 +35,27 @@ class BoardViewController: UIViewController {
         var peersManager : PeersManager;
         // var itemStateFactory : ItemStateFactory;
         // var deltaFactory : DeltaFactory;
-        var boardId : Int;
+        var boardId : String;
         // var delManager : DelManager;
         var scene : Scene;
         
-        init(boardId : Int, scene : Scene) {
+        private init(boardId : String, scene : Scene) {
             
-            self.socketIOManager = SocketIOManager();
+            self.boardId = boardId;
+            self.scene = scene;
+            
+            self.socketIOManager = SocketIOManager(boardId : self.boardId);
             socketIOManager.connect();
+            print("Device is connected!");
             
             self.messenger = Messenger(socketIOManager : socketIOManager);
-            self.devicesManager = DevicesManager();
+            self.devicesManager = DevicesManager(messenger : self.messenger);
             self.boardStateManager = BoardStateManager(msngr : messenger);
             self.peersManager = PeersManager(peer: Peer(peerId : 1), peersWidgetController : PeersWidgetController());
             // self.itemStateFactory = ItemStateFactory();
             // self.deltaFactory = DeltaFactory();
             // self.delManager = DelManager();
-            self.boardId = boardId;
-            self.scene = scene;
+            
         }
      
     }
@@ -57,5 +65,5 @@ class BoardViewController: UIViewController {
 ////////////////////////////////////
 // GLOBAL INSTANCES  - SINGLETONS //
 ////////////////////////////////////
-var sceneView = SceneView();
-var boardContext = BoardViewController.BoardContext(boardId : 1, scene : sceneView.scene);
+// var sceneView = SceneView();
+// var boardContext = BoardViewController.BoardContext(boardId : "", scene : sceneView.scene);

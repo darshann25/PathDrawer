@@ -9,15 +9,14 @@
 import UIKit
 
 class SceneView : UIView {
-
+    
     // tuple of points
-    var scene = Scene();
-    var toolManager = ToolManager();
+    var scene = Scene.sharedInstance;
+    var toolManager = Scene.sharedInstance.toolManager;
     private var width = 0.00
     private var height = 0.00
     // The canvas, which acts as the view onto the Scene.
     @IBOutlet weak var canvas : UIView?;
-    // var canvas = document.getElementById('mainCanvas');
     
     // To determine whether the scene wants the mouse events.
     var sceneGrabbedMouse = false;
@@ -27,6 +26,27 @@ class SceneView : UIView {
     var viewTop = 0;
     // 1.25^2=1.5625
     var zoom = Double(1.5625);
+    
+    /*
+     override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addBehavior();
+    }
+    
+    convenience init() {
+        self.init(frame: CGRect.zero)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("This class does not support NSCoding")
+    }
+    
+    func addBehavior() {
+        print("Add all the behavior here")
+        self.scene = Scene();
+        self.toolManager = ToolManager();
+    }
+    */
     
     func getWidth()->Double {
         return width

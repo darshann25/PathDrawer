@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class Scene {
+    
+    // SINGLETON
+    static var sharedInstance = Scene();
+    
     var items = [Item]();
     
     // This is responsible for decorating the background of the Scene. It is drawn first.
@@ -25,6 +29,7 @@ class Scene {
     var clickResponders : [Item];
     // These are not drawn, but respond to keyboard events
     var keyResponders : [Item];
+    var toolManager : ToolManager;
     
     // The responders to the most recent event.
     //var activeHoverResponder : Item;
@@ -33,7 +38,7 @@ class Scene {
     // This is a list of all SceneViews that are watching the Scene.
     var sceneViews : [SceneView];
     
-    init() {
+    private init() {
         self.background = Background();
         self.sceneItems = [Item]();
         self.sceneItemsById = [Item]();
@@ -45,8 +50,12 @@ class Scene {
         //self.activeHoverResponder = Item();
         //self.activeClickResponder = Item();
         
+        self.toolManager = ToolManager();
+        
         // This is a list of all SceneViews that are watching the Scene.
         self.sceneViews = [SceneView]();
+        
+        print("In Scene");
     }
     
     // resets the state of the scene

@@ -42,7 +42,7 @@ class Item {
         // Represents the transformation of the item.
         //   This transformation is applied to the item, so if it is scale by 2, then the ite appears twice as large.
         //    Do not access this property directly--use getMatrix() and setMatrix() instead. (Otherwise inverseMatrix and boundingRect might be wrong.)
-        self.scene = Scene();
+        self.scene = Scene.sharedInstance;
         self.matrix = state.getMatrix();
         self.inverseMatrix = state.getMatrix().inverse();
         

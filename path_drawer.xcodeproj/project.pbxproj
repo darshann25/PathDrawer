@@ -246,7 +246,6 @@
 		F281D3971F8D0ADD006A7B2B /* ItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemState.swift; sourceTree = "<group>"; };
 		F281D39B1F8D9A86006A7B2B /* ImageItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemState.swift; sourceTree = "<group>"; };
 		F2B526901FA962DC0077680F /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
-		F2BB7DC01FB75AD900AAE435 /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
 		F2D611031F8131C400872F8C /* PathItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItem.swift; sourceTree = "<group>"; };
 		F2D611051F8131E800872F8C /* PenTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenTool.swift; sourceTree = "<group>"; };
 		F2D611071F81792F00872F8C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
@@ -291,7 +290,6 @@
 		1F3E80E21F7D295C00632EB3 = {
 			isa = PBXGroup;
 			children = (
-				F2BB7DC01FB75AD900AAE435 /* Source */,
 				1F3E80ED1F7D295C00632EB3 /* path_drawer */,
 				1F3E81021F7D295C00632EB3 /* path_drawerTests */,
 				1F3E810D1F7D295C00632EB3 /* path_drawerUITests */,

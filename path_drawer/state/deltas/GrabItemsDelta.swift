@@ -53,22 +53,22 @@ class GrabItemsDelta : Delta {
     
     //UNCOMMENT AFTER implementing scene
     func applyToScene (){
-        sceneView.scene.beginChanges()
+        Scene.sharedInstance.beginChanges()
         var items = [Item]()
         var initialMatrixInverse = self.initialMatrix.inverse()
         var i = 0
         while (i < uids.count) {
             let itemId = self.uids[i].id
             let itemDevId = self.uids[i].devId
-            let item = sceneView.scene.getItemById(id: itemId, devId: itemDevId)
-            sceneView.scene.removeSceneItem(item: item)
+            let item = Scene.sharedInstance.getItemById(id: itemId, devId: itemDevId)
+            Scene.sharedInstance.removeSceneItem(item: item)
             //item.setMatrix(initialMatrixInverse.times(item.getMatrix()))
             //item.push(item)
             i += i
         }
         
         //UNCOMMENT AFTER implementing DevicesManager, SelectionItemT, ItemT
-        var isMyGrab = (self.holderDevId == boardContext.devicesManager.getMyDeviceId())
+        var isMyGrab = (self.holderDevId == BoardViewController.BoardContext.sharedInstance.devicesManager.getMyDeviceId())
         var itemT : ItemT
         switch (intent) {
         case GrabItemsDelta.intents.SelectionItemT:

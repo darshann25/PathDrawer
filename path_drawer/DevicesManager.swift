@@ -41,14 +41,14 @@ class DevicesManager {
 
     var messenger : Messenger;
     
-    init() {
+    init(messenger : Messenger) {
         self.thisDevice = Device(id : -1, peerId : -1, accessLevel : "unknown");
         self.devices = [Int: Device]();
         self.resourcesToSend = [[String: Any]()];
         self.deltasToSend = [()];
         self.boardStateFromServerTimerId = -1;
         
-        self.messenger = boardContext.messenger;
+        self.messenger = messenger;
         
         
         ///////////////
