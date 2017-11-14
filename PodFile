@@ -5,5 +5,5 @@ use_frameworks!
 
 target 'path_drawer' do
     pod 'Socket.IO-Client-Swift', '~> 11.1.3' # Or latest version
-    pod 'Starscream', '~> 2.0.3'
+    pod 'Starscream', '~> 2.1.1'
 end

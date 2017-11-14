@@ -13,11 +13,15 @@ import SocketIO
 class SocketIOManager {
     
     let socket : SocketIOClient;
+    
+    
     var boardId : String;
     
     init(boardId : String) {
         self.boardId = boardId;
-        self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000/board")!, config: [.log(true), .compress]);
+        //self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000/board")!, config: [.log(true), .compress]);
+        self.manager = SocketManager(socketURL: URL(string:"http://localhost:3000/")!)
+        self.socket = manager.socket(forNamespace: "/board")
         print("In SocketIOManager Constructor");
     }
     

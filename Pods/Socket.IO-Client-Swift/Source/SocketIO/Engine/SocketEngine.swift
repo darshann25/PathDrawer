@@ -24,7 +24,7 @@
 
 import Dispatch
 import Foundation
-import StarscreamSocketIO
+import Starscream
 
 /// The class that handles the engine.io protocol and transports.
 /// See `SocketEnginePollable` and `SocketEngineWebsocket` for transport specific methods.
@@ -134,7 +134,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
     private var pongsMissedMax = 0
     private var probeWait = ProbeWaitQueue()
     private var secure = false
-    private var security: SSLSecurity?
+    private var security: SocketIO.SSLSecurity?
     private var selfSigned = false
 
     // MARK: Initializers
@@ -206,7 +206,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
 
     private func checkAndHandleEngineError(_ msg: String) {
         do {
-            let dict = try msg.toNSDictionary()
+            let dict = try msg.toDictionary()
             guard let error = dict["message"] as? String else { return }
 
             /*
@@ -223,7 +223,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
 
     private func handleBase64(message: String) {
         // binary in base64 string
-        let noPrefix = message[message.index(message.startIndex, offsetBy: 2)..<message.endIndex]
+        let noPrefix = String(message[message.index(message.startIndex, offsetBy: 2)..<message.endIndex])
 
         if let data = Data(base64Encoded: noPrefix, options: .ignoreUnknownCharacters) {
             client?.parseEngineBinaryData(data)
@@ -255,7 +255,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
             disconnect(reason: "reconnect")
         }
 
-        DefaultSocketLogger.Logger.log("Starting engine. Server: %@", type: SocketEngine.logType, args: url)
+        DefaultSocketLogger.Logger.log("Starting engine. Server: \(url)", type: SocketEngine.logType)
         DefaultSocketLogger.Logger.log("Handshaking", type: SocketEngine.logType)
 
         resetEngine()
@@ -325,18 +325,19 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
             }
         }
 
+        
         ws?.callbackQueue = engineQueue
         ws?.enableCompression = compress
         ws?.delegate = self
         ws?.disableSSLCertValidation = selfSigned
-        ws?.security = security
+        ws?.security = security?.security
 
         ws?.connect()
     }
 
     /// Called when an error happens during execution. Causes a disconnection.
     public func didError(reason: String) {
-        DefaultSocketLogger.Logger.error("%@", type: SocketEngine.logType, args: reason)
+        DefaultSocketLogger.Logger.error("\(reason)", type: SocketEngine.logType)
         client?.engineDidError(reason: reason)
         disconnect(reason: reason)
     }
@@ -435,7 +436,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
     }
 
     private func handleOpen(openData: String) {
-        guard let json = try? openData.toNSDictionary() else {
+        guard let json = try? openData.toDictionary() else {
             didError(reason: "Error parsing open packet")
 
             return
@@ -490,7 +491,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
     ///
     /// - parameter data: The data to parse.
     public func parseEngineData(_ data: Data) {
-        DefaultSocketLogger.Logger.log("Got binary data: %@", type: SocketEngine.logType, args: data)
+        DefaultSocketLogger.Logger.log("Got binary data: \(data)", type: SocketEngine.logType)
 
         client?.parseEngineBinaryData(data.subdata(in: 1..<data.endIndex))
     }
@@ -501,7 +502,7 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
     /// - parameter fromPolling: Whether this message is from long-polling.
     ///                          If `true` we might have to fix utf8 encoding.
     public func parseEngineMessage(_ message: String) {
-        DefaultSocketLogger.Logger.log("Got message: %@", type: SocketEngine.logType, args: message)
+        DefaultSocketLogger.Logger.log("Got message: \(message)", type: SocketEngine.logType)
 
         let reader = SocketStringReader(message: message)
 
@@ -517,13 +518,13 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
 
         switch type {
         case .message:
-            handleMessage(String(message.characters.dropFirst()))
+            handleMessage(String(message.dropFirst()))
         case .noop:
             handleNOOP()
         case .pong:
             handlePong(with: message)
         case .open:
-            handleOpen(openData: String(message.characters.dropFirst()))
+            handleOpen(openData: String(message.dropFirst()))
         case .close:
             handleClose(message)
         default:
@@ -562,8 +563,11 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
         pongsMissed += 1
         write("", withType: .ping, withData: [])
 
-        engineQueue.asyncAfter(deadline: DispatchTime.now() + .milliseconds(pingInterval)) {[weak self] in
-            self?.sendPing()
+        engineQueue.asyncAfter(deadline: DispatchTime.now() + .milliseconds(pingInterval)) {[weak self, id = self.sid] in
+            // Make sure not to ping old connections
+            guard let this = self, this.sid == id else { return }
+
+            this.sendPing()
         }
     }
 
@@ -588,12 +592,12 @@ public final class SocketEngine : NSObject, URLSessionDelegate, SocketEnginePoll
             guard self.connected else { return }
 
             if self.websocket {
-                DefaultSocketLogger.Logger.log("Writing ws: %@ has data: %@",
-                                               type: SocketEngine.logType, args: msg, data.count != 0)
+                DefaultSocketLogger.Logger.log("Writing ws: \(msg) has data: \(data.count != 0)",
+                                               type: SocketEngine.logType)
                 self.sendWebSocketMessage(msg, withType: type, withData: data)
             } else if !self.probing {
-                DefaultSocketLogger.Logger.log("Writing poll: %@ has data: %@",
-                                               type: SocketEngine.logType, args: msg, data.count != 0)
+                DefaultSocketLogger.Logger.log("Writing poll: \(msg) has data: \(data.count != 0)",
+                                               type: SocketEngine.logType)
                 self.sendPollMessage(msg, withType: type, withData: data)
             } else {
                 self.probeWait.append((msg, type, data))
