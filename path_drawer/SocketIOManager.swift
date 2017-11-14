@@ -12,23 +12,27 @@ import SocketIO
 // TODO : Import all handlers from public/js/socketioclient.js
 class SocketIOManager {
     
-    let socket : SocketIOClient;
+    let socket : SocketIOClient
+    let boardSocket : SocketIOClient
+    let manager : SocketManager
     
     
     var boardId : String;
     
     init(boardId : String) {
         self.boardId = boardId;
-        //self.socket = SocketIOClient(socketURL: URL(string: "http://localhost:3000/board")!, config: [.log(true), .compress]);
-        self.manager = SocketManager(socketURL: URL(string:"http://localhost:3000/")!)
-        self.socket = manager.socket(forNamespace: "/board")
+        self.manager = SocketManager(socketURL: URL(string: "http://localhost:3000")!, config: [.log(true), .compress])
+        self.socket = self.manager.defaultSocket
+        self.boardSocket = self.manager.socket(forNamespace: "/board")
+
+        
         print("In SocketIOManager Constructor");
     }
     
     func establistConnection() {
         print("In establishConnection")
         
-        socket.on(clientEvent: .connect) {data, ack in
+        boardSocket.on(clientEvent: .connect) {data, ack in
             print("In Socket.connect")
             
             let params: [String : Any] = [
@@ -38,7 +42,7 @@ class SocketIOManager {
             ]
             if (JSONSerialization.isValidJSONObject(params)) {
                 print("Socket about to EMIT!");
-                self.socket.emit("join_request", params);
+                self.boardSocket.emit("join_request", params);
             }
             
             /*
@@ -58,7 +62,7 @@ class SocketIOManager {
             }
             */
         }
-        socket.connect()
+        boardSocket.connect()
         
     }
     

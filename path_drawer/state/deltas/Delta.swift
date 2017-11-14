@@ -42,7 +42,7 @@ class Delta {
             print ("Delta has no version")
         }
         if (obj["deltaType"] != nil) {
-            let type = obj["deltaType"]
+            let _ = obj["deltaType"]
         }
         else {
             print ("Delta has no deltaType")
