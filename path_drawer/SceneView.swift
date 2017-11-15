@@ -10,36 +10,6 @@ import UIKit
 
 class SceneView : UIView {
    
-    public static var sharedInstance = SceneView(frame: CGRect())
-    
-    /////////////////////
-    // USER INTERFACE  //
-    /////////////////////
-    
-    @IBAction func PenTool(_ sender: UIButton) {
-        onPenBtnClicked()
-    }
-    
-    @IBAction func Highlighter(_ sender: UIButton) {
-        onHighlighterButtonClicked()
-    }
-    
-    @IBAction func one(_ sender: Any) {
-        onPenSize1BtnClicked()
-    }
-    
-    @IBAction func two(_ sender: Any) {
-        onPenSize2BtnClicked()
-    }
-    
-    @IBAction func three(_ sender: Any) {
-        onPenSize3BtnClicked()
-    }
-    
-    @IBAction func four(_ sender: Any) {
-        onPenSize4BtnClicked()
-    }
-    
     var primaryTool : Tool
     
     private override init(frame: CGRect) {
@@ -53,6 +23,36 @@ class SceneView : UIView {
         super.init(coder: aDecoder)
     }
     
+    
+    
+    
+    /////////////////////
+    // USER INTERFACE  //
+    /////////////////////
+    
+    @IBAction func PenTool(_ sender: UIButton) {
+        onPenBtnClicked(sv : self)
+    }
+    
+    @IBAction func Highlighter(_ sender: UIButton) {
+        onHighlighterButtonClicked(sv : self)
+    }
+    
+    @IBAction func one(_ sender: Any) {
+        onPenSize1BtnClicked(sv : self)
+    }
+    
+    @IBAction func two(_ sender: Any) {
+        onPenSize2BtnClicked(sv : self)
+    }
+    
+    @IBAction func three(_ sender: Any) {
+        onPenSize3BtnClicked(sv : self)
+    }
+    
+    @IBAction func four(_ sender: Any) {
+        onPenSize4BtnClicked(sv : self)
+    }
 
     // tuple of points
     var scene = Scene.sharedInstance;
@@ -70,27 +70,6 @@ class SceneView : UIView {
     var viewTop = 0;
     // 1.25^2=1.5625
     var zoom = Double(1.5625);
-    
-    /*
-     override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.addBehavior();
-    }
-    
-    convenience init() {
-        self.init(frame: CGRect.zero)
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        fatalError("This class does not support NSCoding")
-    }
-    
-    func addBehavior() {
-        print("Add all the behavior here")
-        self.scene = Scene();
-        self.toolManager = ToolManager();
-    }
-    */
     
     func getWidth()->Double {
         return width

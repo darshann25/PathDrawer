@@ -48,10 +48,10 @@ class ChangeItemDelta : Delta {
     
     //UNCOMMENT AFTER item fully implemented
     func applyToScene (){
-        var oldItem = sceneView.scene.getItemById(id: self.from.id, devId: self.from.devId)
+        //var oldItem = Scene.sharedInstance.getItemById(id: self.from.id, devId: self.from.devId)
         //var newItem = item.fromItemState(self.to)
         //if (oldItem) {
-        sceneView.scene.removeSceneItem(item: oldItem)
+        //Scene.sharedInstance.removeSceneItem(item: oldItem)
         //}
         //sceneView.scene.addSceneItem(item: newItem)
     }
