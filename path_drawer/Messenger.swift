@@ -37,15 +37,18 @@ class Messenger {
             "message": message
         ]
         
+        socket.emitData(type : "relay", data : data);
+        
+        /*
         let JSONdata : Data;
         //let JSONdata = JSONSerialization.isValidJSONObject(data);
         do {
             JSONdata = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-            socket.emit(type : "relay", data : JSONdata);
+            socket.emitData(type : "relay", data : JSONdata);
         } catch {
             print(error.localizedDescription)
         }
-        
+        */
     }
     
     // similar to broadcast, but only to another device

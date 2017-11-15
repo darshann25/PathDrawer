@@ -24,9 +24,9 @@ class BoardViewController: UIViewController {
     
     
     class BoardContext {
-        
+     
         // SINGLETON
-        static var sharedInstance = BoardContext(boardId : "rJvtD5IJf", scene : Scene.sharedInstance);
+        static var sharedInstance = BoardContext(boardId : "BkJAF1dyz", scene : Scene.sharedInstance);
         
         var socketIOManager : SocketIOManager;
         var messenger : Messenger;
@@ -45,8 +45,8 @@ class BoardViewController: UIViewController {
             self.scene = scene;
             
             self.socketIOManager = SocketIOManager(boardId : self.boardId);
-            socketIOManager.connect();
-            print("Device is connected!");
+            // socketIOManager.establistConnection();
+            // print("Device is connected!");
             
             self.messenger = Messenger(socketIOManager : socketIOManager);
             self.devicesManager = DevicesManager(messenger : self.messenger);

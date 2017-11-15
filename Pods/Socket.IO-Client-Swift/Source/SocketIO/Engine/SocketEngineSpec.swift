@@ -24,7 +24,7 @@
 //
 
 import Foundation
-import StarscreamSocketIO
+import Starscream
 
 /// Specifies a SocketEngine.
 @objc public protocol SocketEngineSpec {
@@ -33,6 +33,9 @@ import StarscreamSocketIO
 
     /// `true` if this engine is closed.
     var closed: Bool { get }
+
+    /// If `true` the engine will attempt to use WebSocket compression.
+    var compress: Bool { get }
 
     /// `true` if this engine is connected. Connected means that the initial poll connect has succeeded.
     var connected: Bool { get }
@@ -87,7 +90,7 @@ import StarscreamSocketIO
     /// - parameter client: The client for this engine.
     /// - parameter url: The url for this engine.
     /// - parameter options: The options for this engine.
-    init(client: SocketEngineClient, url: URL, options: NSDictionary?)
+    init(client: SocketEngineClient, url: URL, options: [String: Any]?)
 
     /// Starts the connection to the server.
     func connect()
@@ -161,12 +164,7 @@ extension SocketEngineSpec {
 
     func createBinaryDataForSend(using data: Data) -> Either<Data, String> {
         if websocket {
-            var byteArray = [UInt8](repeating: 0x4, count: 1)
-            let mutData = NSMutableData(bytes: &byteArray, length: 1)
-
-            mutData.append(data)
-
-            return .left(mutData as Data)
+            return .left(Data(bytes: [0x4]) + data)
         } else {
             return .right("b4" + data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0)))
         }
