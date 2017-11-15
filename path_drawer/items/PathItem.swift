@@ -15,41 +15,70 @@ class PathItem : Item {
     // private //
     /////////////
     
-    private var path : Path;
-    private var pathItemColor : CGColor;
-    private var pathItemSize : CGFloat;
-    private var pathItemOpacity : CGFloat;
+    private var path : Path
+    private var pathItemColor : CGColor
+    private var pathItemSize : CGFloat
+    private var pathItemOpacity : CGFloat
     
-    private var resource : Resource;
-    private var beginIndex : Int;
-    private var endIndex : Int;
-    private var pointBuffer : PointBuffer;
+    private var resource : Resource
+    private var beginIndex : Int
+    private var endIndex : Int
+    private var pointBuffer : PointBuffer
     private var points : [Point]
     
-    // var prePathItemT : PrePathItemT;
+    // var prePathItemT : PrePathItemT
     
     init (state: PathItemState) {
         
-        self.pathItemColor = state.color;
-        self.pathItemSize = state.size;
-        self.pathItemOpacity = state.opacity;
+        self.pathItemColor = state.color
+        self.pathItemSize = state.size
+        self.pathItemOpacity = state.opacity
         
-        self.resource = state.resource;
-        self.beginIndex = state.beginIndex;
-        self.endIndex = state.endIndex;
-        self.points = resource.data as! [Point];
+        self.resource = state.resource
+        self.beginIndex = state.beginIndex
+        self.endIndex = state.endIndex
+        self.points = resource.data as! [Point]
         
         self.pointBuffer = PointBuffer(pointsArray : resource.data as! [Point])
-        self.path = Path(buffer: pointBuffer, begin: state.beginIndex, end: state.endIndex)
+        self.path = Path(buffer: pointBuffer, s0: state.beginIndex, s1: state.endIndex)
         
         super.init(state: state)
     }
     
-    func shallowCopyItemState(id : Int, devId : Int){
+    func shallowCopyItemState(id : Int, devId : Int) -> PathItemState {
         return PathItemState(id: id, devId : devId, matrix: self.matrix.copy(), resource : self.resource, beginIndex: self.beginIndex,
-                             endIndex: self.endIndex, color: self.pathItemColor, size: self.pathItemSize, opacity: self.pathItemOpacity )
+                             endIndex: self.endIndex, color: self.pathItemColor, size: self.pathItemSize, opacity: self.pathItemOpacity)
+    }
+    
+    func drawOnCanvas(sv : SceneView) {
+        if let context = UIGraphicsGetCurrentContext() {
+            
+            context.beginPath()
+            context.saveGState()
+            
+            context.setStrokeColor(self.pathItemColor)
+            context.setLineWidth(self.pathItemSize)
+            context.setAlpha(self.pathItemOpacity)
+            context.setLineCap(CGLineCap.round)
+            let matrix = self.matrix
+            //context.transform(matrix)
+            
+            context.restoreGState()
+            
+        }
     }
 
+    override func getPdfgenData(matrix: Matrix) {
+        var xs = [Double]()
+        var ys = [Double]()
+        
+        var i = 0
+        //while (i < self.pointBuffer.points.count) {
+            
+        }
+    }
+    
+    
     /*func getPdfGenData (matrix: Matrix) {
      var xs = [0]
      var ys = [0]
