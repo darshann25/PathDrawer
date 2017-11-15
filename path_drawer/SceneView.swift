@@ -10,6 +10,28 @@ import UIKit
 
 class SceneView : UIView {
     
+    @IBAction func PenTool(_ sender: UIButton) {
+        onHighlighterButtonClicked()
+    }
+    
+    @IBAction func Highlighter(_ sender: UIButton) {
+        onPenBtnClicked()
+    }
+    
+    var primaryTool : Tool
+    
+    override init(frame: CGRect) {
+        self.primaryTool = toolManager.penTool
+        super.init(frame: frame)
+    }
+    
+    //required to subclass UIView
+    required init?(coder aDecoder: NSCoder) {
+        self.primaryTool = toolManager.penTool
+        super.init(coder: aDecoder)
+    }
+    
+
     // tuple of points
     var scene = Scene.sharedInstance;
     var toolManager = Scene.sharedInstance.toolManager;
@@ -57,12 +79,17 @@ class SceneView : UIView {
         return height
     }
     
+    //var primaryTool : Tool
+    //var secondaryTool : Tool
+    
     func setPrimaryTool(tool : Tool) {
+        primaryTool = tool
+        print(primaryTool)
     
     }
     
     func setSecondaryTool(tool : Tool) {
-    
+        //secondaryTool = tool
     }
     
     // internal
@@ -159,15 +186,15 @@ class SceneView : UIView {
     }
     
     override func touchesBegan(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
-        toolManager.penTool.onDown(touches: touchPoints, sceneView: self);
+        self.primaryTool.onDown(touches: touchPoints, sceneView: self);
     }
     
     override func touchesMoved(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
-        toolManager.penTool.onMove(touches: touchPoints, sceneView: self);
+       self.primaryTool.onMove(touches: touchPoints, sceneView: self);
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        toolManager.penTool.onUp(scene: &scene, sceneView: self);
+        self.primaryTool.onUp(scene: &scene, sceneView: self);
         // setNeedsDisplay();
     }
     
