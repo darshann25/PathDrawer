@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-let sceneView = SceneView();
+let sceneView = SceneView.sharedInstance
 
     func onHighlighterButtonClicked(){
         let highlighterTool = Scene.sharedInstance.toolManager.getHighlighterTool()

@@ -9,18 +9,40 @@
 import UIKit
 
 class SceneView : UIView {
+   
+    public static var sharedInstance = SceneView(frame: CGRect())
+    
+    /////////////////////
+    // USER INTERFACE  //
+    /////////////////////
     
     @IBAction func PenTool(_ sender: UIButton) {
-        onHighlighterButtonClicked()
+        onPenBtnClicked()
     }
     
     @IBAction func Highlighter(_ sender: UIButton) {
-        onPenBtnClicked()
+        onHighlighterButtonClicked()
+    }
+    
+    @IBAction func one(_ sender: Any) {
+        onPenSize1BtnClicked()
+    }
+    
+    @IBAction func two(_ sender: Any) {
+        onPenSize2BtnClicked()
+    }
+    
+    @IBAction func three(_ sender: Any) {
+        onPenSize3BtnClicked()
+    }
+    
+    @IBAction func four(_ sender: Any) {
+        onPenSize4BtnClicked()
     }
     
     var primaryTool : Tool
     
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         self.primaryTool = toolManager.penTool
         super.init(frame: frame)
     }
@@ -83,8 +105,7 @@ class SceneView : UIView {
     //var secondaryTool : Tool
     
     func setPrimaryTool(tool : Tool) {
-        primaryTool = tool
-        print(primaryTool)
+        self.primaryTool = tool
     
     }
     
