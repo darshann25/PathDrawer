@@ -11,8 +11,8 @@ import UIKit
 
 class Point{
     
-    var x = 0.00;
-    var y = 0.00;
+    private var x = 0.00;
+    private var y = 0.00;
     
     init(x: Double,y: Double){
         
@@ -39,6 +39,20 @@ class Point{
         
     }
     
+    func getX() -> Double {
+        return self.x
+    }
+    
+    func getY() -> Double {
+        return self.y
+    }
+    func setX(val : Double) {
+        self.x = val
+    }
+    func setY(val : Double) {
+        self.y = val
+    }
+    
 }
 
 func convertFromCGPoint(point : CGPoint) -> Point {
@@ -49,7 +63,7 @@ func convertFromCGPoint(point : CGPoint) -> Point {
 
 func convertToCGPoint(point : Point) -> CGPoint {
     
-    return CGPoint(x: point.x, y: point.y);
+    return CGPoint(x: point.getX(), y: point.getY());
     
 }
 

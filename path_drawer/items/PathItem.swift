@@ -6,6 +6,18 @@
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
+/*
+     The Path class represents a path, which is internally defined by a PointBuffer and a float-valued index range.
+     For closed paths, the initial point also appears at the end of the PointBuffer (to simplify a few algorithms).
+     The parameter for a path (often denoted as 's') can be float-valued (see PointBuffer.getPoint())
+     If it is an integer, it indexes a point in the PointBuffer.
+     Otherwise, it interpolates between the two nearest points in the PointBuffer.
+     Note that some paths may not start at parameter 0 (or end at parameter PointBuffer.length-1).
+     If a parameter is given out of range, it should be clamped to the given range.
+     Paths can be joined. See this.nextPath and Path.getPoint() for details of the implementation.
+ */
+
+
 import Foundation
 import UIKit
 
@@ -39,7 +51,7 @@ class PathItem : Item {
         self.endIndex = state.endIndex
         self.points = resource.data as! [Point]
         
-        self.pointBuffer = PointBuffer(pointsArray : resource.data as! [Point])
+        self.pointBuffer = PointBuffer(pointsArray : self.points)
         self.path = Path(buffer: pointBuffer, s0: state.beginIndex, s1: state.endIndex)
         
         super.init(state: state)
@@ -75,7 +87,7 @@ class PathItem : Item {
         var i = 0
         //while (i < self.pointBuffer.points.count) {
             
-        }
+        //}
     }
     
     
@@ -115,7 +127,7 @@ class PathItem : Item {
     /////////////////////////////
     override func draw() {
         
-        var prevPoint = points[0];
+        var prevPoint = self.points[0];
         var i = 1;
         while(i < points.count) {
             let point = points[i];
@@ -125,8 +137,8 @@ class PathItem : Item {
                 context.setLineWidth(self.pathItemSize);
                 context.setAlpha(self.pathItemOpacity);
                 context.beginPath(); //start drawing
-                context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)); // move to old points
-                context.addLine(to: CGPoint(x: point.x, y: point.y)); // add line to new points
+                context.move(to: CGPoint(x: prevPoint.getX(), y: prevPoint.getY())); // move to old points
+                context.addLine(to: CGPoint(x: point.getX(), y: point.getY())); // add line to new points
                 context.strokePath(); //fill the path
             }
 
@@ -134,7 +146,4 @@ class PathItem : Item {
             i+=1;
         }
     }
-    
-    
-
 }

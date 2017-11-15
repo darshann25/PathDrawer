@@ -15,10 +15,14 @@ class PointBuffer {
     
     init(pointsArray : [Point]) {
         self.points = pointsArray
+        xs = [Double]()
+        ys = [Double]()
+        print(self.points.count)
         
-        for i in 0...pointsArray.count {
-            xs[i] = pointsArray[i].x
-            ys[i] = pointsArray[i].y
+        for i in 0...(self.points.count - 1) {
+            print(i)
+            xs.append(self.points[i].getX())
+            ys.append(self.points[i].getY())
         }
         
     }
@@ -28,14 +32,14 @@ class PointBuffer {
         
         let fl_s = floor(s)
         let lambda = s - fl_s
-        let x = (1 - lambda) * self.points[fl_s].x + lambda * self.points[fl_s + 1].x
-        let y = (1 - lambda) * self.points[fl_s].y + lambda * self.points[fl_s + 1].y
+        let x = (1 - lambda) * self.points[Int(fl_s)].getX() + lambda * self.points[Int(fl_s + 1)].getX()
+        let y = (1 - lambda) * self.points[Int(fl_s)].getY() + lambda * self.points[Int(fl_s + 1)].getY()
         let pt = Point(x : x, y : y)
         
         return pt
     }
     
-    func toArray() {
+    func toArray() -> [Point] {
         return self.points;
     }
     

@@ -24,7 +24,7 @@ class PenTool : Tool {
         self.size = size;
         self.opacity = opacity;
         
-        points = [Point]();
+        self.points = [Point]();
         super.init();
     }
     
@@ -35,12 +35,12 @@ class PenTool : Tool {
     override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView);
-            if startPoint == point {
-                startPoint = CGPoint.zero;
+            if self.startPoint == point {
+                self.startPoint = CGPoint.zero;
             } else {
-                startPoint = point;
+                self.startPoint = point;
                 let pt = convertFromCGPoint(point : point);
-                points.append(pt);
+                self.points.append(pt);
             }
         }
     }
@@ -55,27 +55,31 @@ class PenTool : Tool {
             //    euclid_dist = interpolate_points(start: &prevPoint, end: &point);
             //}
             let pt = convertFromCGPoint(point : point);
-            points.append(pt);
+            self.points.append(pt);
         }
     }
     
     override func onUp(scene: inout Scene, sceneView: SceneView){
         //points.append(point);
-        let lastPt = points[points.count - 1];
+        
+        var lastPt = convertFromCGPoint(point: startPoint)
+        if (self.points.count > 1){
+            lastPt = self.points[self.points.count - 1];
+        }
         let lastPoint = convertToCGPoint(point : lastPt);
         
-        if lastPoint != startPoint {
+        if lastPoint != self.startPoint {
             let resource = Resource(id: 1, devId: 1, data: points);
-            let pItemState = PathItemState(id: 1, devId: 1, matrix: Matrix(), resource: resource, beginIndex: 0, endIndex: self.points.count, color: self.color, size: self.size, opacity: self.opacity)
+            let pItemState = PathItemState(id: 1, devId: 1, matrix: Matrix(), resource: resource, beginIndex: 0, endIndex: 0, color: self.color, size: self.size, opacity: self.opacity)
             let pItem = PathItem(state : pItemState);
             scene.addItem(item: pItem);
         }
-        points = [Point]();
+        self.points = [Point]();
         sceneView.refreshView();
     }
     
     func euclidean_dist(start : Point, end : Point) -> Int {
-        let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
+        let dist = sqrt(pow(end.getX() - start.getX(), 2) + pow(end.getY() - start.getY(), 2));
         return Int(dist);
     }
     
