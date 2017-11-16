@@ -7,23 +7,19 @@
 //
 
 import Foundation
-class BoxRichTextInput {
+class BoxRichTextInput : RichTextInput {
     
-    var textInput: RichTextInput
-
     var width: Float
     var ascent: Float
     var type: String
     
-    init(){
-
-        //TextInput.call(self);
+    override init(){
         
         self.type = "box"
         self.width=1
         self.ascent=1
         
-        self.textInput = RichTextInput();
+        super.init()
     }
     
     //BoxTextInput.prototype = Object.create(TextInput.prototype);

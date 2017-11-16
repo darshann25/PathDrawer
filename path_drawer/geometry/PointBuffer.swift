@@ -9,7 +9,7 @@
 import Foundation
 class PointBuffer {
     
-    private var points : [Point]
+    public var points : [Point]
     public var xs : [Double]
     public var ys : [Double]
     
