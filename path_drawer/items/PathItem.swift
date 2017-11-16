@@ -137,8 +137,8 @@ class PathItem : Item {
                 context.setLineWidth(self.pathItemSize);
                 context.setAlpha(self.pathItemOpacity);
                 context.beginPath(); //start drawing
-                context.move(to: CGPoint(x: prevPoint.getX(), y: prevPoint.getY())); // move to old points
-                context.addLine(to: CGPoint(x: point.getX(), y: point.getY())); // add line to new points
+                context.move(to: CGPoint(x: prevPoint.x, y: prevPoint.y)); // move to old points
+                context.addLine(to: CGPoint(x: point.x, y: point.y)); // add line to new points
                 context.strokePath(); //fill the path
             }
 

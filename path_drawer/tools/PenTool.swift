@@ -79,7 +79,7 @@ class PenTool : Tool {
     }
     
     func euclidean_dist(start : Point, end : Point) -> Int {
-        let dist = sqrt(pow(end.getX() - start.getX(), 2) + pow(end.getY() - start.getY(), 2));
+        let dist = sqrt(pow(end.x - start.x, 2) + pow(end.y - start.y, 2));
         return Int(dist);
     }
     

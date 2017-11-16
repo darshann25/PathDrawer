@@ -73,10 +73,10 @@ class Matrix{
     }
 
     // type verification
-    func timesPoint (point: Point) -> Point{     //prototype conversion pending
+    func timesPoint(point: Point) -> Point{     //prototype conversion pending
         // pending connection to point class
-        return Point(x: self.a * point.getX() + self.c * point.getY() + self.e,
-        y: self.b * point.getX() + self.d * point.getY() + self.f);
+        return Point(x: self.a * point.x + self.c * point.y + self.e,
+        y: self.b * point.x + self.d * point.y + self.f);
     }
 
     func det()->Double{     //prototype conversion pending

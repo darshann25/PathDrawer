@@ -15,16 +15,15 @@ class PointBuffer {
     
     init(pointsArray : [Point]) {
         self.points = pointsArray
-        xs = [Double]()
-        ys = [Double]()
-        print(self.points.count)
+        self.xs = [Double]()
+        self.ys = [Double]()
         
-        for i in 0...(self.points.count - 1) {
-            print(i)
-            xs.append(self.points[i].getX())
-            ys.append(self.points[i].getY())
+        if(self.points.count > 1) {
+            for i in 0...(self.points.count - 1) {
+                self.xs.append(self.points[i].x)
+                self.ys.append(self.points[i].y)
+            }
         }
-        
     }
     
     // returns the point at parameter s (using linear interpolation if s is not an integer)
@@ -32,8 +31,8 @@ class PointBuffer {
         
         let fl_s = floor(s)
         let lambda = s - fl_s
-        let x = (1 - lambda) * self.points[Int(fl_s)].getX() + lambda * self.points[Int(fl_s + 1)].getX()
-        let y = (1 - lambda) * self.points[Int(fl_s)].getY() + lambda * self.points[Int(fl_s + 1)].getY()
+        let x = (1 - lambda) * self.points[Int(fl_s)].x + lambda * self.points[Int(fl_s + 1)].x
+        let y = (1 - lambda) * self.points[Int(fl_s)].y + lambda * self.points[Int(fl_s + 1)].y
         let pt = Point(x : x, y : y)
         
         return pt

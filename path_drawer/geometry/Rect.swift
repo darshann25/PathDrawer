@@ -88,7 +88,7 @@ class Rect{
     // type verification
     func containsPoint(point: Point)-> Bool{    //prototype conversion pending
         
-        return self.containsPointXY(x: point.getX(), y: point.getY());
+        return self.containsPointXY(x: point.x, y: point.y);
         
     }
     
