@@ -29,11 +29,11 @@ class ToolManager {
         self.penTool = PenTool()
         self.penTool.setColor(to: UIColor.black.cgColor)
         self.penTool.setSize(to: 5)
-        self.penTool.setAlpha(to: 1)
+        self.penTool.setOpacity(to: 1)
         
         self.highlighterTool = PenTool();
         self.highlighterTool.setSize(to: 25);
-        self.highlighterTool.setAlpha(to: 0.7);
+        self.highlighterTool.setOpacity(to: 0.7);
         self.highlighterTool.setColor(to: UIColor.yellow.cgColor);
         
         self.textTool = TextTool();

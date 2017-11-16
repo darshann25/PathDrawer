@@ -58,11 +58,6 @@ class Item {
         self.init(state: _state);
     }
     
-    /**
-     Enumeration for all item types.
-     @readonly
-     @enum
-     */
     enum ItemType {
         case Path
         case Image
@@ -79,45 +74,30 @@ class Item {
     // abstract methods //
     //////////////////////
     
-    /**
-     @abstract
-     */
     func shallowCopyItemState() {
         // null
     }
     
-    /**
-     @abstract
-     */
     func drawOnCanvas() {
         // null
     }
     
-    /**
-     @abstract
-     */
     func getBoundingRect() {
         // null
     }
     
-    /**
-     @abstract
-     */
     func intersectsSegment() {
         // null
     }
     
-    /**
-     @abstract
-     @todo Currently this has a default implementation that returns true. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
-     */
+    
+    // TODO: Currently this has a default implementation that returns true. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
     func intersectsRect(rect: CGRect) -> Bool {
         return true;    // assumes boundingRec intersects rect
     }
     
     /**
-     @abstract
-     @todo Currently this has a default implementation that returns null. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
+     TODO Currently this has a default implementation that returns null. Should the line 'throw new Error("Abstract method called.");' be added into the abstract function?
      */
     func getPdfgenData(matrix: Matrix) {
         //return nil;
@@ -126,4 +106,41 @@ class Item {
     func draw() {
         // null
     }
+    
+    
+    
+    // static
+    /**
+     Given an item state, this creates a member of the item class corresponding to that state.
+     @param {ItemState} itemState The ItemState object which encodes the item.
+     @return {Item} The item created from the ItemState information.
+     */
+    func fromItemState(itemState : ItemState) {
+        var type = itemState.type;
+        
+    }
+    
+    /*
+    Item.fromItemState = function(itemState) {
+    var type = itemState.type;
+    if (type === Item.types.PathItem) {
+    return new PathItem(state : itemState);
+    } else if (type === Item.types.ImageItem) {
+    return new ImageItem(itemState);
+    } else if (type === Item.types.InkItem) {
+    return new InkItem(itemState);
+    } else if (type === Item.types.TextItem) {
+    return new TextItem(itemState);
+    } else if (type === 'RichText') {
+    // compatibility for rename, remove me when all old data is deleted
+    analytics.unexpected('Item.fromItemState(): deprecated type: RichText');
+    return new TextItem(itemState);
+    } else if (type === Item.types.EquationItem) {
+    return new EquationItem(itemState);
+    } else if (type === Item.types.RegionItem) {
+    return new RegionItem(itemState);
+    } else {
+    analytics.unexpected(`Item.fromItemState(): unknown type: ${ type }`);
+    }
+    };*/
 }

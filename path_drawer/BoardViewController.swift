@@ -26,6 +26,7 @@ class BoardViewController: UIViewController {
     class BoardContext {
      
         // SINGLETON
+
         static var sharedInstance = BoardContext(boardId : "HJvQ6YcJG", scene : Scene.sharedInstance);
         
         var socketIOManager : SocketIOManager;
