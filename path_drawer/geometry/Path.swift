@@ -169,6 +169,8 @@ class Path {
         var right = p_start.x
         var top = p_start.y;
         var bottom = p_start.y;
+        
+        // TODO : LinerToCubic.js in Items
         /*
         for i in 0...(self.cubicData.count - 1) {
             var cd = self.cubicData[i];
