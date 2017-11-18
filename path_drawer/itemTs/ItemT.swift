@@ -7,6 +7,27 @@
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
+
+/*
+ ItemTs are objects that belong to the Scene in the foreground layer only. ItemTs are similar to Items, but do not correspond to ItemStates as they are only transient UI objects. They are capable of responding to mouse and key input events, are likely to change state very frequently, and render differently. (They are given the canvas without the pre-applied context transformation so they can draw shapes with sizes independent of zoom.) For this reason, ItemTs are not as efficient at drawing as Items, but fortunately, it is unlikely that many ItemTs will be present at a given time.
+ 
+ List of subclasses of ItemT
+ + PrePathItemT
+ + PreInkItemT
+ + BoxPreSelectionItemT (needs to be updated)
+ + LassoPreSelectionItemT (coming soon)
+ + SelectionItemT (needs to be updated)
+ + HaloItemT
+ + ViewRectItemT
+ + TextEditItemT (coming soon)
+ + MathEditItemT (coming soon)
+ + ShapeEditItemT (coming soon)
+ 
+ List of functions to use outside this file
+ + drawOnCanvas
+ 
+ */
+
 import Foundation
 class ItemT {
     
