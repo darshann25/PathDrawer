@@ -10,6 +10,8 @@ import UIKit
 import Foundation
 
 class PrePathItemT : ItemT {
-
+    init() {
+        super.init(scene: Scene.sharedInstance, respondsToHoverEvents: false, respondsToClickEvents: false, respondsToKeyEvents: false)
+    }
 }
 

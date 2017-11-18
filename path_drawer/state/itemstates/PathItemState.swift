@@ -19,8 +19,7 @@ class PathItemState : ItemState {
     var size : CGFloat;
     var opacity : CGFloat;
     
-    init(id : Int, devId : Int, matrix : Matrix, resource : Resource, beginIndex : Int, endIndex : Int, color : CGColor,
-                       size : CGFloat, opacity : CGFloat) {
+    init(id : Int, devId : Int, matrix : Matrix, resource : Resource, beginIndex : Int, endIndex : Int, color : CGColor, size : CGFloat, opacity : CGFloat) {
         self.resource = resource;
         self.beginIndex = beginIndex;
         self.endIndex = endIndex;
