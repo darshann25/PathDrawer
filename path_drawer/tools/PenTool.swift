@@ -22,7 +22,7 @@ class PenTool : Tool {
     private var x0, y0 : Double
     private var scene : Scene
     private var delManager : DelManager
-    private var messanger : Messenger
+    private var messenger : Messenger
     private var devicesManager : DevicesManager
     private var boardStateManager : BoardStateManager
     
@@ -37,7 +37,7 @@ class PenTool : Tool {
         self.y0 = 0
         self.scene = Scene.sharedInstance
         self.delManager = BoardViewController.BoardContext.sharedInstance.delManager
-        self.messanger = BoardViewController.BoardContext.sharedInstance.messenger
+        self.messenger = BoardViewController.BoardContext.sharedInstance.messenger
         self.devicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
         self.boardStateManager = BoardViewController.BoardContext.sharedInstance.boardStateManager
         

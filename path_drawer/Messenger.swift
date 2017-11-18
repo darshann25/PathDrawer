@@ -15,18 +15,21 @@ import Foundation
 class Messenger {
     
     // list of all message handlers
-    var handlers : Dictionary<String, Any>;
+    private var handlers : Dictionary<String, Any>;
     
     // used to save messages received before a device instance is created (indexed by deviceId)
-    var inboxes : Dictionary<String, [(String, String)]>;
+    private var inboxes : Dictionary<String, [(String, String)]>;
     
-    
-    let socket : SocketIOManager;
+    private let socket : SocketIOManager;
+    private let devicesManager : DevicesManager
+    private let scene : Scene
     
     init(socketIOManager : SocketIOManager) {
         handlers = [String: (Any, Any) -> Any]();
         inboxes = [String: [(String, String)]]();
         self.socket = socketIOManager;
+        self.devicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
+        self.scene = Scene.sharedInstance
     }
     
     // sends message to a list of devices through the server
@@ -38,25 +41,15 @@ class Messenger {
         ]
         
         socket.emitData(type : "relay", data : data);
-        
-        /*
-        let JSONdata : Data;
-        //let JSONdata = JSONSerialization.isValidJSONObject(data);
-        do {
-            JSONdata = try JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
-            socket.emitData(type : "relay", data : JSONdata);
-        } catch {
-            print(error.localizedDescription)
-        }
-        */
+
     }
     
     // similar to broadcast, but only to another device
     // TODO rename to sendMessageToDevice
     func sendMessageTo(type : String, message : String, deviceId : String) {
-        let device = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId : Int(deviceId)!);
+        let device = self.devicesManager.getDevice(devId : Int(deviceId)!);
         let success = device.sendMessageDirectly(type: type, message : message);
-        if (!success) {
+        if (success != false) {
             sendMessageViaServer(type : type, message : message, to : [deviceId]);
         }
     }
@@ -64,11 +57,11 @@ class Messenger {
     // sends message to all other devices as efficiently as possible
     func broadcast(type : String, message : String) {
     
-        var devices = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevices();
+        var devices = self.devicesManager.getDevices();
         var to = [String](); // used to relay via server
         for id in devices.keys {
             let device = devices[id];
-            let success = device?.sendMessageDirectly(type : type, message : message);
+            let success = device!.sendMessageDirectly(type : type, message : message);
             if (success != false) {
                 to.append(String(id));
             }
@@ -88,9 +81,11 @@ class Messenger {
     }
     
     // internal, delivers to the appropriate handler (at this point, the device instance does exist)
-    func deliverMessage(type : String, message : String, from : String) {
-        if (handlers["type"] != nil) {
+    internal func deliverMessage(type : String, message : String, from : String) {
+        if (handlers[type] != nil) {
             //handlers[type](message, from);
+            let f : myFunc = handlers[type] as! myFunc
+            f(message, from)
         } else {
             NSLog("Incoming message had unrecognized type: $@ ", type);
         }
@@ -98,7 +93,20 @@ class Messenger {
     
     func incomingMessage(type : String, message : String, from : String) {
         // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
-        if (BoardViewController.BoardContext.sharedInstance.devicesManager.getDevices()[Int(from)!] != nil) {
+        if (self.devicesManager.getDevices()[Int(from)!] != nil) {
+            deliverMessage(type : type, message : message, from : from);
+        } else {
+            // there is no device instance, so hold the message in the inbox
+            if (inboxes[from] == nil) {
+                inboxes[from] = [(String, String)]();
+            }
+            //inboxes[from].append((type, message));
+        }
+    }
+    
+    func fakeIncomingMessage(type : String, message : String, from : String) {
+        // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
+        if (self.devicesManager.getDevices()[Int(from)!] != nil) {
             deliverMessage(type : type, message : message, from : from);
         } else {
             // there is no device instance, so hold the message in the inbox
@@ -110,7 +118,29 @@ class Messenger {
     }
     
     func releaseMessagesFromDeviceWithId(deviceId : String) {
-    
+        if(inboxes[deviceId] == nil) {
+            // there were no messages
+            return
+        }
+        
+        // TODO : ADD QUEUE STRUCTURE
+        var queue = inboxes[deviceId]
+        self.scene.beginChanges()
+        while(queue?.count != 0) {
+            let mail = queue.pop(0)
+            deliverMessage(type: mail[0], message: mail[1], from: deviceId)
+        }
+        self.scene.endChanges()
+        inboxes.removeValue(forKey: deviceId)
+        
     }
+    
+    // TODO : What does broadcast del do? Which broadcast function does it call?
+    /*
+    func broadcastDel(del : Delta) {
+        broadcast(type: "del", message: del)
+    }
+     */
+    
     
 }
