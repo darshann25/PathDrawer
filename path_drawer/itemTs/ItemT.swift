@@ -3,13 +3,14 @@
 //  path_drawer
 //
 //  Created by Henry Stahl on 11/7/17.
+//  Authored by Darshan Patel on 11/17/17.
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
 import Foundation
 class ItemT {
     
-    var scene : Scene?
+    var scene : Scene
     var respondsToHoverEvents : Bool
     var respondsToClickEvents : Bool
     var respondsToKeyEvents : Bool
@@ -18,7 +19,7 @@ class ItemT {
         self.respondsToClickEvents = false
         self.respondsToKeyEvents = false
         self.respondsToHoverEvents = false
-        self.scene = nil
+        self.scene = Scene.nullScene
     }
     
     func setScene (scene: Scene){
@@ -28,34 +29,35 @@ class ItemT {
     func setRespondsToHoverEvents(val: Bool){
         if (val != self.respondsToHoverEvents){
             self.respondsToHoverEvents = val
-            if ((self.scene != nil) && val){
-                //self.scene.addHoverResponder()
+            if ((self.scene !== Scene.nullScene) && val){
+                self.scene.addHoverResponder(responder : self)
             }
-            if ((self.scene != nil) && !val){
-                //self.scene.removeHoverResponder()
+            if ((self.scene != Scene.nullScene) && !val){
+                self.scene.removeHoverResponder(responder: self)
             }
         }
     }
     
-    func setRespondsToClickEvents (val: Bool){
+    func setRespondsToClickEvents(val: Bool){
         if (val != self.respondsToClickEvents){
             self.respondsToClickEvents = val
-            if ((self.scene != nil) && val){
-                //self.scene.addClickResponder()
+            if ((self.scene !== Scene.nullScene) && val){
+                self.scene.addClickResponder(responder: self)
             }
-            if ((self.scene != nil) && !val){
-                //self.scene.removeClickResponder()
+            if ((self.scene !== Scene.nullScene) && !val){
+                self.scene.removeClickResponder(responder: self)
             }
         }
     }
-    func setRespondsToKeyEvents (val: Bool){
+    
+    func setRespondsToKeyEvents(val: Bool){
         if (val != self.respondsToKeyEvents){
             self.respondsToKeyEvents = val
-            if ((self.scene != nil) && val){
-                //self.scene.addKeyResponder()
+            if ((self.scene !== Scene.nullScene) && val){
+                self.scene.addKeyResponder(responder: self)
             }
-            if ((self.scene != nil) && !val){
-                //self.scene.removeKeyResponder()
+            if ((self.scene !== Scene.nullScene) && !val){
+                self.scene.removeKeyResponder(responder: self)
             }
         }
     }

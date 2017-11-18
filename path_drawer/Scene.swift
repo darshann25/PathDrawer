@@ -12,7 +12,8 @@ import UIKit
 class Scene {
     
     // SINGLETON
-    static var sharedInstance = Scene();
+    public static var sharedInstance = Scene();
+    public static var nullScene : Scene = NullScene()
     
     var items = [Item]();
     
@@ -125,29 +126,29 @@ class Scene {
     }
     
     // Adds the responder to the front of the list.
-    func addHoverResponder(responder : Item) {
+    func addHoverResponder(responder : ItemT) {
     
     }
     
-    func removeHoverResponder(responder : Item) {
-    
-    }
-    
-    // Adds the responder to the front of the list.
-    func addClickResponder(responder : Item) {
-    
-    }
-    
-    func removeClickResponder(responder : Item) {
+    func removeHoverResponder(responder : ItemT) {
     
     }
     
     // Adds the responder to the front of the list.
-    func addKeyResponder(responder : Item) {
+    func addClickResponder(responder : ItemT) {
     
     }
     
-    func removeKeyResponder(responder : Item) {
+    func removeClickResponder(responder : ItemT) {
+    
+    }
+    
+    // Adds the responder to the front of the list.
+    func addKeyResponder(responder : ItemT) {
+    
+    }
+    
+    func removeKeyResponder(responder : ItemT) {
     
     }
     
@@ -277,3 +278,11 @@ class Scene {
         }
     }
 }
+
+private class NullScene : Scene {
+    init() {
+        
+    }
+    
+}
+

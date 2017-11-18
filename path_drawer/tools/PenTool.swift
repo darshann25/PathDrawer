@@ -52,16 +52,16 @@ class PenTool : Tool {
     override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView)
-            self.x0 = point.x as! Double
-            self.y0 = point.y as! Double
+            self.x0 = Double(point.x)
+            self.y0 = Double(point.y)
         }
     }
     
     override func onMove(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView)
-            self.x0 = point.x as! Double
-            self.y0 = point.y as! Double
+            var x = Double(point.x)
+            var y = Double(point.y)
             
             if (self.prePathItemT !== nullPrePathItemT) {
                 self.prePathItemT.addPoint(x: x, y : y)
@@ -82,7 +82,7 @@ class PenTool : Tool {
                 self.prePathItemT.setOpacity(opacity : opacity)
                 self.prePathItemT.addPoint(x : x0, y : y0)
                 self.prePathItemT.addPoint(x : x, y : y)
-                self.scene.addForefrontItem(item : self.prePathItemT)
+                self.scene.addForefrontItem(itemT: self.prePathItemT)
                 
                 var del : [String: Any] = [
                     "type" : "penStart",
