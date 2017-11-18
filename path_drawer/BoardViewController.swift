@@ -37,7 +37,7 @@ class BoardViewController: UIViewController {
         // var itemStateFactory : ItemStateFactory;
         // var deltaFactory : DeltaFactory;
         var boardId : String;
-        // var delManager : DelManager;
+        var delManager : DelManager;
         var scene : Scene;
         
         private init(boardId : String, scene : Scene) {
@@ -55,7 +55,7 @@ class BoardViewController: UIViewController {
             self.peersManager = PeersManager(peer: Peer(peerId : 1), peersWidgetController : PeersWidgetController());
             // self.itemStateFactory = ItemStateFactory();
             // self.deltaFactory = DeltaFactory();
-            // self.delManager = DelManager();
+            self.delManager = DelManager();
             
         }
      
