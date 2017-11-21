@@ -85,7 +85,7 @@
 		3CD7FD1A1FB2B53800EFD970 /* DevicesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD191FB2B53800EFD970 /* DevicesManager.swift */; };
 		3CD7FD1E1FB2B58700EFD970 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD1D1FB2B58700EFD970 /* Region.swift */; };
 		3CD7FD201FB2B5A100EFD970 /* Parallelogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD1F1FB2B5A100EFD970 /* Parallelogram.swift */; };
-		3CD7FD221FB2B5D300EFD970 /* RichTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD211FB2B5D300EFD970 /* RichTextItem.swift */; };
+		3CD7FD221FB2B5D300EFD970 /* TextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD211FB2B5D300EFD970 /* TextItem.swift */; };
 		3CD7FD241FB2B5E600EFD970 /* ItemT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD231FB2B5E600EFD970 /* ItemT.swift */; };
 		3CD7FD261FB2B61800EFD970 /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD251FB2B61800EFD970 /* Messenger.swift */; };
 		3CD7FD281FB2B62700EFD970 /* Peer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CD7FD271FB2B62700EFD970 /* Peer.swift */; };
@@ -218,7 +218,7 @@
 		3CD7FD191FB2B53800EFD970 /* DevicesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesManager.swift; sourceTree = "<group>"; };
 		3CD7FD1D1FB2B58700EFD970 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		3CD7FD1F1FB2B5A100EFD970 /* Parallelogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parallelogram.swift; sourceTree = "<group>"; };
-		3CD7FD211FB2B5D300EFD970 /* RichTextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RichTextItem.swift; sourceTree = "<group>"; };
+		3CD7FD211FB2B5D300EFD970 /* TextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextItem.swift; sourceTree = "<group>"; };
 		3CD7FD231FB2B5E600EFD970 /* ItemT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemT.swift; sourceTree = "<group>"; };
 		3CD7FD251FB2B61800EFD970 /* Messenger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger.swift; sourceTree = "<group>"; };
 		3CD7FD271FB2B62700EFD970 /* Peer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peer.swift; sourceTree = "<group>"; };
@@ -531,7 +531,7 @@
 				F2349C501F89EDCB00DDE5FD /* Item.swift */,
 				3CD7FCB21FB2AFA200EFD970 /* EquationItem.swift */,
 				3CD7FCF61FB2B2FF00EFD970 /* InkItem.swift */,
-				3CD7FD211FB2B5D300EFD970 /* RichTextItem.swift */,
+				3CD7FD211FB2B5D300EFD970 /* TextItem.swift */,
 			);
 			path = items;
 			sourceTree = "<group>";
@@ -786,7 +786,7 @@
 				3CD7FCBB1FB2B04300EFD970 /* MyScriptItemT.swift in Sources */,
 				3CD7FC971FB2ADDD00EFD970 /* CachedPdfPageRenderer.swift in Sources */,
 				F20A3C091F9D6E75002B670A /* Point.swift in Sources */,
-				3CD7FD221FB2B5D300EFD970 /* RichTextItem.swift in Sources */,
+				3CD7FD221FB2B5D300EFD970 /* TextItem.swift in Sources */,
 				3CD7FCCF1FB2B14600EFD970 /* BoxRichTextOutput.swift in Sources */,
 				3CD7FD301FB2B68500EFD970 /* Delta.swift in Sources */,
 				3CD7FCDF1FB2B1E300EFD970 /* RichTextBuffer.swift in Sources */,

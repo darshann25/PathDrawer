@@ -8,5 +8,7 @@
 
 import Foundation
 class RichTextLines {
-    
+    init(buffer : TextBuffer, maxWidth : Double){
+        
+    }
 }

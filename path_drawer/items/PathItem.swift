@@ -21,8 +21,8 @@
 import Foundation
 import UIKit
 
-var DEBUG_MODE = false
-var LINEAR_ONLY = false
+let DEBUG_MODE = false
+let LINEAR_ONLY = false
 
 class PathItem : Item {
     
