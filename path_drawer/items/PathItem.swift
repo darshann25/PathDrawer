@@ -21,6 +21,9 @@
 import Foundation
 import UIKit
 
+var DEBUG_MODE = false
+var LINEAR_ONLY = false
+
 class PathItem : Item {
     
     /////////////
@@ -73,53 +76,103 @@ class PathItem : Item {
             context.setAlpha(self.pathItemOpacity)
             context.setLineCap(CGLineCap.round)
             let matrix = self.matrix
-            //context.transform(matrix)
+            // context.userSpaceToDeviceSpaceTransform(matrix)
             
             context.restoreGState()
             
         }
     }
 
-    override func getPdfgenData(matrix: Matrix) {
+    override func getPdfgenData(matrix: Matrix) -> Dictionary<String, Any> {
         var xs = [Double]()
         var ys = [Double]()
         
-        var i = 0
-        //while (i < self.pointBuffer.points.count) {
-            
-        //}
+        for i in 0...(self.path.pointBuffer.points.count - 1) {
+            xs.append(self.path.pointBuffer.points[i].x)
+            ys.append(self.path.pointBuffer.points[i].y)
+        }
+        
+        var m = matrix.times(that: self.matrix)
+        
+        var data : [String: Any] = [
+            "t" : "path",
+            "m" : m.toArray(),
+            "c" : self.pathItemColor, // TODO : Convert to RGB Value
+            "s" : self.size,
+            "xs" : xs,
+            "ys" : ys
+        ]
+        if (self.opacity != 1) {
+            data["alpha"] = 1     // set alpha flag
+        }
+        
+        return data;
+        
     }
     
     
-    /*func getPdfGenData (matrix: Matrix) {
-     var xs = [0]
-     var ys = [0]
-     var i = 0
-     while(i < self.path.pointBuffer.points.count){
-     xs.append(self.path.pointBuffer.points[i].x)
-     ys.append(self.path.pointBuffer.points[i].y)
-     }
-     var m = matrix.times(self.matrix)
-     var data(t: path, m: Array(m), s: self.size, xs: xs, ys: ys)
-     
-     return data
-     }*/
+    // TODO : Understand and fix addSvgData function
+    func addSvgData(svg : PathItem, svgMatrix : Matrix) {
+        /*
+        var pathStringBuffer = []
+        pathStringBuffer.append("M${ " + String(self.path.pointBuffer.points[0].x) + " } ${ ", String(self.path.pointBuffer.points[0].y) + " }")
+        
+        // TODO : Cubic Data
+        for i in 0...(self.path.cubicData.count - 1) {
+            var cd = self.path.cubicData[i]
+            pathStringBuffer.append("C${ " + String(cd[0]) + " } ${ " + String(cd[1]) + " } ${ " + String(cd[2]) + " } ${ " + String(cd[3]) + " } ${ " + String(cd[4]) + " } ${ " + String(cd[5]) + " }`")
+        }
+        var pathString = pathStringBuffer
+        var path = svg.path(pathString)
+        path.fill("none");
+        path.stroke([ "width" : self.size, "color" : self.color ]);
+        path.attr("stroke-opacity", self.opacity);
+        path.transform(SVG.Matrix(svgMatrix.times(self.matrix).toArray()));
+         */
+    }
     
-    /*func addSvgData (Svg: svg, matrix: svgMatrix){
-     var pathStringBuffer = [0]
-     var i = 0
-     while (i < self.path.cubicData.count){
-     
-     }
-     }*/
+    func getBoundingRect() -> Rect {
+        
+        if(self.boundingRect == nil) {
+            var rect = Rect(left: 0, top: 0, width: 0, height: 0)
+            
+            if (LINEAR_ONLY) {
+                rect = self.path.computeBoundingRectLinear(matrix : self.matrix)
+            } else {
+                rect = self.path.computeBoundingRectCubic(matrix : self.matrix)
+            }
+            
+            var thickness = self.size * sqrt(self.matrix.det())
+            self.boundingRect = rect.expandedBy(mdl: thickness/2, mdt: thickness/2, dr: thickness/2, db: thickness/2)
+        }
+        
+        return self.boundingRect
+    }
+    
+    func intersectsSegment(end1 : Point, end2 : Point) -> Bool {
+        // since the segment is generally small, we use this hack for now
+        return self.intersectsRect(Rect.rectFromXYXY(x0 : end1.x, y0 : end1.y, x1 : end2.x, y1 : end2.y))
+    }
+    
+    func intersectsRect(rect : Rect) -> Bool {
+        var parallelogram = Parallelogram(rect : rect, inverseMatrix : self.matrix)
+        return self.path.intersectsParallelogram(parallelogram : parallelogram)
+    };
     
     /*
-     func getBoundingRect(){
-     if(self.boundingRect = NSNull){
-     var rect = self.path.computeBoundingRectCubic(self.matrix)
-     var thickness = self.size * Math.sqrt(self.matrix.det())
-     self.boundingRect = rect.expandedBy(a: thickness/2, b: thickness/2, c: thickness/2, d: thickness/2,)
+     PathItem.prototype.getBoundingRect = function() {
+     if (!this.boundingRect) {
+     var rect;
+     if (LINEAR_ONLY) {
+     rect = this.path.computeBoundingRectLinear(this.matrix);
+     } else {
+     rect = this.path.computeBoundingRectCubic(this.matrix);
      }
+     var thickness = this.size * Math.sqrt(this.matrix.det());
+     this.boundingRect = rect.expandedBy(thickness / 2, thickness / 2, thickness / 2, thickness / 2);
+     }
+     return this.boundingRect;
+     };
      }*/
     
     /////////////////////////////
