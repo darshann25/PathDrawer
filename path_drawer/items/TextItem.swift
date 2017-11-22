@@ -189,10 +189,8 @@ class TextItem : Item {
         var newLines = RichTextLines(buffer : newBuffer, maxWidth : baselineRight.x - baselineLeft.x);
         var dy = - newLines.lines[0].ascent - TEXT_PADDING;
         var newBoxTopLeft = baselineLeft.translate(xDist : -TEXT_PADDING, yDist : dy);
-        // var newBoxTopRight = baselineRight.translate(TEXT_PADDING, dy);
-        return PreTextItemT(x : newBoxTopLeft.x, y : newBoxTopLeft.y, textItem : this, width : this.getBoundingRect().width);
-    };
-
-    
+        var newBoxTopRight = baselineRight.translate(xDist : TEXT_PADDING, yDist : dy);
+        return PreTextItemT(x : newBoxTopLeft.x, y : newBoxTopLeft.y, textItem : self, width : self.getBoundingRect().width);
+    }
     
 }
