@@ -11,4 +11,8 @@ class RichTextLines {
     init(buffer : TextBuffer, maxWidth : Double){
         
     }
+    
+    func drawOnCanvas(context : CGContext) {
+        
+    }
 }

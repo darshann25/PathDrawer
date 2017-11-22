@@ -113,6 +113,7 @@
 		F2D611041F8131C400872F8C /* PathItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611031F8131C400872F8C /* PathItem.swift */; };
 		F2D611061F8131E800872F8C /* PenTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611051F8131E800872F8C /* PenTool.swift */; };
 		F2D611081F81792F00872F8C /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D611071F81792F00872F8C /* Scene.swift */; };
+		F2D893891FC4FB6200D55C82 /* PreTextItemT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D893881FC4FB6200D55C82 /* PreTextItemT.swift */; };
 		F2EB83191F9D7D900099683D /* MagicEraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB83181F9D7D900099683D /* MagicEraserTool.swift */; };
 		F2EB831E1F9D7E200099683D /* PrePathItemT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2EB831D1F9D7E200099683D /* PrePathItemT.swift */; };
 /* End PBXBuildFile section */
@@ -249,6 +250,7 @@
 		F2D611031F8131C400872F8C /* PathItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathItem.swift; sourceTree = "<group>"; };
 		F2D611051F8131E800872F8C /* PenTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PenTool.swift; sourceTree = "<group>"; };
 		F2D611071F81792F00872F8C /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		F2D893881FC4FB6200D55C82 /* PreTextItemT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreTextItemT.swift; sourceTree = "<group>"; };
 		F2EB83181F9D7D900099683D /* MagicEraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicEraserTool.swift; sourceTree = "<group>"; };
 		F2EB831D1F9D7E200099683D /* PrePathItemT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrePathItemT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -519,6 +521,7 @@
 				3CD7FCBE1FB2B06400EFD970 /* ViewRectItemT.swift */,
 				3CD7FCF81FB2B31300EFD970 /* BoxPreSelectionItemT.swift */,
 				3CD7FD231FB2B5E600EFD970 /* ItemT.swift */,
+				F2D893881FC4FB6200D55C82 /* PreTextItemT.swift */,
 			);
 			path = itemTs;
 			sourceTree = "<group>";
@@ -842,6 +845,7 @@
 				1F3E811F1F7D29CB00632EB3 /* SceneView.swift in Sources */,
 				F2B526911FA962DC0077680F /* Resource.swift in Sources */,
 				3CD7FCA71FB2AECC00EFD970 /* PdfGenerator.swift in Sources */,
+				F2D893891FC4FB6200D55C82 /* PreTextItemT.swift in Sources */,
 				3CD7FCD31FB2B17100EFD970 /* HyphenBreakRichTextOutput.swift in Sources */,
 				3CD7FCF91FB2B31300EFD970 /* BoxPreSelectionItemT.swift in Sources */,
 			);
