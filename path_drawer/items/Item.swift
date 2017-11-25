@@ -36,6 +36,8 @@ import UIKit
 
 class Item {
     
+    public static let nullItem = NullItem()
+    
     public var id : Int
     public var devId : Int
     public var state : ItemState
@@ -136,7 +138,7 @@ class Item {
      @param {ItemState} itemState The ItemState object which encodes the item.
      @return {Item} The item created from the ItemState information.
      */
-    func fromItemState(itemState : ItemState) {
+    func fromItemState(itemState : ItemState) -> Item {
         var type = itemState.type
         
         switch(type) {
@@ -216,4 +218,10 @@ class Item {
     // reference to the matrix (so it doesn't distort the text).
     public let scaleInvariant = true
     
+}
+
+private class NullItem : Item {
+    init() {
+        
+    }
 }

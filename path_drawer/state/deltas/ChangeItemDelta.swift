@@ -6,21 +6,33 @@
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
+// class ChangeItemDelta inherits Delta
+/*
+ * @param actId
+ * @param devId
+ * @param {ItemState} from previous itemState
+ * @param {ItemState} to new itemState
+ */
+
 import Foundation
 class ChangeItemDelta : Delta {
     
     var from : ItemState
     var to: ItemState
+    //var inverse : Delta
+    //typealias inverseFunc = (Int, Int) -> ChangeItemDelta
     
     init(actId: Int, devId: Int, from: ItemState, to: ItemState ) {
         self.from = from
         self.to = to
+        //self.inverse = { actId, devId in
+        //    return ChangeItemDelta(actId: actId, devId: devId, from: to, to: from)
+        //}
         
         super.init(type: Delta.types.ChangeItemDelta, actId: actId, devId: devId)
     }
     
-    func inverse (actId: Int, devId: Int) -> ChangeItemDelta
-    {
+    func inverse (actId: Int, devId: Int) -> ChangeItemDelta {
         return ChangeItemDelta(actId: actId, devId: devId, from: to, to: from)
     }
     
@@ -40,26 +52,22 @@ class ChangeItemDelta : Delta {
         return ChangeItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, from: mini["from"] as! ItemState, to: mini["to"] as! ItemState )
     }
     
-    /**
+    /*
      * If the item corresponding to the itemstate this.from is on the scene, remove
      * it. Add the item corresponding to the itemstate this.to to the scene.
      */
-
-    
-    //UNCOMMENT AFTER item fully implemented
     func applyToScene (){
-        //var oldItem = Scene.sharedInstance.getItemById(id: self.from.id, devId: self.from.devId)
-        //var newItem = item.fromItemState(self.to)
-        //if (oldItem) {
-        //Scene.sharedInstance.removeSceneItem(item: oldItem)
-        //}
-        //sceneView.scene.addSceneItem(item: newItem)
+        var oldItem = Scene.sharedInstance.getItemById(id: self.from.id, devId: self.from.devId)
+        var newItem = Item.fromItemState(self.to)
+        
+        if (oldItem != Item.nullItem) {
+            Scene.sharedInstance.removeSceneItem(item: oldItem)
+        }
+        Scene.sharedInstance.addSceneItem(item: newItem)
     }
     
-    //UNCOMMENT AFTER BoardState fully implemented
     func applyToBoardState (boardState: BoardState){
-        //boardState.removeItemState(self.itemState.id, self.itemState.devId)
-        //boardState.addItemState(self.to)
+        boardState.removeItemState(id: self.from.id, devId: self.from.devId)
+        boardState.addItemState(itemState: self.to)
     }
-    
 }
