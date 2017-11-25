@@ -7,14 +7,26 @@
 //
 
 import Foundation
+
+// class DeleteItemDelta inherits Delta
 class DeleteItemDelta : Delta {
     
     var itemState : ItemState
+    var inverse : Delta
+    typealias inverseFunc = (Int, Int) -> ChangeItemDelta
+    
     
     init(actId: Int, devId: Int, itemState: ItemState) {
         self.itemState = itemState
+        self.inverse = { actId, devId in
+            return NewItemDelta(actId: actId, devId: devId, itemState: self.itemState)
+        }
         
         super.init(type: Delta.types.DeleteItemDelta, actId: actId, devId: devId)
+    }
+    
+    func inverse (actId: Int, devId: Int) -> NewItemDelta {
+        return NewItemDelta(actId: actId, devId: devId, itemState: self.itemState)
     }
     
     func minify() -> Dictionary<String, Any> {
@@ -31,15 +43,13 @@ class DeleteItemDelta : Delta {
         return DeleteItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, itemState: mini["itemState"] as! ItemState)
     }
     
-    //UNCOMMENT AFTER item fully implemented
     func applyToScene (){
-        //var item = sceneView.scene.getItemById(self.itemState)
-        //Scene.addSceneItem(item)
+        var item = Scene.sharedInstance.getItemById(id: self.itemState.id, devId: self.itemState.devId)
+        Scene.sharedInstance.removeSceneItem(item: item)
     }
     
-    //UNCOMMENT AFTER BoardState fully implemented
     func applyToBoardState (boardState: BoardState){
-        //boardState.removeItemState(self.itemState.id, self.itemState.devId)
+        boardState.removeItemState(id: self.itemState.id, devId: self.itemState.devId)
     }
 
 }
