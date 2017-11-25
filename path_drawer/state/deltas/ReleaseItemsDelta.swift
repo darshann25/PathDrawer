@@ -7,24 +7,31 @@
 //
 
 import Foundation
+
+// class ReleaseItemsDelta inherits Delta
 class ReleaseItemsDelta : Delta {
     
     var holderDevId: Int
     var uids : [(id: Int, devId: Int)]
     var finalMatrix: Matrix
     var intent : GrabItemsDelta.intents
+    var inverse : Delta
+    typealias inverseFunc = (Int, Int) -> GrabItemsDelta
     
     init(actId: Int, devId: Int, holderDevId: Int, uids: [(id: Int, devId: Int)], finalMatrix: Matrix, intent: GrabItemsDelta.intents){
         self.holderDevId = holderDevId
         self.uids = uids
         self.finalMatrix = finalMatrix
         self.intent = intent
+        self.inverse = { actId, devId in
+            return GrabItemsDelta(actId : actId, devId : devId, holderDevId : holderDevId, uids : uids, initialMatrix : finalMatrix, intent : intent)
+        }
         
         super.init(type: Delta.types.ReleaseItemsDelta, actId: actId, devId: devId)
     }
     
-    func inverse (actId: Int, devId: Int) -> GrabItemsDelta{
-        return GrabItemsDelta(actId: actId, devId: devId, holderDevId: holderDevId, uids:uids, initialMatrix:finalMatrix, intent:intent)
+    func inverse(actId: Int, devId: Int) -> GrabItemsDelta {
+        return GrabItemsDelta(actId : actId, devId : devId, holderDevId : holderDevId, uids : uids, initialMatrix : finalMatrix, intent:intent)
     }
     
     func minify () -> Dictionary<String,Any> {
@@ -41,24 +48,34 @@ class ReleaseItemsDelta : Delta {
         return obj
     }
     
-    static func unminify(mini: Dictionary<String,Any>) -> ReleaseItemsDelta {
+    func unminify(mini: Dictionary<String,Any>) -> ReleaseItemsDelta {
         return ReleaseItemsDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, holderDevId: mini["holderDevId"] as! Int, uids: mini["uids"] as! [(id: Int, devId: Int)], finalMatrix: mini["finalMatrix"] as! Matrix, intent: mini["intent"] as! GrabItemsDelta.intents)
     }
     
-    //UNCOMMENT WHEN ItemT fully implemented
     func applyToScene () {
         Scene.sharedInstance.beginChanges()
-        var itemT : ItemT?
+        var itemT : ItemT
+        var devicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
+        
         switch(self.intent){
-        case GrabItemsDelta.intents.SelectionItemT:
-            itemT = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId: self.holderDevId).context()["preTextItemT"] as? ItemT
-            BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId: self.holderDevId).context()["preTextItemT"]
-            //itemT.returnItemToScene
-            break
-        default:
-            NSLog("Error")
+            case GrabItemsDelta.intents.SelectionItemT:
+                itemT = devicesManager.getDevice(devId: self.holderDevId).context["preTextItemT"] as! ItemT
+                devicesManager.getDevice(devId: self.holderDevId).context["preTextItemT"] = ItemT.nullItemT
+                itemT.returnItemsToScene()
+                break
+            
+            case GrabItemsDelta.intents.PreTextItemT:
+                itemT = devicesManager.getDevice(devId: self.holderDevId).context["preTextItemT"]
+                devicesManager.getDevice(self.holderDevId).context["preTextItemT"] = ItemT.nullItemT
+                itemT.returnItemsToScene()
+                break
+            
+            default:
+                // analytics.unexpected('ReleaseItemsDelta.unminify(), intent switch', this.intent);
+                NSLog("Error in ReleaseItemsDelta.unminify()")
+                break
         }
-        if (itemT != nil){
+        if (itemT !== ItemT.nullItemT){
             Scene.sharedInstance.removeForefrontItem(itemT: itemT!)
         }
         Scene.sharedInstance.endChanges()

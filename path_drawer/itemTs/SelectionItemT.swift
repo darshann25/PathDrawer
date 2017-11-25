@@ -16,4 +16,8 @@ class SelectionItemT : ItemT {
     func setMatrix(matrix : Matrix) {
         
     }
+    
+    func returnItemsToScene() {
+        
+    }
 }
