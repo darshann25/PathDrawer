@@ -9,5 +9,11 @@
 import Foundation
 
 class SelectionItemT : ItemT {
+    init(items : [Item], showButtons : Bool) {
+        
+    }
     
+    func setMatrix(matrix : Matrix) {
+        
+    }
 }

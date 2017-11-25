@@ -31,6 +31,8 @@
 import Foundation
 class ItemT {
     
+    public static let nullItemT = NullItemT()
+    
     var scene : Scene
     var respondsToHoverEvents : Bool
     var respondsToClickEvents : Bool
@@ -82,4 +84,11 @@ class ItemT {
             }
         }
     }
+}
+
+private class NullItemT : ItemT {
+    init() {
+        
+    }
+    
 }

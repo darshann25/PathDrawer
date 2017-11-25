@@ -7,25 +7,33 @@
 //
 
 import Foundation
+
+// class GrabItemsDelta inherits Delta
 class GrabItemsDelta : Delta {
     
     var holderDevId: Int
     var uids : [(id: Int, devId: Int)]
     var initialMatrix: Matrix
     var intent : GrabItemsDelta.intents
+    var inverse : Delta
+    typealias inverseFunc = (Int, Int) -> ReleaseItemsDelta
+    
     
     init(actId: Int, devId: Int, holderDevId: Int, uids: [(id: Int, devId: Int)], initialMatrix: Matrix, intent: GrabItemsDelta.intents){
         self.holderDevId = holderDevId
         self.uids = uids
         self.initialMatrix = initialMatrix
         self.intent = intent
+        self.inverse = { actId, devId in
+            return ReleaseItemsDelta(actId : actId, devId : devId, holderDevId : holderDevId, uids : uids, finalMatrix : initialMatrix, intent : intent)
+        }
         
         super.init(type: Delta.types.GrabItemsDelta, actId: actId, devId: devId)
     }
     
     
-    func inverse (actId: Int, devId: Int) -> ReleaseItemsDelta{
-        return ReleaseItemsDelta(actId: actId, devId: devId, holderDevId: holderDevId, uids:uids, finalMatrix:initialMatrix, intent:intent)
+    func inverse (actId: Int, devId: Int) -> ReleaseItemsDelta {
+        return ReleaseItemsDelta(actId : actId, devId : devId, holderDevId : holderDevId, uids : uids, finalMatrix : initialMatrix, intent : intent)
     }
     
     enum intents {
@@ -51,56 +59,59 @@ class GrabItemsDelta : Delta {
         return GrabItemsDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, holderDevId: mini["holderDevId"] as! Int, uids: mini["uids"] as! [(id: Int, devId: Int)], initialMatrix: mini["initialMatrix"] as! Matrix, intent: mini["intent"] as! GrabItemsDelta.intents)
     }
     
-    //UNCOMMENT AFTER implementing scene
     func applyToScene (){
         Scene.sharedInstance.beginChanges()
         var items = [Item]()
         var initialMatrixInverse = self.initialMatrix.inverse()
-        var i = 0
-        while (i < uids.count) {
+        for i in 0...(self.uids.count - 1) {
             let itemId = self.uids[i].id
             let itemDevId = self.uids[i].devId
             let item = Scene.sharedInstance.getItemById(id: itemId, devId: itemDevId)
             Scene.sharedInstance.removeSceneItem(item: item)
-            //item.setMatrix(initialMatrixInverse.times(item.getMatrix()))
-            //item.push(item)
-            i += i
+            item.setMatrix(matrix: initialMatrixInverse.times(that: item.getMatrix()))
+            items.append(item)
         }
         
-        //UNCOMMENT AFTER implementing DevicesManager, SelectionItemT, ItemT
-        var isMyGrab = (self.holderDevId == BoardViewController.BoardContext.sharedInstance.devicesManager.getMyDeviceId())
+     
+        let devicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
+        var isMyGrab = (self.holderDevId == devicesManager.getMyDeviceId())
         var itemT : ItemT
-        switch (intent) {
-        case GrabItemsDelta.intents.SelectionItemT:
-            //itemT = SelectionItemT(items, isMyGrab)
-            //boardContext.devicesManager.getDevice(devId: self.holderDevId).context()["selectionItemT"] = itemT
-            //itemT.setMatrix(self.initialMatrix)
-            break
-        case GrabItemsDelta.intents.PreTextItemT:
-            //itemT = items[0].createPreTextItemT
-            //boardContext.devicesManager.getDevice(self.holderDevId).context()["preTextItemT"] = itemT
-            //if (isMyGrab) {
-            //    detailsMenuController.switchToTextMenu();
-            //}
-            break
-        default:
-            NSLog("Error")
+        switch (self.intent) {
+            case GrabItemsDelta.intents.SelectionItemT:
+                itemT = SelectionItemT(items: items, showButtons: isMyGrab)
+                let holderDevice = devicesManager.getDevice(devId: self.holderDevId)
+                holderDevice.context["selectionItemT"] = itemT
+                itemT.setMatrix(matrix : self.initialMatrix)
+                break
+            
+            case GrabItemsDelta.intents.PreTextItemT:
+                item = items[0] as! TextItem
+                itemT = item.createPreTextItemT()
+                devicesManager.getDevice(self.holderDevId).context()["preTextItemT"] = itemT
+                if (isMyGrab) {
+                    // detailsMenuController.switchToTextMenu();
+                }
+                break
+            
+            default:
+                // analytics.unexpected('GrabItemsDelta.applyToScene(), intent switch', this.intent)
+                NSLog("Error in GrabItemsDelta.applyToScene()")
+                break
         }
-        
-        /*
-        if (itemT != nil) {
+    
+        if (itemT != ItemT.nullItemT) {
             if (isMyGrab){
                 SelectDetailsMenuController.selectionAvailable()
                 itemT.setRespondsToHoverEvents(val: true)
                 itemT.setRespondsToClickEvents(val: true)
                 itemT.setRespondsToKeyEvents(val: true)
-                Scene.setActiveClickResponder(itemT)
+                Scene.sharedInstance.setActiveClickResponder(itemT)
             }
-         Scene.addForefrontItem(itemT)
+         Scene.sharedInstance.addForefrontItem(itemT)
         }
-        Scene.endChanges()
-         */
+        Scene.sharedInstance.endChanges()
     }
+    
     func applyToBoardState (boardState: BoardState){
         boardState.grabItems(devId: self.holderDevId, uids: self.uids, initialMatrix: self.initialMatrix, intent: self.intent)
     }

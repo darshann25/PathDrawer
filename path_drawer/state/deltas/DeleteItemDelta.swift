@@ -13,8 +13,7 @@ class DeleteItemDelta : Delta {
     
     var itemState : ItemState
     var inverse : Delta
-    typealias inverseFunc = (Int, Int) -> ChangeItemDelta
-    
+    typealias inverseFunc = (Int, Int) -> NewItemDelta
     
     init(actId: Int, devId: Int, itemState: ItemState) {
         self.itemState = itemState

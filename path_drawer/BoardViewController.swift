@@ -26,36 +26,33 @@ class BoardViewController: UIViewController {
     class BoardContext {
      
         // SINGLETON
-
-        static var sharedInstance = BoardContext(boardId : "HJvQ6YcJG", scene : Scene.sharedInstance);
+        static var sharedInstance = BoardContext(boardId : "HJvQ6YcJG", scene : Scene.sharedInstance)
         
-        var socketIOManager : SocketIOManager;
-        var messenger : Messenger;
-        var devicesManager : DevicesManager;
-        var boardStateManager : BoardStateManager;
-        var peersManager : PeersManager;
-        // var itemStateFactory : ItemStateFactory;
-        // var deltaFactory : DeltaFactory;
-        var boardId : String;
-        var delManager : DelManager;
-        var scene : Scene;
+        var socketIOManager : SocketIOManager
+        var messenger : Messenger
+        var devicesManager : DevicesManager
+        var boardStateManager : BoardStateManager
+        var peersManager : PeersManager
+        // var detailsMenuController : DetailsMenuController
+        var boardId : String
+        var delManager : DelManager
+        var scene : Scene
         
         private init(boardId : String, scene : Scene) {
             
-            self.boardId = boardId;
-            self.scene = scene;
+            self.boardId = boardId
+            self.scene = scene
             
-            self.socketIOManager = SocketIOManager(boardId : self.boardId);
+            self.socketIOManager = SocketIOManager(boardId : self.boardId)
             // socketIOManager.establistConnection();
             // print("Device is connected!");
             
-            self.messenger = Messenger(socketIOManager : socketIOManager);
-            self.devicesManager = DevicesManager(messenger : self.messenger);
-            self.boardStateManager = BoardStateManager(msngr : messenger);
-            self.peersManager = PeersManager(peer: Peer(peerId : 1), peersWidgetController : PeersWidgetController());
-            // self.itemStateFactory = ItemStateFactory();
-            // self.deltaFactory = DeltaFactory();
-            self.delManager = DelManager();
+            self.messenger = Messenger(socketIOManager : socketIOManager)
+            self.devicesManager = DevicesManager(messenger : self.messenger)
+            self.boardStateManager = BoardStateManager(msngr : messenger)
+            self.peersManager = PeersManager(peer: Peer(peerId : 1), peersWidgetController : PeersWidgetController())
+            // self.detailsMenuController = Part of UI
+            self.delManager = DelManager()
             
         }
      
