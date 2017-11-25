@@ -19,8 +19,6 @@ class ChangeItemDelta : Delta {
     
     var from : ItemState
     var to: ItemState
-    var inverse : Delta
-    typealias inverseFunc = (Int, Int) -> ChangeItemDelta
     
     init(actId: Int, devId: Int, from: ItemState, to: ItemState ) {
         self.from = from

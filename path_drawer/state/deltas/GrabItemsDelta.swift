@@ -15,9 +15,6 @@ class GrabItemsDelta : Delta {
     var uids : [(id: Int, devId: Int)]
     var initialMatrix: Matrix
     var intent : GrabItemsDelta.intents
-    var inverse : Delta
-    typealias inverseFunc = (Int, Int) -> ReleaseItemsDelta
-    
     
     init(actId: Int, devId: Int, holderDevId: Int, uids: [(id: Int, devId: Int)], initialMatrix: Matrix, intent: GrabItemsDelta.intents){
         self.holderDevId = holderDevId

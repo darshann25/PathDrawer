@@ -10,8 +10,6 @@ import Foundation
 class NewItemDelta : Delta {
     
     var itemState : ItemState
-    var inverse : Delta
-    typealias inverseFunc = (Int, Int) -> DeleteItemDelta
     
     // class NewItemDelta inherits Delta
     init(actId: Int, devId: Int, itemState: ItemState) {

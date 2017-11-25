@@ -12,8 +12,6 @@ class TransformItemsDelta : Delta {
     var holderDevId : Int
     var fromMatrix : Matrix
     var toMatrix : Matrix
-    var inverse : Delta
-    typealias inverseFunc = (Int, Int) -> TransformItemsDelta
     
     init(actId: Int, devId: Int, holderDevId: Int, fromMatrix: Matrix, toMatrix: Matrix){
         self.holderDevId = holderDevId
