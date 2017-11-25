@@ -3,6 +3,7 @@
 //  path_drawer
 //
 //  Created by Henry Stahl on 11/7/17.
+//  Authored by Darshan Patel on 11/20/17.
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
@@ -38,8 +39,8 @@ class TextItem : Item {
     }
     
     func getBoundingRect() -> Rect {
-        var topLeft = self.getCorner(chirality : "left", matrix : self.matrix, refLine : "topBox")
-        var topRight = self.getCorner(chirality : "right", matrix : self.matrix, refLine : "topBox")
+        var topLeft = self.getCorner(chirality : TextItem.chiralities.Left, matrix : self.matrix, refLine : TextItem.referenceLines.TopBox)
+        var topRight = self.getCorner(chirality : TextItem.chiralities.Right, matrix : self.matrix, refLine : TextItem.referenceLines.TopBox)
         var left = topLeft.x
         var top = topLeft.y
         // respect a larger width if baselineRight demands it
@@ -60,9 +61,9 @@ class TextItem : Item {
         
         if(matrix != nil || matrix === Matrix.identityMatrix()) {
             lines = self.lines
-            topBoxLeft = self.getCorner(chirality : "left", matrix : self.matrix, refLine : "topBox")
+            topBoxLeft = self.getCorner(chirality : TextItem.chiralities.Left, matrix : self.matrix, refLine : TextItem.referenceLines.TopBox)
         } else {
-            topBoxLeft = self.getCorner(chirality : "left", matrix : totalMatrix, refLine : "topBox")
+            topBoxLeft = self.getCorner(chirality : TextItem.chiralities.Left, matrix : totalMatrix, refLine : TextItem.referenceLines.TopBox)
             lines = RichTextLines(buffer : self.buffer, maxWidth : self.getTextWidth(matrix : totalMatrix))
         }
         // point where the top and left margins intersect
@@ -75,8 +76,8 @@ class TextItem : Item {
         if (DEBUG_MODE) {
             // should draw the line 0 baseline
             // debug code
-            var baselineLeft = self.getCorner(chirality : "left", matrix : totalMatrix, refLine : "baseline")
-            var baselineRight = this.getCorner(chirality : "right", matrix : totalMatrix, refLine : "baseline")
+            var baselineLeft = self.getCorner(chirality : TextItem.chiralities.Left, matrix : totalMatrix, refLine : TextItem.referenceLines.Baseline)
+            var baselineRight = this.getCorner(chirality : TextItem.chiralities.Right, matrix : totalMatrix, refLine : TextItem.referenceLines.Baseline)
             ctx.beginPath()
             ctx.move(to: convertToCGPoint(point: baselineLeft))
             ctx.addLine(to: convertToCGPoint(point: baselineRight))
@@ -110,24 +111,24 @@ class TextItem : Item {
     
     // enums
     enum chiralities {
-        case Left: "left"
-        case Right: "right"
+        case Left
+        case Right
     }
     
     enum referenceLines {
-        case TopBox: 'topBox'       // top of the (implicit) textbox
-        case Baseline: 'baseline'   // line 0 baseline
+        case TopBox       // top of the (implicit) textbox
+        case Baseline     // line 0 baseline
     }
 
     func getInitialBaseline(chirality : TextItem.chiralities) -> Point {
         switch (chirality) {
-            case TextItem.chiralities.Left
+            case TextItem.chiralities.Left:
                 return self.localBaselineLeft
         
             case TextItem.chiralities.Right:
                 return self.localBaselineRight
         
-            default:
+            //default:
                 // analytics.unexpected('TextItem.getInitialBaseline, chirality', chirality)
         }
     }
@@ -146,7 +147,7 @@ class TextItem : Item {
                 dx = TEXT_PADDING
                 break
         
-            default:
+            //default:
                 //analytics.unexpected('TextItem.getCorner, chirality', chirality)
         }
         
@@ -177,17 +178,17 @@ class TextItem : Item {
     
     func getTextWidth(matrix : Matrix) -> Double {
         // FIX ME when rotation is implemented
-        var topBoxLeft = self.getCorner(chirality: "left", matrix: matrix, refLine: "topBox")
-        var topBoxRight = self.getCorner(chirality: "right", matrix: matrix, refLine: "topBox")
+        var topBoxLeft = self.getCorner(chirality: TextItem.chiralities.Left, matrix: matrix, refLine: TextItem.referenceLines.TopBox)
+        var topBoxRight = self.getCorner(chirality: TextItem.chiralities.Right, matrix: matrix, refLine: TextItem.referenceLines.TopBox)
         return topBoxRight.x - topBoxLeft.x - 2 * TEXT_PADDING
     }
     
     func createPreTextItemT() -> PreTextItemT {
         var newBuffer = self.buffer.revertFromLatexToText();
-        var baselineLeft = self.getCorner(chirality: "left", matrix: self.matrix, refLine: "baseline")
-        var baselineRight = self.getCorner(chirality: "right", matrix: self.matrix, refLine: "baseline")
+        var baselineLeft = self.getCorner(chirality: TextItem.chiralities.Left, matrix: self.matrix, refLine: TextItem.referenceLines.Baseline)
+        var baselineRight = self.getCorner(chirality: TextItem.chiralities.Right, matrix: self.matrix, refLine: TextItem.referenceLines.Baseline)
         var newLines = RichTextLines(buffer : newBuffer, maxWidth : baselineRight.x - baselineLeft.x);
-        var dy = - newLines.lines[0].ascent - TEXT_PADDING;
+        var dy = -newLines.lines[0].ascent - TEXT_PADDING;
         var newBoxTopLeft = baselineLeft.translate(xDist : -TEXT_PADDING, yDist : dy);
         var newBoxTopRight = baselineRight.translate(xDist : TEXT_PADDING, yDist : dy);
         return PreTextItemT(x : newBoxTopLeft.x, y : newBoxTopLeft.y, textItem : self, width : self.getBoundingRect().width);

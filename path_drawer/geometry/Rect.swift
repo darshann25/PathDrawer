@@ -11,6 +11,8 @@ import Foundation
 
 class Rect{
     
+    public static var nullRect = NullRect()
+    
     var left = 0.00;
     var top = 0.00;
     var width = 0.00;
@@ -180,6 +182,13 @@ class Rect{
     func upperLeftPoint()->Point{
         
         return Point(x: self.left, y: self.top);
+        
+    }
+    
+}
+
+private class NullRect : Rect {
+    init() {
         
     }
     
