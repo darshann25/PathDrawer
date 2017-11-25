@@ -12,13 +12,17 @@ class TransformItemsDelta : Delta {
     var holderDevId : Int
     var fromMatrix : Matrix
     var toMatrix : Matrix
+    var inverse : Delta
+    typealias inverseFunc = (Int, Int) -> TransformItemsDelta
     
     init(actId: Int, devId: Int, holderDevId: Int, fromMatrix: Matrix, toMatrix: Matrix){
         self.holderDevId = holderDevId
-        var _fromMatrix = fromMatrix.copy()
-        var _toMatrix = toMatrix.copy()
-        self.fromMatrix = _fromMatrix
-        self.toMatrix = _toMatrix
+        self.fromMatrix = fromMatrix.copy()
+        self.toMatrix = toMatrix.copy()
+        self.inverse = { actId, devId in
+            return TransformItemsDelta(actId: actId, devId: devId, holderDevId: holderDevId, fromMatrix: toMatrix, toMatrix: fromMatrix)
+        }
+        
         
         super.init(type: Delta.types.TransformItemsDelta, actId: actId, devId: devId)
     }
@@ -47,7 +51,9 @@ class TransformItemsDelta : Delta {
     }
     
     func applyToScene() {
-        var selectionItemT = BoardViewController.BoardContext.sharedInstance.devicesManager.getDevice(devId: holderDevId).context()["selectionItemT"]
+        var devicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
+        var selectionItemT = devicesManager.getDevice(devId: holderDevId).context["selectionItemT"] as! SelectionItemT
+        selectionItemT.setMatrix(matrix: self.toMatrix)
     }
     
     func applyToBoardState (boardState: BoardState){
