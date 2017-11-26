@@ -7,8 +7,16 @@
 //
 
 import Foundation
+import UIKit
+
 class Document {
+    var rect : CGRect
+    
     init() {
+        rect = CGRect.zero
+    }
+    
+    func drawOnCanvas(canvas : SceneView, x : Double, y : Double, s : Double) {
         
     }
 }

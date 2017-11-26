@@ -23,9 +23,6 @@ class SceneView : UIView {
         super.init(coder: aDecoder)
     }
     
-    
-    
-    
     /////////////////////
     // USER INTERFACE  //
     /////////////////////

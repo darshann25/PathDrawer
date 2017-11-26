@@ -57,19 +57,19 @@ class Background : UIView {
             self.grid = initData["grid"]
         }
         if (self.initData["gridColor"] != nil) {
-            self.gridColor = initData["gridColor"]
+            self.gridColor = initData["gridColor"] as! CGColor
         }
         if (self.initData["gridDx"] != nil) {
-            self.gridDx = initData["gridDx"]
+            self.gridDx = initData["gridDx"] as! Int
         }
         if (self.initData["gridDy"] != nil) {
-            self.gridDy = initData["gridDy"]
+            self.gridDy = initData["gridDy"] as! Int
         }
         if (self.initData["axes"] != nil) {
-            self.axes = initData["axes"]
+            self.axes = initData["axes"] as! Bool
         }
         if (self.initData["axesColor"] != nil) {
-            self.axesColor = initData["axesColor"]
+            self.axesColor = initData["axesColor"] as! CGColor
         }
         if (self.initData["documents"] != nil) {
             var docs : Dictionary<String, Any> = initData["documents"] as! Dictionary<String, Any>
@@ -146,67 +146,50 @@ class Background : UIView {
         let ctx = UIGraphicsGetCurrentContext()
         
         // draw the background color
-        ctx.setFillColor(self.color)
+        ctx?.setFillColor(self.color)
         ctx?.beginPath()
         ctx?.addRect(CGRect(x: 0, y: 0, width: width, height: height))
         ctx?.fillPath()
+        // draw the grid
         if (grid) {
-            //drawGrid(ctx: ctx!, x: x, y: y, s: s, width: width, height: height);
+            self.drawGrid(ctx: ctx, x: x, y: y, s: s, width: width, height: height)
         }
+        
+        // draw the axes
         if (axes) {
-            //drawAxes(ctx: ctx!, x: x, y: y, s: s, width: width, height: height);
+            self.drawAxes(ctx: ctx, x: x, y: y, s: s, width: width, height: height)
         }
+        
+        
+        
         // draw the documents (if they overlap with viewable region)
-        //var viewRect = Rect(left: x, top: y, width: (width/s) , height: (height/s))
-        /*for (var devId in documents) {
-            for (var id in documents[devId]) {
-                var document = documents[devId][id];
-                if (viewRect.intersects(document.rect)) {
-                    document.drawOnCanvas(canvas,
-                                          x - document.rect.left,
-                                          y - document.rect.top,
-                                          s);*/
-        // also replaces existing document
-        /*
-        func addDocument(doc) {
-            var devId = doc.devId;
-            var id = doc.id;
-            if (!(devId in documents)) {
-                documents[devId] = {};
-            }
-            documents[devId][id] = doc;
-            setNeedsDisplay()
-        }
-        
-        func removeDocument(id, devId) {
-            delete documents[devId][id];
-            setNeedsDisplay()
-        }
-        
-        function getPositionForNewDocument() {
-            var left = 0;
-            for (var devId in documents) {
-                for (var id in documents[devId]) {
-                    left = Math.max(left, documents[devId][id].rect.right());
+        var viewRect = Rect(left: x, top: y, width: (width/s) , height: (height/s))
+        for devId in self.documents {
+            for id in self.documents[devId] {
+                var document = self.documents[devId][id]
+                if(viewRect.intersects(that: document.rect)) {
+                    document.drawOnCanvas(canvas : canvas, x : x - document.rect.left, y : y - document.rect.top, s : s)
                 }
             }
-            return [left, 0];
         }
-        */
     }
     
+    // TODO : Add Documents
     public func getDocumentsList() {
         
     }
     
+    // TODO : Add Documents
     public func addDocument(doc : Document) {
         
     }
     
+    // TODO : Add Documents
     public func removeDocument(id : Int, devId : Int) {
         
     }
     
+    // TODO : Add Documents
     public func getPositionForNewDocument() {
         
     }
