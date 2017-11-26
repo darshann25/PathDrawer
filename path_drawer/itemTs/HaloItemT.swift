@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class HaloItem: ItemT {
+class HaloItemT: ItemT {
 
    // ItemT.call(self)
     

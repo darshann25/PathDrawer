@@ -119,7 +119,7 @@ class Messenger {
         }
     }
     
-    func releaseMessagesFromDeviceWithId(deviceId : String) {
+    func releaseMessagesFromDeviceWithId(deviceId : Int) {
         if(inboxes[deviceId] == nil) {
             // there were no messages
             return

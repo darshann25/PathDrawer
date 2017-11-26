@@ -10,11 +10,11 @@ import Foundation
 
 class ViewRectItemT : ItemT {
     
-    /*
+    
     var peerId: Double
     var rectArray = [Double]()
     
-    init(peerId:Double){
+    init(peerId : Double){
         
         self.peerId = peerId
         self.rectArray = [Double]()

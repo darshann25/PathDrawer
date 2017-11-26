@@ -51,6 +51,10 @@ class BoardStateManager {
     
     }
 
+    func onBoardStateFromServer(rawdata : [String : Any]) {
+        
+    }
+    
     //////////
     // misc //
     //////////

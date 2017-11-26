@@ -22,7 +22,7 @@ class PeersManager {
         self.peersWidgetController = peersWidgetController;
     }
     
-    func getPeerIncludedMyself(id : Int) -> Peer {
+    func getPeerIncludingMyself(id : Int) -> Peer {
         if (id == myPeerId) {
             return myself;
         }
@@ -116,5 +116,17 @@ class PeersManager {
             myPeers.removeValue(forKey: device.peerId);
         }
         peersWidgetController.relayout(peers : myPeers);
+    }
+    
+    func getMyPeerId() -> Int {
+        return myPeerId
+    }
+    
+    func getMyself() -> Peer {
+        return self.myself
+    }
+    
+    func getMyPeer(peerId : Int) -> Peer {
+        return myPeers[peerId]
     }
 }
