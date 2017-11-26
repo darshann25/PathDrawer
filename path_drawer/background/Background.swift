@@ -6,45 +6,99 @@
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
+/*
+ The Background is responsible for displaying an infinite pattern and then possibly rendering Documents above it.
+ */
 import Foundation
 import UIKit
 
 class Background : UIView {
     
-    var color = UIColor.white.cgColor
+    private var color = UIColor.white.cgColor
     
-    var grid = false
-    var gridColor = UIColor.blue.cgColor
-    var gridDx = 72
-    var gridDy = 72
+    // data for drawing a grid
+    private var grid = false
+    private var gridColor = UIColor.blue.cgColor
+    private var gridDx = 72
+    private var gridDy = 72
+    private var initData : Dictionary<String, Any>
     
-    var axes = false
+    // data for drawing axes
+    private var axes = false
+    private var axesColor = UIColor.gray.cgColor
+    
+    // organized by devId, then id
+    private var documents = {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        didLoad()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        didLoad()
     }
     
-    convenience init() {
+    convenience init(initData : Dictionary<String, Any>) {
         self.init(frame: CGRect.zero)
-        didLoad()
+        
+        self.initData = initData
+        constructBackground()
     }
     
-    func didLoad() {
+    //////////
+    // init //
+    //////////
+    func constructBackground() {
+        
+        if (self.initData["color"] != nil) {
+            self.color = initData["color"]
+        }
+        if (self.initData["grid"] != nil) {
+            self.grid = initData["grid"]
+        }
+        if (self.initData["gridColor"] != nil) {
+            self.gridColor = initData["gridColor"]
+        }
+        if (self.initData["gridDx"] != nil) {
+            self.gridDx = initData["gridDx"]
+        }
+        if (self.initData["gridDy"] != nil) {
+            self.gridDy = initData["gridDy"]
+        }
+        if (self.initData["axes"] != nil) {
+            self.axes = initData["axes"]
+        }
+        if (self.initData["axesColor"] != nil) {
+            self.axesColor = initData["axesColor"]
+        }
+        if (self.initData["documents"] != nil) {
+            var docs : Dictionary<String, Any> = initData["documents"] as! Dictionary<String, Any>
+            
+            for devId in docs {
+                for id in docs[devId] {
+                    var docJSON = docs[devId][id]
+                    if(self.documents[devId] == nil) {
+                        self.documents[devId] = {}
+                    }
+                    // self.documents[devId][id] = Document(doc : docJSON)
+                }
+            }
+        }
     }
     
-    
-    func drawGrid (ctx: CGContext, x:Int, y:Int, s:Int, width:Int, height:Int){
+    /////////////
+    // methods //
+    /////////////
+
+    // helper function for drawing a grid
+    private func drawGrid (ctx: CGContext, x:Int, y:Int, s:Int, width:Int, height:Int){
+        
         ctx.saveGState()
-        ctx.setStrokeColor(gridColor)
+        ctx.setStrokeColor(self.gridColor)
         ctx.setLineWidth(1)
         let startx = s * (-(x % gridDx))
         let starty = s * (-(y % gridDy))
+        
         var i = startx
         while ( i <= width ) {
             ctx.beginPath()
@@ -64,17 +118,19 @@ class Background : UIView {
         ctx.restoreGState()
     }
     
-    func drawAxes(ctx: CGContext, x:Int, y:Int, s:Int, width:Int, height:Int){
+    // helper function for drawing axes
+    private func drawAxes(ctx: CGContext, x:Int, y:Int, s:Int, width:Int, height:Int){
+        
         ctx.saveGState()
-        ctx.setStrokeColor(gridColor)
+        ctx.setStrokeColor(self.axesColor)
         ctx.setLineWidth(1)
-        //draw x axis
+        // draw x axis
         let xAxis = (-y * s)
         ctx.beginPath()
         ctx.move(to: CGPoint(x:0,y:xAxis))
         ctx.addLine(to: CGPoint(x:width,y:xAxis))
         ctx.strokePath()
-        //draw y axis
+        // draw y axis
         let yAxis = (-x * s)
         ctx.beginPath()
         ctx.move(to: CGPoint(x:yAxis ,y:0))
@@ -83,7 +139,7 @@ class Background : UIView {
     }
     
     // (x,y): upper-left corner of canvas in scene coordinates
-    func drawOnCanvas(canvas: Any, x: Double, y: Double, s: Double) {
+    public func drawOnCanvas(canvas: SceneView, x: Double, y: Double, s: Double) {
     //TODO, FIGURE OUT WHAT CANVAS WILL BE IN SWIFT
         var width : Double
         let height : Double
@@ -134,5 +190,23 @@ class Background : UIView {
         }
         */
     }
+    
+    public func getDocumentsList() {
+        
+    }
+    
+    public func addDocument(doc : Document) {
+        
+    }
+    
+    public func removeDocument(id : Int, devId : Int) {
+        
+    }
+    
+    public func getPositionForNewDocument() {
+        
+    }
+    
+    
 }
 
