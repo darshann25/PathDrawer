@@ -14,13 +14,16 @@ import Foundation
 
 class Messenger {
     
+    typealias DeviceId = Int
+    typealias MessageCallback = ([String : Any], DeviceId) -> ()
+    
     // list of all message handlers
-    private var handlers : Dictionary<String, Any>;
+    private var handlers : [String : MessageCallback]
     
     // used to save messages received before a device instance is created (indexed by deviceId)
-    private var inboxes : Dictionary<String, [(String, String)]>;
+    private var inboxes : [Int : [(String, [String : Any])]]
     
-    private let socket : SocketIOManager;
+    private let socket : SocketIOManager
     private let devicesManager : DevicesManager
     private let scene : Scene
     
@@ -33,7 +36,7 @@ class Messenger {
     }
     
     // sends message to a list of devices through the server
-    func sendMessageViaServer(type : String, message : String, to : [String]) {
+    func sendMessageViaServer(type : String, message : [String : Any], to : [Int]) {
         let data : [String : Any] = [
             "to": to,
             "type": type,
@@ -46,7 +49,7 @@ class Messenger {
     
     // similar to broadcast, but only to another device
     // TODO rename to sendMessageToDevice
-    func sendMessageTo(type : String, message : String, deviceId : String) {
+    func sendMessageTo(type : String, message : [String : Any], deviceId : String) {
         let device = self.devicesManager.getDevice(devId : Int(deviceId)!);
         let success = device.sendMessageDirectly(type: type, message : message);
         if (success != false) {
@@ -55,7 +58,7 @@ class Messenger {
     }
 
     // sends message to all other devices as efficiently as possible
-    func broadcast(type : String, message : String) {
+    func broadcast(type : String, message : [String : Any]) {
     
         var devices = self.devicesManager.getDevices();
         var to = [String](); // used to relay via server
@@ -74,24 +77,22 @@ class Messenger {
         
     }
     
-    typealias myFunc = (String, String) -> ();
-    
-    func onMessage(type: String, f : @escaping myFunc) {
+    func onMessage(type: String, f : @escaping MessageCallback) {
         handlers[type] = f;
     }
     
     // internal, delivers to the appropriate handler (at this point, the device instance does exist)
-    internal func deliverMessage(type : String, message : String, from : String) {
+    internal func deliverMessage(type : String, message : [String : Any], from : Int) {
         if (handlers[type] != nil) {
             //handlers[type](message, from);
-            let f : myFunc = handlers[type] as! myFunc
+            let f : MessageCallback = handlers[type] as! MessageCallback
             f(message, from)
         } else {
             NSLog("Incoming message had unrecognized type: $@ ", type);
         }
     }
     
-    func incomingMessage(type : String, message : String, from : String) {
+    func incomingMessage(type : String, message : [String : Any], from : Int) {
         // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
         if (self.devicesManager.getDevices()[Int(from)!] != nil) {
             deliverMessage(type : type, message : message, from : from);
@@ -105,16 +106,16 @@ class Messenger {
         }
     }
     
-    func fakeIncomingMessage(type : String, message : String, from : String) {
+    func fakeIncomingMessage(type : String, message : [String : Any], from : Int) {
         // TODO handle case where device created, but message queue not empty (concurrency issue not actually relevant in javascript, right?)
         if (self.devicesManager.getDevices()[Int(from)!] != nil) {
             deliverMessage(type : type, message : message, from : from);
         } else {
             // there is no device instance, so hold the message in the inbox
             if (inboxes[from] == nil) {
-                inboxes[from] = [(String, String)]();
+                inboxes[from] = [(String, [String : Any])]();
             }
-            //inboxes[from].append((type, message));
+            inboxes[from].append((type, message))
         }
     }
     
@@ -127,8 +128,8 @@ class Messenger {
         // TODO : ADD QUEUE STRUCTURE
         var queue = inboxes[deviceId]
         self.scene.beginChanges()
-        while(queue?.count != 0) {
-            let mail = queue.pop(0)
+        while(queue.count != 0) {
+            let mail = queue.remove(at : 0)
             deliverMessage(type: mail[0], message: mail[1], from: deviceId)
         }
         self.scene.endChanges()
