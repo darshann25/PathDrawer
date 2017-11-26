@@ -6,36 +6,61 @@
 //  Copyright © 2017 URMISH M BHATT. All rights reserved.
 //
 
+/////////////////
+// Point Class //
+/////////////////
+
+/*
+ Represents a point on the plane in cartesian coordinates. (Used eg. by {@link Rect} and Matrix classes.)
+ @constructor
+ @param {Number} x The x coordinate.
+ @param {Number} y The y coordinate.
+ */
+
 import Foundation
 import UIKit
 
 class Point{
     
-    var x = 0.00
-    var y = 0.00
+    var x : Double
+    var y : Double
     
-    init(x: Double,y: Double){
+    init(x: Double, y: Double){
         
-        self.x=x
-        self.y=y
+        self.x = x
+        self.y = y
         
     }
     
-    func toArray()->Array<Any>{ //prototype conversion pending
+    /*
+     * Returns a 1-dimensional array of length 2 containing the x and y coordinates, in order,
+     * of the point.
+     * @returns a 1-dimensional array containing the point's x and y coordinates, in order.
+     */
+    func toArray() -> [Any] {
         
-        return [self.x,self.y]
+        return [self.x, self.y]
         
     }
     
-    func fromArray(a: Array<Double>)-> Point{
+    /*
+     * Construct a point from a 1-dimensional array of length 2 with x and y coordinates, in order.
+     * @return {Point} the resulting point
+     */
+    func fromArray(a: [Double]) -> Point{
         
-        return Point(x: Double(a[0]), y: Double(a[1]))
+        return Point(x: a[0], y: a[1])
         
     }
     
-    func translate (xDist: Double,yDist: Double)-> Point {    //prototype conversion pending
+    /*
+     * @param {number} xDist horizontal distance
+     * @param {number} yDist vertical distance
+     * @return {Point} the current point translated
+     */
+    func translate(xDist: Double,yDist: Double)-> Point {
         
-        return Point(x: self.x + xDist, y: self.y + yDist)
+        return Point(x : self.x + xDist, y : self.y + yDist)
         
     }
     

@@ -148,7 +148,7 @@ class Matrix{
      @return {Number} The determinant of the matrix.
      */
     func det()->Double{
-        return self.a*self.d - self.b*self.c
+        return ((self.a * self.d) - (self.b * self.c))
     }
 
     /*
@@ -163,7 +163,7 @@ class Matrix{
         c: Double(-self.c) / Double(det),
         d: Double(self.a) / Double(det),
         e: Double((self.c * self.f - self.d * self.e)) / Double(det),
-        f: Double((self.b * self.e - self.a * self.f)) / Double(det) );
+        f: Double((self.b * self.e - self.a * self.f)) / Double(det) )
     }
 
     /*
@@ -171,7 +171,7 @@ class Matrix{
      @return {Array} A 1-dimensional array of length 6 containing the parameters of the matrix.
      */
     func toArray()-> Array<Double>{   //prototype conversion pending
-        return [self.a, self.b, self.c, self.d, self.e, self.f];
+        return [self.a, self.b, self.c, self.d, self.e, self.f]
     }
 
     /*
@@ -180,11 +180,11 @@ class Matrix{
      @return {Matrix} The resulting matrix.
      */
     func fromArray(a:[Int])-> Matrix{
-        return Matrix (a: Double(a[0]), b: Double(a[1]), c: Double(a[2]), d: Double(a[3]), e: Double(a[4]), f: Double((a[5])));
+        return Matrix (a: Double(a[0]), b: Double(a[1]), c: Double(a[2]), d: Double(a[3]), e: Double(a[4]), f: Double((a[5])))
     }
     
     func fromArray(a : [Double]) -> Matrix {
-        return Matrix(a : a[0], b : a[1], c : a[2], d : a[3], e : a[4], f : a[5]);
+        return Matrix(a : a[0], b : a[1], c : a[2], d : a[3], e : a[4], f : a[5])
     }
 }
 

@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-/**
+/*
  A Parallelogram is a Rect, together with a Matrix.
  It is intended to generalize a Rect to something that can be rotated (ie. not respecting the xy coordinate system).
  
