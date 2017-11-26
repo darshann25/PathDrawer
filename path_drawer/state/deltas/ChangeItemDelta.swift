@@ -23,9 +23,6 @@ class ChangeItemDelta : Delta {
     init(actId: Int, devId: Int, from: ItemState, to: ItemState ) {
         self.from = from
         self.to = to
-        self.inverse = { actId, devId in
-            return ChangeItemDelta(actId: actId, devId: devId, from: to, to: from)
-        }
         
         super.init(type: Delta.types.ChangeItemDelta, actId: actId, devId: devId)
     }

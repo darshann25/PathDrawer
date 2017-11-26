@@ -21,9 +21,6 @@ class ReleaseItemsDelta : Delta {
         self.uids = uids
         self.finalMatrix = finalMatrix
         self.intent = intent
-        self.inverse = { actId, devId in
-            return GrabItemsDelta(actId : actId, devId : devId, holderDevId : holderDevId, uids : uids, initialMatrix : finalMatrix, intent : intent)
-        }
         
         super.init(type: Delta.types.ReleaseItemsDelta, actId: actId, devId: devId)
     }

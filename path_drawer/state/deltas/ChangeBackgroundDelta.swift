@@ -18,7 +18,6 @@ class ChangeBackgroundDelta : Delta {
         self.to = to
         
         super.init(type: Delta.types.ChangeBackgroundDelta,actId: actId,devId: devId)
-        
     }
     
     enum types {

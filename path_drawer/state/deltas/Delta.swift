@@ -51,14 +51,11 @@ class Delta {
     var type : Delta.types
     var actId : Int
     var devId : Int
-    typealias inverseFunc = (Int, Int) -> Delta
-    var inverse : inverseFunc
     
     init (type: Any, actId: Int, devId: Int){
         self.type = type
         self.actId = actId
         self.devId = devId
-        self.inverse = nil
     }
     
     enum types {

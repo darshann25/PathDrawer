@@ -15,9 +15,6 @@ class DeleteItemDelta : Delta {
     
     init(actId: Int, devId: Int, itemState: ItemState) {
         self.itemState = itemState
-        self.inverse = { actId, devId in
-            return NewItemDelta(actId: actId, devId: devId, itemState: self.itemState)
-        }
         
         super.init(type: Delta.types.DeleteItemDelta, actId: actId, devId: devId)
     }

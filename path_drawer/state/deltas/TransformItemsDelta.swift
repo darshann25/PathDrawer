@@ -17,10 +17,6 @@ class TransformItemsDelta : Delta {
         self.holderDevId = holderDevId
         self.fromMatrix = fromMatrix.copy()
         self.toMatrix = toMatrix.copy()
-        self.inverse = { actId, devId in
-            return TransformItemsDelta(actId: actId, devId: devId, holderDevId: holderDevId, fromMatrix: toMatrix, toMatrix: fromMatrix)
-        }
-        
         
         super.init(type: Delta.types.TransformItemsDelta, actId: actId, devId: devId)
     }
