@@ -141,11 +141,15 @@ class Background : UIView {
     // (x,y): upper-left corner of canvas in scene coordinates
     public func drawOnCanvas(canvas: SceneView, x: Double, y: Double, s: Double) {
     //TODO, FIGURE OUT WHAT CANVAS WILL BE IN SWIFT
-        var width : Double
-        let height : Double
+        var width = canvas.getWidth()
+        let height = canvas.getHeight()
         let ctx = UIGraphicsGetCurrentContext()
-        ctx?.setFillColor(color)
-        //ctx?.fill(CGRect(x:0, y:0,width: width, height: height))
+        
+        // draw the background color
+        ctx.setFillColor(self.color)
+        ctx?.beginPath()
+        ctx?.addRect(CGRect(x: 0, y: 0, width: width, height: height))
+        ctx?.fillPath()
         if (grid) {
             //drawGrid(ctx: ctx!, x: x, y: y, s: s, width: width, height: height);
         }

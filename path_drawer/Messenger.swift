@@ -100,7 +100,8 @@ class Messenger {
             if (inboxes[from] == nil) {
                 inboxes[from] = [(String, String)]();
             }
-            //inboxes[from].append((type, message));
+            inboxes[from].append((type, message));
+            //inboxes[from].enqueue((type, message));
         }
     }
     
