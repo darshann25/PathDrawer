@@ -31,7 +31,7 @@
 import Foundation
 class ItemT {
     
-    public static let nullItemT = NullItemT()
+    private static let nullItemT = NullItemT()
     
     var scene : Scene
     var respondsToHoverEvents : Bool
@@ -86,7 +86,7 @@ class ItemT {
     }
 }
 
-private class NullItemT : ItemT {
+class NullItemT : ItemT {
     init() {
         
     }

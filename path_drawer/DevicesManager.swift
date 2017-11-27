@@ -40,6 +40,7 @@ class DevicesManager {
 
     private var messenger : Messenger
     private var peersManager : PeersManager
+    private var boardStateManager : BoardStateManager
     
     private var boardStateProviderId : Timer
     
@@ -52,6 +53,7 @@ class DevicesManager {
         
         self.messenger = messenger
         self.peersManager = BoardViewController.BoardContext.sharedInstance.peersManager
+        self.boardStateManager = BoardViewController.BoardContext.sharedInstance.boardStateManager
         
         
         ///////////////
@@ -60,25 +62,27 @@ class DevicesManager {
         
         self.messenger.onMessage(type : "board", f : {message, from in
             receive(message)
-        });
+        })
 
+        // TODO : Web RTC
         // help relay messages to device.dataConnection
         self.messenger.onMessage(type : "rtc_data", f : {message, from in
-        
-        });
+        //    devices[from].dataConnection.onMessageViaServer(message)
+        })
 
+        // TODO : Web RTC
         // help relay messages to device.streamConnection
         self.messenger.onMessage(type : "rtc_stream", f : {message, from in
-        
-        });
+        //    devices[from].streamConnection.onMessageFromPeer(message)
+        })
 
         self.messenger.onMessage(type : "request_board_state", f : {message, from in
-
-        });
+            self.messenger.sendMessageTo(type: "entire_board_state", message: self.boardStateManager.getMinifiedState(), deviceId: from)
+        })
 
         self.messenger.onMessage(type : "console", f : {message, from in
-        
-        });
+            NSLog("message from device @: @", String(from), message)
+        })
         
 
     }
@@ -88,7 +92,7 @@ class DevicesManager {
     ///////////////////////
     
     // when this device successfully joins, this is the first thing to happen
-    private func thisDeviceJoined(data: [String : Any]) {
+    public func thisDeviceJoined(data: [String : Any]) {
         
         // first create the associated peer
         self.peersManager.onThisDeviceJoined(data: data)
@@ -106,7 +110,7 @@ class DevicesManager {
     // WARNING! it is possible that some old devices (that have left) are still included here
     //          (in this case, the server will eventually send a device_left message
     
-    private func devicesOnJoin(devicesData: [String : Any]) {
+    public func devicesOnJoin(devicesData: [String : Any]) {
         self.boardStateProviderId = nil
         
         for data in devicesData {
@@ -157,13 +161,12 @@ class DevicesManager {
     typealias ErrorFunctionCallback = (String) -> Void
     
     // TODO : How to work with .ajax
-    var getBoardStateFromServer : MessageCallback = {
+    private var getBoardStateFromServer : MessageCallback = {
         var boardId = BoardViewController.BoardContext.sharedInstance.boardId
-        var boardStateManager = BoardViewController.BoardContext.sharedInstance.boardStateManager
         
         var success : SuccessFunctionCallback = { res in
             NSLog("get board state");
-            boardStateManager.onBoardStateFromServer(rawdata : res)
+            self.boardStateManager.onBoardStateFromServer(rawdata : res)
 
         }
         
@@ -180,7 +183,7 @@ class DevicesManager {
         ]
     }
     
-    private func cancelGetBoardStateFromServerTimer() {
+    public var cancelGetBoardStateFromServerTime : MessageCallback = {
         if(self.boardStateFromServerTimerId != nil) {
             self.boardStateFromServerTimerId.invalidate()
             self.boardStateFromServerTimerId = nil
@@ -188,7 +191,7 @@ class DevicesManager {
     }
 
     // when another device joins, this function is called with data for the other device
-    private func onDeviceJoined(data: [String : Any]) {
+    public func onDeviceJoined(data: [String : Any]) {
         
         // first check if there is an associated peer, and if not, create it
         self.peersManager.onDeviceJoined(data: data)
@@ -208,7 +211,8 @@ class DevicesManager {
     }
 
     // when another device leaves, this function is called with data for the other device
-    private func onDeviceLeft(data: [String : Any]) {
+    
+    public func onDeviceLeft(data: [String : Any]) {
         var deviceId = data["deviceId"] as! Int
         var device = devices[deviceId]
         // inform the device it has left
@@ -219,7 +223,7 @@ class DevicesManager {
         devices.removeValue(forKey: deviceId)
     }
 
-    func getDevice(devId: Int) -> Device {
+    public func getDevice(devId: Int) -> Device {
         // TODO make ghost devices (or getDeviceOrGhost method)
         if (devices[devId] != nil) {
             return devices[devId]
@@ -233,31 +237,58 @@ class DevicesManager {
     // relaying board changes //
     ////////////////////////////
 
-    func send() {
-    
+    public func send() {
+        var data : [String : Any] = [
+            "devId" : thisDevice.id,
+            "res" : resourcesToSend,
+            "delta" : deltasToSend
+        ]
+        self.messenger.broadcast(type: "board", message: data)
+        self.resourcesToSend = [[String : Any]]
+        self.deltasToSend = [[String : Any]]
     }
-
-    func receive(data: [String : Any]) {
     
+    public func receive(data: [String : Any]) {
+        var devId = data["devId"] as! Int
+        var resources = data["res"] as! [[String : Any]]
+        var deltas = data["delta"] as! [[String : Any]]
+        
+        // add the resources to the board state
+        for mini in resources {
+            var resource : Resource = Resource.unminify(mini)
+            self.boardStateManager.addResource(resource: resource)
+        }
+        
+        // add the deltas to the board state
+        if(deltas.count > 0) {
+            Scene.sharedInstance.beginChanges()
+            for mini in deltas {
+                var delta : Delta = Delta.unminify(mini)
+                self.boardStateManager.addDelta(delta: delta)
+                delta.applyToScene()
+            }
+            Scene.sharedInstance.endChanges()
+        }
+        
     }
     
-    func getMyDeviceId() -> Int {
+    public func getMyDeviceId() -> Int {
         return self.thisDevice.id;
     }
     
-    func getDevices() -> Dictionary<Int, Device> {
+    public func getDevices() -> Dictionary<Int, Device> {
         return devices;
     }
     
-    func getThisDevice() -> Device {
+    public func getThisDevice() -> Device {
         return thisDevice;
     }
     
-    func enqueueResource(resource : Resource) {
+    public func enqueueResource(resource : Resource) {
         self.resourcesToSend.append(resource.minify());
     }
     
-    func enqueueDelta(delta : Delta) {
+    public func enqueueDelta(delta : Delta) {
         deltasToSend.append(delta.minify());
     }
 }

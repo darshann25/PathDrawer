@@ -101,7 +101,7 @@ class BoardStateManager {
         return boardState.getResource(id : id, devId : devId);
     }
     
-    func getMinifiedState() -> Dictionary<String, Any> {
+    func getMinifiedState() -> [String : Any] {
         return boardState.minify();
     }
     
