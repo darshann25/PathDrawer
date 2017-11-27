@@ -145,7 +145,7 @@ class DevicesManager {
         if (boardStateProviderId != nil) {
             // there is a device to ask for the board state
             // we ask it now to guarantee that all board instances have been created
-            self.messenger.sendMessageTo(type: "request_board_state", message: [String : Any](), deviceId: boardStateProviderId)
+            self.messenger.sendMessageTo(type: "request_board_state", message: [String : Any](), deviceId: self.boardStateProviderId)
             // set a timeout in case we don't get the board state data in time
             self.boardStateFromServerTimerId = setTimeout(BOARD_STATE_TIMEOUT, block: getBoardStateFromServer)
         } else {

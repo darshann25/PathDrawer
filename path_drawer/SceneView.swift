@@ -6,11 +6,13 @@
 //  Copyright © 2017 scratchwork. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 class SceneView : UIView {
-   
-    var primaryTool : Tool
+    ///////////////////////////
+    // DEFAULT CONSTRUCTORS  //
+    ///////////////////////////
     
     private override init(frame: CGRect) {
         self.primaryTool = toolManager.penTool
@@ -23,6 +25,57 @@ class SceneView : UIView {
         super.init(coder: aDecoder)
     }
     
+    //////////////////
+    // WEBSITE CODE //
+    //////////////////
+    
+    var canvas : UIView = self
+    
+    // To determine whether the scene wants the mouse events.
+    var sceneGrabbedTouch : Bool = false
+    
+    // These properties define the part of the Scene that the user is viewing
+    var viewLeft : Int = 0
+    var viewTop : Int = 0
+    
+    // 1.25^2=1.5625
+    var zoom : Double = 1.5625
+    
+    func getWidth() -> Double {
+        return Double(self.canvas.frame.size.width) / self.zoom
+    }
+    
+    func getHeight() -> Double {
+        return Double(self.canvas.size.height) / zoom
+    }
+    
+    // The current tools
+    var primaryTool : Tool
+    var secondaryTool : Tool
+    
+    func setPrimaryTool(tool : Tool) {
+        if (mouseEventHandler.getIsDragging() || touchEventHandler.getIsDragging()) {
+            mouseEventHandler.setIsDragging(val : false)
+            touchEventHandler.setIsDragging(val : false)
+            primaryTool.onUp()
+        }
+    }
+    
+    /*
+    func setPrimaryTool(tool) {
+    if (mouseEventHandler.getIsDragging() || touchEventHandler.getIsDragging()) {
+    mouseEventHandler.setIsDragging(false);
+    touchEventHandler.setIsDragging(false);
+    primaryTool.onUp();
+    }
+    primaryTool = tool;
+    canvas.style.cursor = tool.getCursor();
+    }
+    
+    function setSecondaryTool(tool) {
+    secondaryTool = tool;
+    }
+     */
     /////////////////////
     // USER INTERFACE  //
     /////////////////////
