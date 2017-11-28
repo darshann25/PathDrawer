@@ -63,9 +63,11 @@ class Messenger {
         var devices = self.devicesManager.getDevices();
         var to = [String](); // used to relay via server
         for id in devices.keys {
-            let device = devices[id];
-            let success = device!.sendMessageDirectly(type : type, message : message);
-            if (success != false) {
+            let device : Device = devices[id] as! Device;
+            let success = device.sendMessageDirectly(type : type, message : message);
+            
+            // website has (success != false)
+            if (success == false) {
                 to.append(String(id));
             }
         }
@@ -137,12 +139,8 @@ class Messenger {
         
     }
     
-    // TODO : What does broadcast del do? Which broadcast function does it call?
-    /*
-    func broadcastDel(del : Delta) {
-        broadcast(type: "del", message: del)
+    func broadcastDel(del : [String : Any]) {
+        self.broadcast(type: "del", message: del)
     }
-     */
-    
     
 }

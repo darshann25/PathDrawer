@@ -39,7 +39,7 @@ class HaloItemT: ItemT {
 
 
 
-    func updateLocation(x:Float, y:Float){
+    func updateLocation(x:Double, y:Double){
         
         self.x=x
         self.y=y

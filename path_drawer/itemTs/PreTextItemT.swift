@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PreTextItemT {
+class PreTextItemT : ItemT{
     init(x : Double, y : Double, textItem : TextItem, width : Double) {
         
     }

@@ -70,5 +70,9 @@ class ViewRectItemT : ItemT {
     
     }
     
+    func updateRect(rectArray : [Double]) {
+        
+    }
+    
     
 }

@@ -29,53 +29,67 @@ class SceneView : UIView {
     // WEBSITE CODE //
     //////////////////
     
-    var canvas : UIView = self
+    private var scene : Scene = Scene.sharedInstance
+    private var toolManager : ToolManager = Scene.sharedInstance.toolManager
+    private var messenger : Messenger = BoardViewController.BoardContext.sharedInstance.messenger
+    private var delManager : DelManager = BoardViewController.BoardContext.sharedInstance.delManager
+    
+    private var canvas : SceneView = self
     
     // To determine whether the scene wants the mouse events.
-    var sceneGrabbedTouch : Bool = false
+    private var sceneGrabbedTouch : Bool = false
     
     // These properties define the part of the Scene that the user is viewing
-    var viewLeft : Int = 0
-    var viewTop : Int = 0
+    private var viewLeft : Int = 0
+    private var viewTop : Int = 0
     
     // 1.25^2=1.5625
-    var zoom : Double = 1.5625
+    private var zoom : Double = 1.5625
     
-    func getWidth() -> Double {
+    private var mouseEventHandler : MouseEventHandler = MouseEventHandler(sv: self)
+    private var touchEventHandler : TouchEventHandler = TouchEventHandler(sv: self)
+    
+    private func getWidth() -> Double {
         return Double(self.canvas.frame.size.width) / self.zoom
     }
     
-    func getHeight() -> Double {
+    private func getHeight() -> Double {
         return Double(self.canvas.size.height) / zoom
     }
     
     // The current tools
-    var primaryTool : Tool
-    var secondaryTool : Tool
+    private var primaryTool : Tool
+    private var secondaryTool : Tool
     
-    func setPrimaryTool(tool : Tool) {
-        if (mouseEventHandler.getIsDragging() || touchEventHandler.getIsDragging()) {
-            mouseEventHandler.setIsDragging(val : false)
-            touchEventHandler.setIsDragging(val : false)
-            primaryTool.onUp()
+    private func setPrimaryTool(tool : Tool) {
+        if (self.mouseEventHandler.getIsDragging() || self.touchEventHandler.getIsDragging()) {
+            self.mouseEventHandler.setIsDragging(x : false)
+            self.touchEventHandler.setIsDragging(x : false)
+            self.primaryTool.onUp()
         }
     }
     
-    /*
-    func setPrimaryTool(tool) {
-    if (mouseEventHandler.getIsDragging() || touchEventHandler.getIsDragging()) {
-    mouseEventHandler.setIsDragging(false);
-    touchEventHandler.setIsDragging(false);
-    primaryTool.onUp();
-    }
-    primaryTool = tool;
-    canvas.style.cursor = tool.getCursor();
+    private func setSecondaryTool(tool : Tool) {
+        self.secondaryTool = tool
     }
     
-    function setSecondaryTool(tool) {
-    secondaryTool = tool;
+    internal func onViewRectChanged() {
+        self.scene.onViewingRectChangedForSceneView(sv: self.canvas)
+        var rectArray : [Double] = [
+            Double(self.viewLeft),
+            Double(self.viewTop),
+            Double(self.canvas.frame.width) / self.zoom,
+            Double(self.canvas.frame.height) / self.zoom
+        ]
+        
+        var delJSON : [String : Any] = [
+            "type" : "view",
+            "N" : self.delManager.currentDelN(),
+            "rect" : rectArray
+        ]
+        self.messenger.broadcastDel(del: delJSON)
     }
-     */
+    
     /////////////////////
     // USER INTERFACE  //
     /////////////////////
@@ -103,44 +117,7 @@ class SceneView : UIView {
     @IBAction func four(_ sender: Any) {
         onPenSize4BtnClicked(sv : self)
     }
-
-    // tuple of points
-    var scene = Scene.sharedInstance;
-    var toolManager = Scene.sharedInstance.toolManager;
-    private var width = 0.00
-    private var height = 0.00
-    // The canvas, which acts as the view onto the Scene.
-    @IBOutlet weak var canvas : UIView?;
     
-    // To determine whether the scene wants the mouse events.
-    var sceneGrabbedMouse = false;
-    
-    // These properties define the part of the Scene that the user is viewing
-    var viewLeft = 0;
-    var viewTop = 0;
-    // 1.25^2=1.5625
-    var zoom = Double(1.5625);
-    
-    func getWidth()->Double {
-        return width
-        
-    }
-  
-    func getHeight()-> Double {
-        return height
-    }
-    
-    //var primaryTool : Tool
-    //var secondaryTool : Tool
-    
-    func setPrimaryTool(tool : Tool) {
-        self.primaryTool = tool
-    
-    }
-    
-    func setSecondaryTool(tool : Tool) {
-        //secondaryTool = tool
-    }
     
     // internal
     func onViewRectChanged() {
