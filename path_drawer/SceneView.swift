@@ -40,8 +40,8 @@ class SceneView : UIView {
     private var sceneGrabbedTouch : Bool = false
     
     // These properties define the part of the Scene that the user is viewing
-    private var viewLeft : Int = 0
-    private var viewTop : Int = 0
+    private var viewLeft : Double = 0
+    private var viewTop : Double = 0
     
     // 1.25^2=1.5625
     private var zoom : Double = 1.5625
@@ -90,6 +90,70 @@ class SceneView : UIView {
         self.messenger.broadcastDel(del: delJSON)
     }
     
+    func getViewPooint() {
+        return Point(x: self.viewLeft, y: self.viewTop)
+    }
+    
+    func setView(x : Double, y : Double) {
+        self.viewLeft = x
+        self.viewTop = y
+    }
+    
+    // factor usually close to 1, x,y are in view coordinates
+    func zoomAtXY(factor : Double, sceneX : Double, sceneY : Double) {
+        var x : Double = zoom * (sceneX - self.viewLeft)
+        var y : Double = zoom * (sceneY - self.viewTop)
+        var oldzoom : Double = self.zoom
+        self.zoom *= factor
+        // Max Zoom and Min Zoom are 8 zooms from default
+        self.zoom = max(0.262144, self.zoom)
+        self.zoom = min(9.3132257, self.zoom)
+        self.viewLeft += -(x * ((1 / self.zoom) - (1 / oldzoom)))
+        self.viewTop += -(y * ((1 / self.zoom) - (1 / oldzoom)))
+        self.onViewRectChanged()
+    }
+    
+    func zoomIn() {
+        self.zoomAtXY(factor: 1.25, sceneX: self.viewLeft + self.getWidth() / 2, sceneY: self.viewTop + self.getHeight() / 2)
+    }
+    
+    func zoomOut() {
+        self.zoomAtXY(factor: 0.8, sceneX: self.viewLeft + self.getWidth() / 2, sceneY: self.viewTop + self.getHeight() / 2)
+    }
+    
+    func onDown(event : UIEvent, clientX : Double, clientY : Double) {
+        var bounds : CGRect = self.canvas.frame
+        var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
+        var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
+        self.sceneGrabbedTouch = Scene.sharedInstance.onMouseDown(x: x, y: y, zoom: self.zoom, event: event)
+        if(self.sceneGrabbedTouch == false) {
+            self.primaryTool.onDown(clientX : x, clientY : y)
+        }
+        self.updateEventHandlers(f : self.onDown)
+    }
+    
+    typealias SceneViewCallbackWithPoint = (UIEvent, Double, Double) -> ()
+    func updateEventHandlers(fun : SceneViewCallbackWithPoint) {
+        self.mouseEventHandler.setSceneViewOnDown(f: fun)
+        self.touchEventHandler.
+    }
+    
+    
+    
+    /*
+     function onDown(event, clientX, clientY) {
+     var bounds = canvas.getBoundingClientRect();
+     var x = (clientX - bounds.left) / zoom + viewLeft;
+     var y = (clientY - bounds.top) / zoom + viewTop;
+     sceneGrabbedMouse = scene.onMouseDown(x, y, zoom, event);
+     if (!sceneGrabbedMouse) {
+     primaryTool.onDown(x, y);
+     }
+     }
+     mouseEventHandler.setSceneViewOnDown(onDown);
+     touchEventHandler.setSceneViewOnDown(onDown);
+
+     */
     /////////////////////
     // USER INTERFACE  //
     /////////////////////

@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 
 class TouchEventHandler {
+    typealias SceneViewCallback = (UIEvent) -> ()
+    typealias SceneViewCallbackWithPoint = (UIEvent, Double, Double) -> ()
+    typealias SceneViewCallbackWithPointScale = (UIEvent, Double, Double, Double) -> ()
+    
     private var canvas : SceneView
     // To determine whether a move event corresponds to a drag event.
     private var isDragging : Bool = false
@@ -28,7 +32,7 @@ class TouchEventHandler {
         self.canvas = sv
     }
     
-    public func sceneViewOnDown(event : UIEvent, x : Double, y : Double) {}
+    private var sceneViewOnDown : SceneViewCallbackWithPoint = {}
     public func sceneViewOnMove(event : UIEvent, x : Double, y : Double) {}
     public func sceneViewOnMoveInSceneOnly(event : UIEvent, x : Double, y : Double) {}
     public func sceneViewOnUp(event : UIEvent) {}

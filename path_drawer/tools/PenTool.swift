@@ -48,7 +48,7 @@ class PenTool : Tool {
         self.init(color: UIColor.black.cgColor, size : CGFloat(5), opacity : CGFloat(1))
     }
     
-    
+    /*
     override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView)
@@ -56,7 +56,14 @@ class PenTool : Tool {
             self.y0 = Double(point.y)
         }
     }
+    */
     
+    override func onDown(clientX : Double, clientY : Double) {
+        self.x0 = clientX
+        self.y0 = clientY
+    }
+    
+    /*
     override func onMove(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView)
@@ -98,9 +105,50 @@ class PenTool : Tool {
                 self.messenger.broadcastDel(delta : del)
             }
         }
+    }*/
+    
+    override func onMove(clientX : Double , clientY : Double) {
+        var x : Double = clientX
+        var y : Double = clientY
+        
+        if (self.prePathItemT !== nullPrePathItemT) {
+            self.prePathItemT.addPoint(x: x, y : y)
+            var del : [String: Any] = [
+                "type" : "pen",
+                "N" : self.delManager.newDelN(),
+                "x" : x,
+                "y" : y
+            ]
+            self.messenger.broadcastDel(delta : del)
+            
+        } else {
+            
+            // This is the first drag. Make the prePathItemT now and add it to the Scene.
+            self.prePathItemT = PrePathItemT()
+            self.prePathItemT.setColor(color : color)
+            self.prePathItemT.setSize(size : size)
+            self.prePathItemT.setOpacity(opacity : opacity)
+            self.prePathItemT.addPoint(x : x0, y : y0)
+            self.prePathItemT.addPoint(x : x, y : y)
+            self.scene.addForefrontItem(itemT: self.prePathItemT)
+            
+            var del : [String: Any] = [
+                "type" : "penStart",
+                "new" : self.delManager.newDelN(),
+                "color" : self.color,
+                "size" : self.size,
+                "opacity" : self.opacity,
+                "x0" : self.x0,
+                "y0" : self.y0,
+                "x" : x,
+                "y" : y
+            ]
+            self.messenger.broadcastDel(delta : del)
+        }
+        
     }
     
-    override func onUp(scene: inout Scene, sceneView: SceneView) {
+    override func onUp(scene: inout Scene) {
         if (self.prePathItemT !== PrePathItemT.nullPrePathItemT) {
             return
         }

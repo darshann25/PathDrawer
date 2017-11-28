@@ -10,6 +10,9 @@ import Foundation
 import UIKit
 
 class MouseEventHandler {
+    typealias SceneViewCallbackWithPoint = (UIEvent, Double, Double) -> ()
+    typealias SceneViewCallback = (UIEvent) -> ()
+    
     private var canvas : SceneView
     private var isDragging : Bool = false
     
@@ -17,10 +20,10 @@ class MouseEventHandler {
         self.canvas = sv
     }
     
-    public func sceneViewOnDown(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnMove(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnMoveInSceneOnly(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnUp(event : UIEvent) {}
+    private var sceneViewOnDown : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnMove : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnMoveInSceneOnly : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnUp : SceneViewCallback = {}
     private func onMouseDownInSceneOnly(event : UIEvent) {
 
     }
@@ -38,6 +41,23 @@ class MouseEventHandler {
     }
     // document.addEventListener('mouseup', onMouseUp);
 
+    public func setSceneViewOnDown(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnDown = f
+    }
+    
+    public func setSceneViewOnMove(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnMove = f
+    }
+    
+    public func setSceneViewOnMoveInSceneOnly(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnMoveInSceneOnly = f
+    }
+    
+    public func setSceneViewOnUp(f : SceneViewCallback) {
+        self.sceneViewOnUp = f
+    }
+    
+    
     public func getIsDragging() -> Bool {
         return isDragging
     }

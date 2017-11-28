@@ -231,8 +231,8 @@ class Scene {
     }
     
     // returns true if the scene wants a mouse grab (meaning a clickResponder accepted the click), false otherwise
-    func onMouseDown(x : Int, y : Int, zoom : Int, event : UIEvent) {
-    
+    func onMouseDown(x : Int, y : Int, zoom : Int, event : UIEvent) -> Bool {
+        return false
     }
     
     // internal, calls acceptsHover() for each hoverResponder (in order)
