@@ -148,7 +148,7 @@ class PenTool : Tool {
         
     }
     
-    override func onUp(scene: inout Scene) {
+    override func onUp() {
         if (self.prePathItemT !== PrePathItemT.nullPrePathItemT) {
             return
         }
@@ -217,7 +217,7 @@ class PenTool : Tool {
     ///////////////////////
     //  LEGACY ///////////
     //////////////////////
-    override func onDown(touches: Set<UITouch>, sceneView: SceneView) {
+    func onDown(touches: Set<UITouch>, sceneView: SceneView) {
         if let touch = touches.first {
             let point = touch.location(in: sceneView);
             if self.startPoint == point {
@@ -230,7 +230,7 @@ class PenTool : Tool {
         }
     }
     
-    override func onMove(touches: Set<UITouch>, sceneView: SceneView){
+    func onMove(touches: Set<UITouch>, sceneView: SceneView){
         // holds the distance of the interpolation between two points
         // var euclid_dist = 0;
         
@@ -244,7 +244,7 @@ class PenTool : Tool {
         }
     }
     
-    override func onUp(scene: inout Scene, sceneView: SceneView){
+    func onUp(scene: inout Scene, sceneView: SceneView){
         //points.append(point);
         
         var lastPt = convertFromCGPoint(point: startPoint)

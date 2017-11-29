@@ -14,7 +14,7 @@ class Device {
     var id : Int
     var peerId : Int
     var accessLevel : String
-    var context : [String, Any]
+    var context : [String : Any]
     
     var inCall : Bool
     var inCallWithThisDevice : Bool

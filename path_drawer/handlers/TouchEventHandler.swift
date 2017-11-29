@@ -33,21 +33,61 @@ class TouchEventHandler {
     }
     
     private var sceneViewOnDown : SceneViewCallbackWithPoint = {}
-    public func sceneViewOnMove(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnMoveInSceneOnly(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnUp(event : UIEvent) {}
-    public func sceneViewOnStartPan(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnChangePan(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnEndPan(event : UIEvent) {}
-    public func sceneViewOnStartZoom(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnChangeZoom(event : UIEvent, x : Double, y : Double) {}
-    public func sceneViewOnEndZoom(event : UIEvent) {}
+    private var sceneViewOnMove : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnMoveInSceneOnly : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnUp : SceneViewCallback = {}
+    private var sceneViewOnStartPan : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnChangePan : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnEndPan : SceneViewCallback = {}
+    private var sceneViewOnStartZoom : SceneViewCallbackWithPoint = {}
+    private var sceneViewOnChangeZoom : SceneViewCallbackWithPointScale = {}
+    private var sceneViewOnEndZoom : SceneViewCallback = {}
     
-    func getIsDragging() -> Bool {
+    public func getIsDragging() -> Bool {
         return self.isDragging
     }
     
-    func setIsDragging(x : Bool) {
+    public func setIsDragging(x : Bool) {
         self.isDragging = x
+    }
+    
+    public func setSceneViewOnDown(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnDown = f
+    }
+    
+    public func setSceneViewOnMove(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnMove = f
+    }
+    
+    public func setSceneViewOnMoveInSceneOnly(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnMoveInSceneOnly = f
+    }
+    
+    public func setSceneViewOnUp(f : SceneViewCallback) {
+        self.sceneViewOnUp = f
+    }
+    
+    public func setSceneViewOnStartPan(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnStartPan = f
+    }
+    
+    public func setSceneViewOnChangePan(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnChangePan = f
+    }
+    
+    public func setSceneViewOnEndPan(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnEndPan = f
+    }
+    
+    public func setSceneViewOnStartZoom(f : SceneViewCallbackWithPoint) {
+        self.sceneViewOnStartZoom = f
+    }
+    
+    public func setSceneViewOnChangeZoom(f : SceneViewCallbackWithPointScale) {
+        self.sceneViewOnChangeZoom = f
+    }
+    
+    public func setSceneViewOnEndZoom(f : SceneViewCallback) {
+        self.sceneViewOnEndZoom = f
     }
 }

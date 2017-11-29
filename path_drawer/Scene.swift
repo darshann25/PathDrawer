@@ -243,11 +243,11 @@ class Scene {
     }
     
     // returns the cursor to display above the Scene
-    func onMouseHover(x : Int, y : Int, zoom : Int) {
+    func onMouseHover(x : Double, y : Double, zoom : Double) {
     
     }
     
-    func onMouseDrag(x : Int, y : Int, zoom : Int) {
+    func onMouseDrag(x : Double, y : Double, zoom : Double) {
     
     }
     
@@ -255,7 +255,7 @@ class Scene {
     
     }
     
-    func getContextMenuData(x : Int, y : Int, zoom : Int) {
+    func getContextMenuData(x : Double, y : Double, zoom : Double) -> [String : Any] {
     
     }
     

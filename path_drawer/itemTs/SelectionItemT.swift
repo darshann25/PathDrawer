@@ -20,4 +20,12 @@ class SelectionItemT : ItemT {
     func returnItemsToScene() {
         
     }
+    
+    func getUpperLeftPoint() -> Point {
+        
+    }
+    
+    func onClickedAway() {
+        
+    }
 }

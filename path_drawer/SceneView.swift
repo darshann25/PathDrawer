@@ -33,6 +33,7 @@ class SceneView : UIView {
     private var toolManager : ToolManager = Scene.sharedInstance.toolManager
     private var messenger : Messenger = BoardViewController.BoardContext.sharedInstance.messenger
     private var delManager : DelManager = BoardViewController.BoardContext.sharedInstance.delManager
+    private var devicesManager : DevicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
     
     private var canvas : SceneView = self
     
@@ -129,31 +130,162 @@ class SceneView : UIView {
         if(self.sceneGrabbedTouch == false) {
             self.primaryTool.onDown(clientX : x, clientY : y)
         }
-        self.updateEventHandlers(f : self.onDown)
+        self.updateEventHandlers(f : self.onDown as! SceneViewCallbackWithPoint)
     }
     
     typealias SceneViewCallbackWithPoint = (UIEvent, Double, Double) -> ()
+    typealias SceneViewCallback = (UIEvent) -> ()
+    
     func updateEventHandlers(fun : SceneViewCallbackWithPoint) {
         self.mouseEventHandler.setSceneViewOnDown(f: fun)
-        self.touchEventHandler.
+        self.touchEventHandler.setSceneViewOnDown(f: fun)
     }
     
+    func updateEventHandlers(fun : SceneViewCallback) {
+        self.mouseEventHandler.setSceneViewOnDown(f: fun)
+        self.touchEventHandler.setSceneViewOnDown(f: fun)
+    }
+
     
+    func onMove(event : UIEvent, clientX : Double , clientY : Double) {
+        var bound : CGRect = self.canvas.frame
+        var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
+        var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
+        
+        if(self.mouseEventHandler.getIsDragging() || self.touchEventHandler.getIsDragging()) {
+            // This is a drag event.
+            Scene.sharedInstance.onMouseDrag(x: x, y: y, zoom: self.zoom)
+        } else {
+            self.primaryTool.onMove(clientX: x, clientY: y)
+        }
+        self.updateEventHandlers(fun: SceneViewCallbackWithPoint)
+    }
+    
+    // SHOULD NOT BE APPLICABLE FOR IOS APP
+    func onMoveInSceneOnly(event : UIEvent, clientX : Double, clientY : Double) {
+        var bound : CGRect = self.canvas.frame
+        var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
+        var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
+        
+        if(self.mouseEventHandler.getIsDragging() == false && self.touchEventHandler.getIsDragging() == false) {
+            // Not a drag event (those are handled in onMove()), but a halo
+            // var newCursor = Scene.sharedInstance.onMouseHover(x: x, y: y, zoom: self.zoom)
+            // canvas.style.cursor = newCursor
+            
+            var haloDel : [String : Any] = [
+                "type" : "halo",
+                "N" : self.delManager.currentDelnN(),
+                "x" : x,
+                "y" : y
+            ]
+            self.messenger.broadcastDel(del: haloDel)
+        }
+        
+        self.updateEventHandlers(fun: onMoveInSceneOnly as! SceneViewCallbackWithPoint)
+    }
+    
+    func onUp(event : UIEvent) {
+        // this event fires for the entire document (not just over the scene)
+        if(self.sceneGrabbedTouch) {
+            Scene.sharedInstance.onMouseUp()
+        } else /* if (self.mouseEventHandler.getIsDragging() || self.touchEventHandler.getIsDragging()) */ {
+            self.primaryTool.onUp()
+        }
+        self.sceneGrabbedTouch = false
+        // event.preventDefault()
+        
+        self.updateEventHandlers(fun: onUp as! SceneViewCallback)
+        
+    }
+    
+    // SHOULD NOT BE APPLICABLE FOR IOS APP
+    // right-click (contextMenu)
+    func onContextMenu(event : UIEvent, clientX : Double, clientY : Double) {
+        var bound : CGRect = self.canvas.frame
+        var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
+        var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
+        
+        var data : [String : Any] = Scene.sharedInstance.getContextMenuData(x: x, y: y, zoom: self.zoom)
+        // contextMenuController.showContextMenu(data : data, event : event)
+        
+        self.updateContextMenuEventHandler(fun: onContextMenu as! SceneViewCallbackWithPoint)
+    }
+    
+    func updateContextMenuEventHandler(fun : SceneViewCallbackWithPoint) {
+        // self.contextMenuEventHandler.setSceneViewOnContextMenu(f : fun)
+    }
+    
+    func doPaste() {
+        var itemsData : [String : Any]
+        // itemsData = self.clipboardManager.getClipboardItemsData()
+        if (itemsData != nil) {
+            return
+        }
+        let OFFSET : Int = 10
+        
+        // if selectionItemT, then find a new paste location and release selected items
+        var selectionItemT : SelectionItemT = self.devicesManager.getThisDevice().context["selectionItemT"]
+        var matrix : Matrix
+        if (selectionItemT != ItemT.nullItemT) {
+            // TODO: should check that paste location is within the screen
+            var upperLeftPoint : Point = selectionItemT.getUpperLeftPoint()
+            var targetUpperLeftPoint : Point = Point(x : Double(upperLeftPoint.x + OFFSET), y : Double(upperLeftPoint.y + OFFSET));
+            selectionItemT.onClickedAway()
+            var curPoint : Point = Point(x : (itemsData["rect"] as! Rect).left, (itemsData["rect"] as! Rect).top)
+            matrix = Matrix.translateMatrix(dx: Double(targetUpperLeftPoint.x - curPoint.x), dy : Double(targetUpperLeftPoint.y - curPoint.y))
+        } else {
+            
+        }
+    }
     
     /*
-     function onDown(event, clientX, clientY) {
+     function doPaste() {
+     var itemsData = clipboardManager.getClipboardItemsData();
+     if (itemsData == null) {
+     return;
+     }
+     var OFFSET = 10;
+     
+     // if selectionItemT, then find a new paste location and release selected items
+     var selectionItemT = devicesManager.getThisDevice().context.selectionItemT;
+     var matrix;
+     if (selectionItemT) {
+     // TODO: should check that paste location is within the screen
+     var upperLeftPoint = selectionItemT.getUpperLeftPoint();
+     var targetUpperLeftPoint = new Point(upperLeftPoint.x + OFFSET, upperLeftPoint.y + OFFSET);
+     selectionItemT.onClickedAway();
+     var curPoint = new Point(itemsData.rect.left, itemsData.rect.top);
+     matrix = Matrix.translateMatrix(targetUpperLeftPoint.x - curPoint.x, targetUpperLeftPoint.y - curPoint.y);
+     }
+     
+     // else, paste in center
+     else {
      var bounds = canvas.getBoundingClientRect();
-     var x = (clientX - bounds.left) / zoom + viewLeft;
-     var y = (clientY - bounds.top) / zoom + viewTop;
-     sceneGrabbedMouse = scene.onMouseDown(x, y, zoom, event);
-     if (!sceneGrabbedMouse) {
-     primaryTool.onDown(x, y);
+     var itemsWidth = itemsData.rect.width;
+     var itemsHeight = itemsData.rect.height;
+     var x = (viewLeft + (bounds.width / zoom - itemsWidth) / 2 ) - itemsData.rect.left;
+     var y = (viewTop + (bounds.height / zoom - itemsHeight) / 2) - itemsData.rect.top;
+     matrix = Matrix.translateMatrix(x, y);
      }
-     }
-     mouseEventHandler.setSceneViewOnDown(onDown);
-     touchEventHandler.setSceneViewOnDown(onDown);
-
+     
+     // Make a copy of all the selected items
+     var actId = boardStateManager.getNewActId();
+     var devId = devicesManager.getMyDeviceId();
+     scene.beginChanges();
+     var items = [];
+     
+     itemsData.itemStates.forEach(function(itemState) {
+     var id = boardStateManager.getNewItemId();
+     itemState.setIdAndDevId(id, devId);
+     items.push({ id: id, devId: devId });
+     itemState.matrix = matrix.times(itemState.matrix);
+     var delta = new NewItemDelta(actId, devId, itemState);
+     boardStateManager.addDelta(delta);
+     devicesManager.enqueueDelta(delta);
+     delta.applyToScene();
+     });
      */
+    
     /////////////////////
     // USER INTERFACE  //
     /////////////////////

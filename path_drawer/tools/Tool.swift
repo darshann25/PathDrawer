@@ -21,8 +21,8 @@ class Tool {
         
     }
     
-    func onDown(touches: Set<UITouch>, sceneView: SceneView) {}
-    func onMove(touches: Set<UITouch>, sceneView: SceneView){}
-    func onUp(scene: inout Scene, sceneView: SceneView){}
+    func onDown(clientX : Double, clientY : Double) {}
+    func onMove(clientX : Double, clientY : Double){}
+    func onUp(){}
     
 }
