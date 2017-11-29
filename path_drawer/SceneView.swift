@@ -34,6 +34,7 @@ class SceneView : UIView {
     private var messenger : Messenger = BoardViewController.BoardContext.sharedInstance.messenger
     private var delManager : DelManager = BoardViewController.BoardContext.sharedInstance.delManager
     private var devicesManager : DevicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager
+    private var boardStateManager : BoardStateManager = BoardViewController.BoardContext.sharedInstance.boardStateManager
     
     private var canvas : SceneView = self
     
@@ -148,7 +149,7 @@ class SceneView : UIView {
 
     
     func onMove(event : UIEvent, clientX : Double , clientY : Double) {
-        var bound : CGRect = self.canvas.frame
+        var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
         
@@ -163,7 +164,7 @@ class SceneView : UIView {
     
     // SHOULD NOT BE APPLICABLE FOR IOS APP
     func onMoveInSceneOnly(event : UIEvent, clientX : Double, clientY : Double) {
-        var bound : CGRect = self.canvas.frame
+        var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
         
@@ -201,7 +202,7 @@ class SceneView : UIView {
     // SHOULD NOT BE APPLICABLE FOR IOS APP
     // right-click (contextMenu)
     func onContextMenu(event : UIEvent, clientX : Double, clientY : Double) {
-        var bound : CGRect = self.canvas.frame
+        var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
         
@@ -233,56 +234,47 @@ class SceneView : UIView {
             selectionItemT.onClickedAway()
             var curPoint : Point = Point(x : (itemsData["rect"] as! Rect).left, (itemsData["rect"] as! Rect).top)
             matrix = Matrix.translateMatrix(dx: Double(targetUpperLeftPoint.x - curPoint.x), dy : Double(targetUpperLeftPoint.y - curPoint.y))
-        } else {
-            
+        } else { // else, paste in center
+            var bounds : CGRect = self.canvas.frame
+            var itemsWidth : Double = (itemsData["rect"] as! Rect).width
+            var itemsHeight : Double = (itemsData["rect"] as! Rect).height
+            var x : Double = (self.viewLeft + (bounds.width / self.zoom - itemsWidth) / 2 ) - (itemsData["rect"] as! Rect).left
+            var y : Double = (self.viewTop + (bounds.height / self.zoom - itemsHeight) / 2) - (itemsData["rect"] as! Rect).top
+            matrix = Matrix.translateMatrix(dx : x, dy : y)
         }
+        // Make a copy of all the selected items
+        var actId = self.boardStateManager.getNewActId()
+        var devId = self.devicesManager.getMyDeviceId()
+        Scene.sharedInstance.beginChanges()
+        var items = [(Int, Int)]
+        
+        var itemStates : [ItemState] = itemsData["itemStates"] as! [ItemState]
+        for itemState : ItemState in itemStates {
+            var id : Int = self.boardStateManager.getNewItemId()
+            itemState.setIdAndDevId(id: id, devId: devId)
+            items.append((id, devId))
+            itemState.matrix = matrix.times(that: itemState.matrix)
+            var delta = NewItemDelta(actId: actId, devId: devId, itemState: itemState)
+            self.boardStateManager.addDelta(delta: delta)
+            self.devicesManager.enqueueDelta(delta: delta)
+            delta.applyToScene()
+        }
+        
+        var grabItemsDelta : GrabItemsDelta = GrabItemsDelta(actId: actId, devId: devId, holderDevId: devId, uids: items, initialMatrix: Matrix.identityMatrix(), intent: GrabItemsDelta.intents.SelectionItemT)
+        grabItemsDelta.applyToScene()
+        self.boardStateManager.addDelta(delta: grabItemsDelta)
+        self.devicesManager.enqueueDelta(delta: grabItemsDelta)
+        Scene.sharedInstance.endChanges()
+        self.devicesManager.send()
     }
     
     /*
-     function doPaste() {
-     var itemsData = clipboardManager.getClipboardItemsData();
-     if (itemsData == null) {
-     return;
-     }
-     var OFFSET = 10;
-     
-     // if selectionItemT, then find a new paste location and release selected items
-     var selectionItemT = devicesManager.getThisDevice().context.selectionItemT;
-     var matrix;
-     if (selectionItemT) {
-     // TODO: should check that paste location is within the screen
-     var upperLeftPoint = selectionItemT.getUpperLeftPoint();
-     var targetUpperLeftPoint = new Point(upperLeftPoint.x + OFFSET, upperLeftPoint.y + OFFSET);
-     selectionItemT.onClickedAway();
-     var curPoint = new Point(itemsData.rect.left, itemsData.rect.top);
-     matrix = Matrix.translateMatrix(targetUpperLeftPoint.x - curPoint.x, targetUpperLeftPoint.y - curPoint.y);
-     }
-     
-     // else, paste in center
-     else {
-     var bounds = canvas.getBoundingClientRect();
-     var itemsWidth = itemsData.rect.width;
-     var itemsHeight = itemsData.rect.height;
-     var x = (viewLeft + (bounds.width / zoom - itemsWidth) / 2 ) - itemsData.rect.left;
-     var y = (viewTop + (bounds.height / zoom - itemsHeight) / 2) - itemsData.rect.top;
-     matrix = Matrix.translateMatrix(x, y);
-     }
-     
-     // Make a copy of all the selected items
-     var actId = boardStateManager.getNewActId();
-     var devId = devicesManager.getMyDeviceId();
-     scene.beginChanges();
-     var items = [];
-     
-     itemsData.itemStates.forEach(function(itemState) {
-     var id = boardStateManager.getNewItemId();
-     itemState.setIdAndDevId(id, devId);
-     items.push({ id: id, devId: devId });
-     itemState.matrix = matrix.times(itemState.matrix);
-     var delta = new NewItemDelta(actId, devId, itemState);
-     boardStateManager.addDelta(delta);
-     devicesManager.enqueueDelta(delta);
-     delta.applyToScene();
+         var grabItemsDelta = new GrabItemsDelta(actId, devId, devId, items, Matrix.identityMatrix(), GrabItemsDelta.intents.SelectionItemT);
+         grabItemsDelta.applyToScene();
+         boardStateManager.addDelta(grabItemsDelta);
+         devicesManager.enqueueDelta(grabItemsDelta);
+         scene.endChanges();
+         devicesManager.send();
      });
      */
     
