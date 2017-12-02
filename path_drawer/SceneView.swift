@@ -51,17 +51,49 @@ class SceneView : UIView {
     private var mouseEventHandler : MouseEventHandler = MouseEventHandler(sv: self)
     private var touchEventHandler : TouchEventHandler = TouchEventHandler(sv: self)
     
-    private func getWidth() -> Double {
+    typealias SceneViewCallback = (UIEvent) -> ()
+    typealias SceneViewCallbackWithPoint = (UIEvent, Double, Double) -> ()
+    typealias SceneViewCallbackWithPointScale = (UIEvent, Double, Double, Double) -> ()
+    
+    ///////////////
+    //  Handlers //
+    ///////////////
+    private func updateSceneViewOnDownEventHandlers(fun : SceneViewCallbackWithPoint) {
+        self.mouseEventHandler.setSceneViewOnDown(f: fun)
+        self.touchEventHandler.setSceneViewOnDown(f: fun)
+    }
+    
+    private func updateSceneViewOnUpEventHandlers(fun : SceneViewCallback) {
+        self.mouseEventHandler.setSceneViewOnUp(f: fun)
+        self.touchEventHandler.setSceneViewOnUp(f: fun)
+    }
+    
+    private func updateSceneViewOnChangeZoomEventHandlers(fun : SceneViewCallbackWithPointScale) {
+        self.touchEventHandler.setSceneViewOnChangeZoom(f: fun)
+    }
+    
+    private func updateSceneViewOnChangePanEventHandlers(fun : SceneViewCallbackWithPoint) {
+        self.touchEventHandler.setSceneViewOnChangePan(f: fun)
+    }
+    
+    private func updateSceneViewOnContextMenuEventHandler(fun : SceneViewCallbackWithPoint) {
+        // self.contextMenuEventHandler.setSceneViewOnContextMenu(f : fun)
+    }
+    
+    /////////////
+    // Methods //
+    ////////////
+    public func getWidth() -> Double {
         return Double(self.canvas.frame.size.width) / self.zoom
     }
     
-    private func getHeight() -> Double {
+    public func getHeight() -> Double {
         return Double(self.canvas.size.height) / zoom
     }
     
     // The current tools
-    private var primaryTool : Tool
-    private var secondaryTool : Tool
+    public var primaryTool : Tool
+    public var secondaryTool : Tool
     
     private func setPrimaryTool(tool : Tool) {
         if (self.mouseEventHandler.getIsDragging() || self.touchEventHandler.getIsDragging()) {
@@ -92,17 +124,17 @@ class SceneView : UIView {
         self.messenger.broadcastDel(del: delJSON)
     }
     
-    func getViewPooint() {
+    public func getViewPoint() {
         return Point(x: self.viewLeft, y: self.viewTop)
     }
     
-    func setView(x : Double, y : Double) {
+    public func setViewXY(x : Double, y : Double) {
         self.viewLeft = x
         self.viewTop = y
     }
     
     // factor usually close to 1, x,y are in view coordinates
-    func zoomAtXY(factor : Double, sceneX : Double, sceneY : Double) {
+    public func zoomAtXY(factor : Double, sceneX : Double, sceneY : Double) {
         var x : Double = zoom * (sceneX - self.viewLeft)
         var y : Double = zoom * (sceneY - self.viewTop)
         var oldzoom : Double = self.zoom
@@ -115,15 +147,15 @@ class SceneView : UIView {
         self.onViewRectChanged()
     }
     
-    func zoomIn() {
+    public func zoomIn() {
         self.zoomAtXY(factor: 1.25, sceneX: self.viewLeft + self.getWidth() / 2, sceneY: self.viewTop + self.getHeight() / 2)
     }
     
-    func zoomOut() {
+    public func zoomOut() {
         self.zoomAtXY(factor: 0.8, sceneX: self.viewLeft + self.getWidth() / 2, sceneY: self.viewTop + self.getHeight() / 2)
     }
     
-    func onDown(event : UIEvent, clientX : Double, clientY : Double) {
+    private func onDown(event : UIEvent, clientX : Double, clientY : Double) {
         var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
@@ -131,24 +163,11 @@ class SceneView : UIView {
         if(self.sceneGrabbedTouch == false) {
             self.primaryTool.onDown(clientX : x, clientY : y)
         }
-        self.updateEventHandlers(f : self.onDown as! SceneViewCallbackWithPoint)
-    }
-    
-    typealias SceneViewCallbackWithPoint = (UIEvent, Double, Double) -> ()
-    typealias SceneViewCallback = (UIEvent) -> ()
-    
-    func updateEventHandlers(fun : SceneViewCallbackWithPoint) {
-        self.mouseEventHandler.setSceneViewOnDown(f: fun)
-        self.touchEventHandler.setSceneViewOnDown(f: fun)
-    }
-    
-    func updateEventHandlers(fun : SceneViewCallback) {
-        self.mouseEventHandler.setSceneViewOnDown(f: fun)
-        self.touchEventHandler.setSceneViewOnDown(f: fun)
+        self.updateSceneViewOnDownEventHandlers(f : self.onDown as! SceneViewCallbackWithPoint)
     }
 
     
-    func onMove(event : UIEvent, clientX : Double , clientY : Double) {
+    private func onMove(event : UIEvent, clientX : Double , clientY : Double) {
         var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
@@ -159,11 +178,11 @@ class SceneView : UIView {
         } else {
             self.primaryTool.onMove(clientX: x, clientY: y)
         }
-        self.updateEventHandlers(fun: SceneViewCallbackWithPoint)
+        self.updateSceneViewOnDownEventHandlers(fun: SceneViewCallbackWithPoint)
     }
     
     // SHOULD NOT BE APPLICABLE FOR IOS APP
-    func onMoveInSceneOnly(event : UIEvent, clientX : Double, clientY : Double) {
+    private func onMoveInSceneOnly(event : UIEvent, clientX : Double, clientY : Double) {
         var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
@@ -182,10 +201,10 @@ class SceneView : UIView {
             self.messenger.broadcastDel(del: haloDel)
         }
         
-        self.updateEventHandlers(fun: onMoveInSceneOnly as! SceneViewCallbackWithPoint)
+        self.updateSceneViewOnDownEventHandlers(fun: onMoveInSceneOnly as! SceneViewCallbackWithPoint)
     }
     
-    func onUp(event : UIEvent) {
+    private func onUp(event : UIEvent) {
         // this event fires for the entire document (not just over the scene)
         if(self.sceneGrabbedTouch) {
             Scene.sharedInstance.onMouseUp()
@@ -195,13 +214,13 @@ class SceneView : UIView {
         self.sceneGrabbedTouch = false
         // event.preventDefault()
         
-        self.updateEventHandlers(fun: onUp as! SceneViewCallback)
+        self.updateSceneViewOnUpEventHandlers(fun: onUp as! SceneViewCallback)
         
     }
     
     // SHOULD NOT BE APPLICABLE FOR IOS APP
     // right-click (contextMenu)
-    func onContextMenu(event : UIEvent, clientX : Double, clientY : Double) {
+    private func onContextMenu(event : UIEvent, clientX : Double, clientY : Double) {
         var bounds : CGRect = self.canvas.frame
         var x : Double = (clientX - Double(bounds.width)) / self.zoom + self.viewLeft
         var y : Double = (clientY - Double(bounds.height)) / self.zoom + self.viewTop
@@ -209,14 +228,10 @@ class SceneView : UIView {
         var data : [String : Any] = Scene.sharedInstance.getContextMenuData(x: x, y: y, zoom: self.zoom)
         // contextMenuController.showContextMenu(data : data, event : event)
         
-        self.updateContextMenuEventHandler(fun: onContextMenu as! SceneViewCallbackWithPoint)
+        self.updateSceneViewOnContextMenuEventHandler(fun: onContextMenu as! SceneViewCallbackWithPoint)
     }
     
-    func updateContextMenuEventHandler(fun : SceneViewCallbackWithPoint) {
-        // self.contextMenuEventHandler.setSceneViewOnContextMenu(f : fun)
-    }
-    
-    func doPaste() {
+    public func doPaste() {
         var itemsData : [String : Any]
         // itemsData = self.clipboardManager.getClipboardItemsData()
         if (itemsData != nil) {
@@ -260,7 +275,8 @@ class SceneView : UIView {
             delta.applyToScene()
         }
         
-        var grabItemsDelta : GrabItemsDelta = GrabItemsDelta(actId: actId, devId: devId, holderDevId: devId, uids: items, initialMatrix: Matrix.identityMatrix(), intent: GrabItemsDelta.intents.SelectionItemT)
+        var grabItemsDelta : GrabItemsDelta = GrabItemsDelta(actId: actId, devId: devId, holderDevId: devId, uids: items,
+                                                             initialMatrix: Matrix.identityMatrix(), intent: GrabItemsDelta.intents.SelectionItemT)
         grabItemsDelta.applyToScene()
         self.boardStateManager.addDelta(delta: grabItemsDelta)
         self.devicesManager.enqueueDelta(delta: grabItemsDelta)
@@ -268,15 +284,85 @@ class SceneView : UIView {
         self.devicesManager.send()
     }
     
-    /*
-         var grabItemsDelta = new GrabItemsDelta(actId, devId, devId, items, Matrix.identityMatrix(), GrabItemsDelta.intents.SelectionItemT);
-         grabItemsDelta.applyToScene();
-         boardStateManager.addDelta(grabItemsDelta);
-         devicesManager.enqueueDelta(grabItemsDelta);
-         scene.endChanges();
-         devicesManager.send();
-     });
-     */
+    // TODO : Does not translate to iOS App
+    private func onKeyDown(event : UIEvent) {
+        
+    }
+    
+    private func onSelectAll() {
+        Scene.sharedInstance.beginChanges()
+        // Find the items and select them.
+        var itemList : [Item] = Scene.sharedInstance.getSelectableItems()
+        if (itemList.count > 0) {
+            var items = [(Int, Int)]
+            for item in itemList {
+                items.push(item.id, item.devId)
+            }
+            var delta : GrabItemsDelta = GrabItemsDelta(actId: self.boardStateManager.getNewActId(),
+                                       devId: self.devicesManager.getMyDeviceId(),
+                                       holderDevId: self.devicesManager.getMyDeviceId(),
+                                       uids: items, initialMatrix: Matrix.identityMatrix(),
+                                       intent: GrabItemsDelta.intents.SelectionItemT)
+            delta.applyToScene()
+            self.boardStateManager.addDelta(delta: delta)
+            self.devicesManager.enqueueDelta(delta: delta)
+            self.devicesManager.send()
+        }
+        Scene.sharedInstance.endChanges()
+    }
+    
+    private func onZoom(event : UIEvent, clientX : Double, clientY : Double, scaleFactor : Double) {
+        var bounds : CGRect = self.canvas.frame
+        var x : Double = (clientX - bounds.left) / self.zoom + self.viewLeft
+        var y : Double = (clientY - bounds.top) / self.zoom + self.viewTop
+        self.zoomAtXY(factor: scaleFactor, sceneX: x, sceneY: y)
+        
+        self.updateSceneViewOnChangeZoomEventHandlers(fun: onZoom as! SceneViewCallbackWithPointScale)
+    }
+    
+    private func onPan(event : UIEvent, deltaX : Double, deltaY : Double) {
+        self.viewLeft += deltaX / self.zoom
+        self.viewTop += deltaY / self.zoom
+        self.onViewRectChanged()
+        
+        self.updateSceneViewOnChangePanEventHandlers(fun: onPan as! SceneViewCallbackWithPoint)
+    }
+    
+    // Initialize the SceneView.
+    // init -> constructSceneView
+    // This method needs fixing
+    public func constructSceneView() {
+        // Set up canvas resizing handlers (names correspond to Android implementation)
+        typealias VOID = (Void) -> ()
+        var surfaceCreated : NSObject = {
+            Scene.sharedInstance.addSceneView(sv: self)
+        }
+        
+        var surfaceChanged : NSObject = {
+            onViewRectChanged()
+        }
+        
+        self.canvas.window?.addObserver(surfaceCreated, forKeyPath: "load", options: NSKeyValueObservingOptions, context: nil)
+        self.canvas.window?.addObserver(surfaceChanged, forKeyPath: "resize", options: NSKeyValueObservingOptions, context: nil)
+    }
+    
+    public func getLeft() -> Double {
+        return self.viewLeft
+    }
+    
+    public func getTop() -> Double {
+        return self.viewTop
+    }
+    
+    public func getCanvas() -> UIView {
+        return self.canvas
+    }
+    
+    public func getZoom() -> Double {
+        return self.zoom
+    }
+    
+
     
     /////////////////////
     // USER INTERFACE  //
@@ -306,93 +392,6 @@ class SceneView : UIView {
         onPenSize4BtnClicked(sv : self)
     }
     
-    
-    // internal
-    func onViewRectChanged() {
-    
-    }
-    
-    func getViewPoint() {
-    
-    }
-    
-    func setViewXY(x : Double, y : Double) {
-    
-    }
-    
-    // factor usually close to 1, x,y are in view coordinates
-    func zoomAtXY(factor : Double, sceneX : Double, sceneY : Double) {
-    
-    }
-    
-    func zoomIn() {
-    
-    }
-    
-    func zoomOut() {
-    
-    }
-    
-    func onDown(event : UIEvent, clientX : Double, clientY : Double) {
-    
-    }
-    
-    // mouseEventHandler.setSceneViewOnDown(onDown);
-    // touchEventHandler.setSceneViewOnDown(onDown);
-    
-    func onMove(event : UIEvent, clientX : Double, clientY : Double) {
-    
-    }
-    // mouseEventHandler.setSceneViewOnMove(onMove);
-    // touchEventHandler.setSceneViewOnMove(onMove);
-    
-    func onMoveInSceneOnly(event : UIEvent, clientX : Double, clientY : Double) {
-    
-    }
-    // mouseEventHandler.setSceneViewOnMoveInSceneOnly(onMoveInSceneOnly);
-    // touchEventHandler.setSceneViewOnMoveInSceneOnly(onMoveInSceneOnly);
-    
-    func onUp(event : UIEvent) {
-    
-    }
-    // mouseEventHandler.setSceneViewOnUp(onUp);
-    // touchEventHandler.setSceneViewOnUp(onUp);
-    
-    // right-click (contextMenu)
-    func onContextMenu(event : UIEvent, clientX : Double, clientY : Double) {
-    
-    }
-    // contextMenuEventHandler.setSceneViewOnContextMenu(onContextMenu);
-    
-    func doPaste() {
-    
-    }
-    
-    // TODO: Add log message
-    func onKeyDown(event : UIEvent) {
-    
-    }
-    // keyEventHandler.setSceneViewOnKeyDown(onKeyDown);
-    
-    func onSelectAll() {
-    
-    }
-    
-    func onZoom(event : UIEvent, clientX : Double, clientY : Double, scaleFactor : Double) {
-    
-    }
-    // wheelEventHandler.setSceneViewOnZoom(onZoom);
-    // touchEventHandler.setSceneViewOnChangeZoom(onZoom);
-    
-    func onPan(event : UIEvent, deltaX : Double, deltaY : Double) {
-    
-    }
-    // wheelEventHandler.setSceneViewOnPan(onPan);
-    // touchEventHandler.setSceneViewOnChangePan(onPan);
-    
-    // Initialize the SceneView.
-    
-    
     ////////////////////////////
     // Legacy   ////////////////
     ////////////////////////////
@@ -402,6 +401,7 @@ class SceneView : UIView {
     
     override func touchesBegan(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
         self.primaryTool.onDown(touches: touchPoints, sceneView: self);
+        
     }
     
     override func touchesMoved(_ touchPoints: Set<UITouch>, with event: UIEvent?) {
