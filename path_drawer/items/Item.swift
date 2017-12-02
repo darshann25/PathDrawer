@@ -99,7 +99,7 @@ class Item {
         // null
     }
     
-    func drawOnCanvas() {
+    func drawOnCanvas(canvas : SceneView, matrix : Matrix = Matrix.identityMatrix()) {
         // null
     }
     

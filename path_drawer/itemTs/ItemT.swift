@@ -29,6 +29,8 @@
  */
 
 import Foundation
+import UIKit
+
 class ItemT {
     
     public static let nullItemT = NullItemT()
@@ -83,6 +85,26 @@ class ItemT {
                 self.scene.removeKeyResponder(responder: self)
             }
         }
+    }
+    
+    func onClickedAway() {
+        
+    }
+    
+    func drawOnCanvas(canvas: SceneView, x: Double, y: Double, s: Double) {
+    
+    }
+    
+    func acceptsClick(x : Double, y : Double, zoom : Double) -> Bool {
+        
+    }
+
+    func acceptsHover(x : Double, y : Double, zoom : Double) -> Bool {
+        
+    }
+    
+    func onDown(x : Double, y : Double, zoom : Double, event : UIEvent) {
+        
     }
 }
 

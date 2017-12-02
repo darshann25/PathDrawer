@@ -15,29 +15,29 @@ class Scene {
     public static var sharedInstance = Scene()
     public static var nullScene : Scene = NullScene()
     
-    var items = [Item]();
+    private var items = [Item]();
     
     // This is responsible for decorating the background of the Scene. It is drawn first.
-    var background : Background // initialize with empty background
+    private var background : Background // initialize with empty background
     // These are the items that really belong to the Scene
-    var sceneItems : [Item]
-    var sceneItemsById : [Int : [Int : Item]]
+    private var sceneItems : [Item]
+    private var sceneItemsById : [Int : [Int : Item]]
     // These items are likely to change quickly, and are drawn last
-    var forefrontItems : [Item]
+    private var forefrontItems : [ItemT]
     // These are not drawn, but respond to mouse hover events
-    var hoverResponders : [Item]
+    private var hoverResponders : [ItemT]
     // These are not drawn, but respond to mouse click events
-    var clickResponders : [Item]
+    private var clickResponders : [ItemT]
     // These are not drawn, but respond to keyboard events
-    var keyResponders : [Item]
-    var toolManager : ToolManager
+    private var keyResponders : [ItemT]
+    private var toolManager : ToolManager
     
     // The responders to the most recent event.
-    //var activeHoverResponder : Item
-    //var activeClickResponder : Item
+    private var activeHoverResponder : ItemT
+    private var activeClickResponder : ItemT
     
     // This is a list of all SceneViews that are watching the Scene.
-    var sceneViews : [SceneView]
+    private var sceneViews : [SceneView]
     
     private init() {
         self.background = Background()
@@ -48,8 +48,8 @@ class Scene {
         self.clickResponders = [Item]()
         self.keyResponders = [Item]()
         
-        //self.activeHoverResponder = Item();
-        //self.activeClickResponder = Item();
+        self.activeHoverResponder = ItemT.nullItemT
+        self.activeClickResponder = ItemT.nullItemT
         
         self.toolManager = ToolManager()
         
@@ -60,14 +60,18 @@ class Scene {
     }
     
     // resets the state of the scene
-    func reset() {
+    public func reset() {
         self.sceneItems = [Item]()
         self.sceneItemsById = [Int : [Int : Item]]()
     }
     
-    func setBackground(_background : Background) {
+    public func setBackground(_background : Background) {
         self.background = _background
         self.redisplay()
+    }
+    
+    public func getBackground() -> Background {
+        return self.background
     }
     
     /////////////////////
@@ -75,7 +79,7 @@ class Scene {
     /////////////////////
     
     // With start/endChanges(), it is no longer important to add items in batch.
-    func addSceneItem(item : Item) {
+    public func addSceneItem(item : Item) {
         self.sceneItems.append(item);
         if (sceneItemsById[item.devId] == nil) {
             sceneItemsById[item.devId] = [Int : Item]()
@@ -90,7 +94,7 @@ class Scene {
     }
     
     // With start/endChanges(), it is no longer important to remove items in batch.
-    func removeSceneItem(item : Item) {
+    public func removeSceneItem(item : Item) {
         var i : Item = sceneItems.index(where: item)
         if (i > -1) {
             self.sceneItems.remove(at: 0)
@@ -104,7 +108,7 @@ class Scene {
         self.redisplay()
     }
     
-    func getItemById(id : Int, devId : Int) -> Item {
+    public func getItemById(id : Int, devId : Int) -> Item {
         var innerDict = self.sceneItemsById[devId]
         return innerDict[id]
     }
@@ -114,12 +118,12 @@ class Scene {
     ///////////////////////////
     
     // TODO take a regionRect as a parameter
-    func getSelectableItems() -> [Item] {
+    public func getSelectableItems() -> [Item] {
         return self.sceneItems
     }
     
     // internal (used by functions below)
-    func getItemsWhereRectIntersectsRect(rect : CGRect) -> [Item] {
+    private func getItemsWhereRectIntersectsRect(rect : CGRect) -> [Item] {
         var items = [Item]()
         for item in sceneItems {
             if(rect.intersects(item.getBoundingRect())) {
@@ -129,7 +133,7 @@ class Scene {
         return items
     }
     
-    func getItemsIntersectingRect(rect : CGRect) -> [Item] {
+    public func getItemsIntersectingRect(rect : CGRect) -> [Item] {
         var candidates = getItemsWhereRectIntersectsRect(rect: rect)
         var items = [Item]()
         for candidate in candidates {
@@ -140,7 +144,7 @@ class Scene {
         return items
     }
     
-    func getItemsIntersectingSegment(end1 : Point, end2 : Point) -> [Item] {
+    public func getItemsIntersectingSegment(end1 : Point, end2 : Point) -> [Item] {
         var rect : Rect = Rect.rectFromXYXY(end1.x, end1.y, end2.x, end2.y)
         var candidates : [Item] = getItemsWhereRectIntersectsRect(rect: rect)
         var items = [Item]()
@@ -157,91 +161,146 @@ class Scene {
     // forefront management //
     //////////////////////////
     
-    func addForefrontItem(itemT : ItemT) {
-    
+    public func addForefrontItem(itemT : ItemT) {
+        self.forefrontItems.append(itemT)
+        itemT.setScene(scene: self)
+        
+        // add itemT as event responder
+        if (itemT.respondsToHoverEvents) {
+            self.addHoverResponder(responder : itemT)
+        }
+        if (itemT.respondsToClickEvents) {
+            self.addClickResponder(responder : itemT)
+        }
+        if (itemT.respondsToKeyEvents) {
+            self.addKeyResponder(responder : itemT)
+        }
+        
+        self.redisplay()
     }
     
-    func removeForefrontItem(itemT : ItemT) {
-    
+    public func removeForefrontItem(itemT : ItemT) {
+        var i = self.forefrontItems.index(where: itemT)
+        if (i > -1) {
+            // TODO why is this case not always happening (if I select a curve, then click away)
+            self.forefrontItems.removeFirst()
+            itemT.setScene(Scene.nullScene)
+            // remove itemT as event responder
+            if (itemT.respondsToHoverEvents) {
+                self.removeHoverResponder(responder : itemT)
+            }
+            if (itemT.respondsToClickEvents) {
+                self.removeClickResponder(responder : itemT)
+            }
+            if (itemT.respondsToKeyEvents) {
+                self.removeKeyResponder(responder : itemT)
+            }
+            
+            self.redisplay()
+        }
     }
     
-    func onClickedAway() {
-    
+    public func onClickedAway() {
+        if (self.activeClickResponder !== ItemT.nullItemT) {
+            self.activeClickResponder.onClickedAway()
+            self.activeClickResponder = ItemT.nullItemT
+        }
     }
     
     // Adds the responder to the front of the list.
-    func addHoverResponder(responder : ItemT) {
-    
+    public func addHoverResponder(responder : ItemT) {
+        self.hoverResponders.insert(responder, at: 0)
     }
     
-    func removeHoverResponder(responder : ItemT) {
-    
-    }
-    
-    // Adds the responder to the front of the list.
-    func addClickResponder(responder : ItemT) {
-    
-    }
-    
-    func removeClickResponder(responder : ItemT) {
-    
+    public func removeHoverResponder(responder : ItemT) {
+        var i = self.hoverResponders.index(where: responder)
+        if (i > -1) {
+            self.hoverResponders.removeFirst()
+        }
+        if (responder === self.activeHoverResponder) {
+            self.activeHoverResponder = ItemT.nullItemT
+        }
     }
     
     // Adds the responder to the front of the list.
-    func addKeyResponder(responder : ItemT) {
-    
+    public func addClickResponder(responder : ItemT) {
+        self.clickResponders.insert(responder, at: 0)
     }
     
-    func removeKeyResponder(responder : ItemT) {
+    public func removeClickResponder(responder : ItemT) {
+        var i = self.clickResponders.index(where: responder)
+        if (i > -1) {
+            self.clickResponders.removeFirst()
+        }
+        if (responder === self.activeClickResponder) {
+            self.activeClickResponder = ItemT.nullItemT
+        }
+    }
     
+    // Adds the responder to the front of the list.
+    public func addKeyResponder(responder : ItemT) {
+        self.keyResponders.insert(responder, at: 0)
+    }
+    
+    public func removeKeyResponder(responder : ItemT) {
+        var i = self.keyResponders.index(where: responder)
+        if (i >= -1) {
+            self.keyResponders.removeFirst()
+        }
     }
     
     // Used when the activeClickResponder should point to a newly created item
     //   (so that it can receive onClickedAway() if the user clicks away)
-    func setActiveClickResponder(newClickResponder : Item) {
-    
+    public func setActiveClickResponder(newClickResponder : Item) {
+        // There likely shouldn't be an activeClickResponder, because this method probably indicates a tool is being used.
+        if (self.activeClickResponder) {
+            if (self.activeClickResponder !== newClickResponder) {
+                self.activeClickResponder.onClickedAway()
+            }
+        }
+        self.activeClickResponder = newClickResponder
     }
     
     /////////////////////////////
     // notify scene of changes //
     /////////////////////////////
     
-    var semaphore = 0; // TODO choose better name
-    var redisplayAfterChanges = false;
-    var reindexAfterChanges = false;
+    private var semaphore : Int = 0 // TODO choose better name
+    private var redisplayAfterChanges : Bool = false
+    private var reindexAfterChanges : Bool = false
     
-    func beginChanges() {
-    semaphore += 1;
+    public func beginChanges() {
+        self.semaphore += 1
     }
     
-    func endChanges() {
-        semaphore -= 1;
-        if (semaphore == 0) {
-            if (redisplayAfterChanges) {
-                redisplay();
+    public func endChanges() {
+        self.semaphore -= 1
+        if (self.semaphore == 0) {
+            if (self.redisplayAfterChanges) {
+                self.redisplay()
             }
-            if (reindexAfterChanges) {
-                reindex();
+            if (self.reindexAfterChanges) {
+                self.reindex()
             }
         }
     }
     
-    func redisplay() {
-        if (semaphore > 0) {
-            redisplayAfterChanges = true;
+    public func redisplay() {
+        if (self.semaphore > 0) {
+            self.redisplayAfterChanges = true
         } else {
-            redisplayAfterChanges = false;
-            // sceneViews.forEach(function(sv) {
-            // redisplaySceneView(sv);
-            // });
+            self.redisplayAfterChanges = false
+            //for sv in sceneViews {
+            //    self.redisplaySceneView(sv: sv)
+            //}
         }
     }
     
-    func reindex() {
-        if (semaphore > 0) {
-            reindexAfterChanges = true;
+    public func reindex() {
+        if (self.semaphore > 0) {
+            self.reindexAfterChanges = true
         } else {
-            reindexAfterChanges = false;
+            self.reindexAfterChanges = false
             // reindexing code goes here
         }
     }
@@ -251,16 +310,40 @@ class Scene {
     //////////////////////////
     
     // Redisplay on a SceneView (only called internally)
-    func redisplaySceneView(sv : SceneView) {
-    
+    private func redisplaySceneView(sv : SceneView) {
+        var canvas : SceneView = sv.getCanvas()
+        var left : Double = sv.getLeft()
+        var top : Double = sv.getTop()
+        var zoom : Double = sv.getZoom()
+        // drawGrid(canvas,left,top,zoom);
+        self.background.drawOnCanvas(canvas: canvas, x: left, y: top, s: zoom)
+        // TODO since there is no cache, for now just draw all items
+        var ctx : CGContext = UIGraphicsGetCurrentContext()
+        ctx.saveGState()
+        ctx.scaleBy(x: CGFloat(zoom), y: CGFloat(zoom))
+        ctx.translateBy(x: CGFloat(-left), y: CGFloat(-top))
+        
+        for item in self.sceneItems {
+            if(item.scaleInvariant) {
+                item.drawOnCanvas(canvas : self.canvas)
+            } else {
+                item.drawOnCanvas(canvas: self.canvas, matrix: Matrix.identityMatrix())
+            }
+        }
+        ctx.restoreGState()
+        // the forefrontItems are given the canvas without the transformation applied
+        for item in self.forefrontItems {
+            item.drawOnCanvas(canvas: canvas, x: left, y: top, s: zoom)
+        }
     }
     
-    func addSceneView(sv : SceneView) {
-    
+    public func addSceneView(sv : SceneView) {
+        self.sceneViews.append(sv)
+        self.redisplaySceneView(sv : sv)
     }
     
-    func onViewingRectChangedForSceneView(sv : SceneView) {
-    
+    public func onViewingRectChangedForSceneView(sv : SceneView) {
+        self.redisplaySceneView(sv : sv)
     }
     
     ///////////////////////////////////
@@ -270,41 +353,72 @@ class Scene {
     // internal, calls acceptsClick() for each clickResponder (in order)
     // As soon as a clickResponder accepts the click, it is returned.
     // If no clickResponder accepts the click, null is returned.
-    func getClickResponder(x : Int, y : Int, zoom : Int) -> Item {
-        return Item();
+    private func getClickResponder(x : Int, y : Int, zoom : Int) -> ItemT {
+        for i in 0...(self.clickResponders.count - 1) {
+            if(self.clickResponders[i].acceptsClick(x: x, y: y, zoom: zoom)) {
+                return self.clickResponders[i]
+            }
+        }
+        return ItemT.nullItemT
     }
     
     // returns true if the scene wants a mouse grab (meaning a clickResponder accepted the click), false otherwise
-    func onMouseDown(x : Int, y : Int, zoom : Int, event : UIEvent) -> Bool {
-        return false
+    public func onMouseDown(x : Double, y : Double, zoom : Double, event : UIEvent) -> Bool {
+        var oldClickResponder : ItemT = self.activeClickResponder
+        self.activeClickResponder = getClickResponder(x: x, y: y, zoom: zoom)
+        if (oldClickResponder !== ItemT.nullItemT) {
+            if (oldClickResponder !== self.activeClickResponder) {
+                oldClickResponder.onClickedAway()
+            }
+        }
+        if (self.activeClickResponder !== ItemT.nullItemT) {
+            self.activeClickResponder.onDown(x: x, y: y, zoom: zoom, event: event)
+            return true
+        } else {
+            return false
+        }
     }
     
     // internal, calls acceptsHover() for each hoverResponder (in order)
     // As soon as a hoverResponder accepts the hover, it is returned.
     // If no hoverResponder accepts the hover, null is returned.
-    func getHoverResponder(x : Int, y : Int, zoom : Int) -> Item {
-        return Item();
+    private func getHoverResponder(x : Double, y : Double, zoom : Double) -> ItemT {
+        for i in 0...(self.hoverResponders.count - 1) {
+            if(self.hoverResponders[i].acceptsHover(x: x, y: y, zoom: zoom)) {
+                return self.hoverResponders[i]
+            }
+        }
+        return ItemT.nullItemT
     }
     
     // returns the cursor to display above the Scene
-    func onMouseHover(x : Double, y : Double, zoom : Double) {
-    
+    public func onMouseHover(x : Double, y : Double, zoom : Double) -> String {
+        self.activeHoverResponder = getHoverResponder(x: x, y: y, zoom: zoom)
+        if (self.activeHoverResponder !== ItemT.nullItemT) {
+            // return activeHoverResponder.getCursor(x, y, zoom)
+        } else {
+            return "default"
+        }
     }
     
-    func onMouseDrag(x : Double, y : Double, zoom : Double) {
-    
+    public func onMouseDrag(x : Double, y : Double, zoom : Double) {
+        if (self.activeClickResponder !== ItemT.nullItemT) {
+            // self.activeClickResponder.onDrag(x, y, zoom);
+        }
     }
     
-    func onMouseUp() {
-    
+    public func onMouseUp() {
+        if (self.activeClickResponder !== ItemT.nullItemT) {
+            // activeClickResponder.onUp()
+        }
     }
     
-    func getContextMenuData(x : Double, y : Double, zoom : Double) -> [String : Any] {
+    public func getContextMenuData(x : Double, y : Double, zoom : Double) -> [String : Any] {
     
     }
     
     // Notifies each keyResponder (from first to last) until one returns true.
-    func onKeyDown(event: UIEvent) -> Bool{
+    public func onKeyDown(event: UIEvent) -> Bool{
         return false;
     }
 
