@@ -82,7 +82,7 @@ class SceneView : UIView {
     
     /////////////
     // Methods //
-    ////////////
+    /////////////
     public func getWidth() -> Double {
         return Double(self.canvas.frame.size.width) / self.zoom
     }

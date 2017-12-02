@@ -12,60 +12,62 @@ import UIKit
 class Scene {
     
     // SINGLETON
-    public static var sharedInstance = Scene();
+    public static var sharedInstance = Scene()
     public static var nullScene : Scene = NullScene()
     
     var items = [Item]();
     
     // This is responsible for decorating the background of the Scene. It is drawn first.
-    var background : Background; // initialize with empty background
+    var background : Background // initialize with empty background
     // These are the items that really belong to the Scene
-    var sceneItems : [Item];
-    var sceneItemsById : [Item];
+    var sceneItems : [Item]
+    var sceneItemsById : [Int : [Int : Item]]
     // These items are likely to change quickly, and are drawn last
-    var forefrontItems : [Item];
+    var forefrontItems : [Item]
     // These are not drawn, but respond to mouse hover events
-    var hoverResponders : [Item];
+    var hoverResponders : [Item]
     // These are not drawn, but respond to mouse click events
-    var clickResponders : [Item];
+    var clickResponders : [Item]
     // These are not drawn, but respond to keyboard events
-    var keyResponders : [Item];
-    var toolManager : ToolManager;
+    var keyResponders : [Item]
+    var toolManager : ToolManager
     
     // The responders to the most recent event.
-    //var activeHoverResponder : Item;
-    //var activeClickResponder : Item;
+    //var activeHoverResponder : Item
+    //var activeClickResponder : Item
     
     // This is a list of all SceneViews that are watching the Scene.
-    var sceneViews : [SceneView];
+    var sceneViews : [SceneView]
     
     private init() {
-        self.background = Background();
-        self.sceneItems = [Item]();
-        self.sceneItemsById = [Item]();
-        self.forefrontItems = [Item]();
-        self.hoverResponders = [Item]();
-        self.clickResponders = [Item]();
-        self.keyResponders = [Item]();
+        self.background = Background()
+        self.sceneItems = [Item]()
+        self.sceneItemsById = [Int : [Int : Item]]()
+        self.forefrontItems = [Item]()
+        self.hoverResponders = [Item]()
+        self.clickResponders = [Item]()
+        self.keyResponders = [Item]()
         
         //self.activeHoverResponder = Item();
         //self.activeClickResponder = Item();
         
-        self.toolManager = ToolManager();
+        self.toolManager = ToolManager()
         
         // This is a list of all SceneViews that are watching the Scene.
-        self.sceneViews = [SceneView]();
+        self.sceneViews = [SceneView]()
         
         print("In Scene");
     }
     
     // resets the state of the scene
     func reset() {
-        
+        self.sceneItems = [Item]()
+        self.sceneItemsById = [Int : [Int : Item]]()
     }
     
     func setBackground(_background : Background) {
-        
+        self.background = _background
+        self.redisplay()
     }
     
     /////////////////////
@@ -74,16 +76,37 @@ class Scene {
     
     // With start/endChanges(), it is no longer important to add items in batch.
     func addSceneItem(item : Item) {
+        self.sceneItems.append(item);
+        if (sceneItemsById[item.devId] == nil) {
+            sceneItemsById[item.devId] = [Int : Item]()
+        }
+        var innerDict : [Int : Item] = self.sceneItemsById[item.devId]
+        innerDict[item.id] = item
+        self.sceneItemsById[item.devId] = innerDict
         
+        item.setScene(self)
+        self.reindex()
+        self.redisplay()
     }
     
     // With start/endChanges(), it is no longer important to remove items in batch.
     func removeSceneItem(item : Item) {
+        var i : Item = sceneItems.index(where: item)
+        if (i > -1) {
+            self.sceneItems.remove(at: 0)
+        }
+        var innerDict = self.sceneItemsById[item.devId]
+        innerDict?.removeValue(forKey: item.id)
+        self.sceneItemsById[item.devId] = innerDict
         
+        item.setScene(Scene.nullScene)
+        self.reindex()
+        self.redisplay()
     }
     
     func getItemById(id : Int, devId : Int) -> Item {
-        return Item(state: ItemState(type: Item.ItemType.Unknown));
+        var innerDict = self.sceneItemsById[devId]
+        return innerDict[id]
     }
     
     ///////////////////////////
@@ -92,20 +115,41 @@ class Scene {
     
     // TODO take a regionRect as a parameter
     func getSelectableItems() -> [Item] {
-        return sceneItems;
+        return self.sceneItems
     }
     
     // internal (used by functions below)
     func getItemsWhereRectIntersectsRect(rect : CGRect) -> [Item] {
-        return [Item()];
+        var items = [Item]()
+        for item in sceneItems {
+            if(rect.intersects(item.getBoundingRect())) {
+                items.append(item)
+            }
+        }
+        return items
     }
     
     func getItemsIntersectingRect(rect : CGRect) -> [Item] {
-        return [Item()];
+        var candidates = getItemsWhereRectIntersectsRect(rect: rect)
+        var items = [Item]()
+        for candidate in candidates {
+            if(candidate.intersectsRect(rect: rect)){
+                items.append(candidate)
+            }
+        }
+        return items
     }
     
     func getItemsIntersectingSegment(end1 : Point, end2 : Point) -> [Item] {
-        return [Item()];
+        var rect : Rect = Rect.rectFromXYXY(end1.x, end1.y, end2.x, end2.y)
+        var candidates : [Item] = getItemsWhereRectIntersectsRect(rect: rect)
+        var items = [Item]()
+        for candidate in candidates {
+            if(candidate.intersectsSegment(end1, end2)) {
+                items.append(candidate)
+            }
+        }
+        return items
     }
     
     

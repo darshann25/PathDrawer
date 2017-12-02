@@ -103,12 +103,12 @@ class Item {
         // null
     }
     
-    func getBoundingRect() {
-        // null
+    func getBoundingRect() -> Rect {
+        return Rect(left: 0, top: 0, width: 0, height: 0)
     }
     
-    func intersectsSegment() {
-        // null
+    func intersectsSegment(end1 : Point, end2 : Point) -> Bool {
+        return false
     }
     
     
