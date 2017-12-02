@@ -20,10 +20,10 @@ class MouseEventHandler {
         self.canvas = sv
     }
     
-    private var sceneViewOnDown : SceneViewCallbackWithPoint = {}
-    private var sceneViewOnMove : SceneViewCallbackWithPoint = {}
-    private var sceneViewOnMoveInSceneOnly : SceneViewCallbackWithPoint = {}
-    private var sceneViewOnUp : SceneViewCallback = {}
+    private var sceneViewOnDown : SceneViewCallbackWithPoint = {event, x , y in }
+    private var sceneViewOnMove : SceneViewCallbackWithPoint = {event, x , y in }
+    private var sceneViewOnMoveInSceneOnly : SceneViewCallbackWithPoint = {event, x , y in }
+    private var sceneViewOnUp : SceneViewCallback = {event in }
     private func onMouseDownInSceneOnly(event : UIEvent) {
 
     }
@@ -41,19 +41,19 @@ class MouseEventHandler {
     }
     // document.addEventListener('mouseup', onMouseUp);
 
-    public func setSceneViewOnDown(f : SceneViewCallbackWithPoint) {
+    public func setSceneViewOnDown(f : @escaping SceneViewCallbackWithPoint) {
         self.sceneViewOnDown = f
     }
     
-    public func setSceneViewOnMove(f : SceneViewCallbackWithPoint) {
+    public func setSceneViewOnMove(f : @escaping SceneViewCallbackWithPoint) {
         self.sceneViewOnMove = f
     }
     
-    public func setSceneViewOnMoveInSceneOnly(f : SceneViewCallbackWithPoint) {
+    public func setSceneViewOnMoveInSceneOnly(f : @escaping SceneViewCallbackWithPoint) {
         self.sceneViewOnMoveInSceneOnly = f
     }
     
-    public func setSceneViewOnUp(f : SceneViewCallback) {
+    public func setSceneViewOnUp(f : @escaping SceneViewCallback) {
         self.sceneViewOnUp = f
     }
     

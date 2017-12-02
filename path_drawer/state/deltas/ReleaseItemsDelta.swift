@@ -47,7 +47,7 @@ class ReleaseItemsDelta : Delta {
         return ReleaseItemsDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, holderDevId: mini["holderDevId"] as! Int, uids: mini["uids"] as! [(id: Int, devId: Int)], finalMatrix: mini["finalMatrix"] as! Matrix, intent: mini["intent"] as! GrabItemsDelta.intents)
     }
     
-    func applyToScene () {
+    override func applyToScene () {
         Scene.sharedInstance.beginChanges()
         var itemT : ItemT
         var devicesManager = BoardViewController.BoardContext.sharedInstance.devicesManager

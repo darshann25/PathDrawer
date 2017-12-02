@@ -57,7 +57,7 @@ class ItemT {
             if ((self.scene !== Scene.nullScene) && val){
                 self.scene.addHoverResponder(responder : self)
             }
-            if ((self.scene != Scene.nullScene) && !val){
+            if ((self.scene !== Scene.nullScene) && !val){
                 self.scene.removeHoverResponder(responder: self)
             }
         }

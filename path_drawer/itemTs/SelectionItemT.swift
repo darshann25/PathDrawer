@@ -25,7 +25,7 @@ class SelectionItemT : ItemT {
         
     }
     
-    func onClickedAway() {
+    override func onClickedAway() {
         
     }
 }

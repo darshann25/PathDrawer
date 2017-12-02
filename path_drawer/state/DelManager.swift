@@ -37,18 +37,18 @@ class DelManager {
         self._currentDelN = 0
         
         var delFunction : MessageCallback = { del, from in
-            if(_dels[del["type"] as! String] != nil) {
+            if(self._dels[del["type"] as! String] != nil) {
                 var context = self.devicesManager.getDevice(devId: from).context
                 if(del["new"] != nil) {
-                    del["N"] = del["new"]
+                    // del["N"] = del["new"]
                     if(del["N"] as! Int > context["delN"] as! Int) {
                         context["delN"] = del["N"]
                     }
                 }
                 if(context["delN"] as! Int == del["N"] as! Int) {
-                    self._dels[del["type"] as! String](del, context)
+                    self._dels[del["type"] as! String]!(del, context)
                 } else {
-                    NSLog("del had unknown type : " + del["type"])
+                    NSLog("del had unknown type : @", (del["type"] as! String))
                 }
             }
         }
@@ -58,7 +58,7 @@ class DelManager {
         // when a pen is down and drags for the first time
         self._dels["penStart"] = {del, context in
             var prePathItemT : PrePathItemT = PrePathItemT()
-            context["prePathItemT"] = prePathItemT
+            // context["prePathItemT"] = prePathItemT
             prePathItemT.setColor(color: del["color"] as! CGColor)
             prePathItemT.setSize(size: del["size"] as! CGFloat)
             prePathItemT.setOpacity(opacity: del["opacity"] as! CGFloat)
@@ -71,8 +71,8 @@ class DelManager {
         self._dels["pen"] = {del, context in
             Scene.sharedInstance.beginChanges()
             
-            (context["prePathItemT"] as! PrePathItemT).addPoint(x: Double(del["x"]), y: Double(del["y"]))
-            (context["haloItemT"] as! HaloItemT).updateLocation(x: Double(del["x"]), y: Double(del["y"]))
+            (context["prePathItemT"] as! PrePathItemT).addPoint(x: del["x"] as! Double, y: del["y"] as! Double)
+            (context["haloItemT"] as! HaloItemT).updateLocation(x: del["x"] as! Double, y: del["y"] as! Double)
             
             Scene.sharedInstance.endChanges()
         }
@@ -80,17 +80,17 @@ class DelManager {
         // when a pen is lifted
         self._dels["penEnd"] = {del, context in
             Scene.sharedInstance.removeForefrontItem(itemT: context["prePathItemT"] as! PrePathItemT)
-            context["prePathItemT"] = ItemT.nullItemT
+            // context["prePathItemT"] = ItemT.nullItemT
         }
         
         // when a halo location is updated
         self._dels["halo"] = {del, context in
-            (context["haloItemT"] as! HaloItemT).updateLocation(x: Double(del["x"]), y: Double(del["y"]))
+            (context["haloItemT"] as! HaloItemT).updateLocation(x: del["x"] as! Double, y: del["y"] as! Double)
         }
 
         // when a user's view rect is updated
         self._dels["view"] = {del, context in
-            (context["viewRectItemT"]).updateRect(rectArray : del["rect"] as! [Double]) 
+            (context["viewRectItemT"] as! ViewRectItemT).updateRect(rectArray : del["rect"] as! [Double])
         }
         
         // when a user drags a SelectionItemT

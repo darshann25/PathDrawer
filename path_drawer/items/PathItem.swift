@@ -131,7 +131,7 @@ class PathItem : Item {
          */
     }
     
-    func getBoundingRect() -> Rect {
+    override func getBoundingRect() -> Rect {
         
         if(self.boundingRect == nil) {
             var rect = Rect(left: 0, top: 0, width: 0, height: 0)
