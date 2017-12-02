@@ -37,7 +37,7 @@ class DeleteItemDelta : Delta {
         return DeleteItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, itemState: mini["itemState"] as! ItemState)
     }
     
-    func applyToScene (){
+    override func applyToScene (){
         var item = Scene.sharedInstance.getItemById(id: self.itemState.id, devId: self.itemState.devId)
         Scene.sharedInstance.removeSceneItem(item: item)
     }

@@ -43,10 +43,10 @@ class Scene {
         self.background = Background()
         self.sceneItems = [Item]()
         self.sceneItemsById = [Int : [Int : Item]]()
-        self.forefrontItems = [Item]()
-        self.hoverResponders = [Item]()
-        self.clickResponders = [Item]()
-        self.keyResponders = [Item]()
+        self.forefrontItems = [ItemT]()
+        self.hoverResponders = [ItemT]()
+        self.clickResponders = [ItemT]()
+        self.keyResponders = [ItemT]()
         
         self.activeHoverResponder = ItemT.nullItemT
         self.activeClickResponder = ItemT.nullItemT
@@ -84,18 +84,18 @@ class Scene {
         if (sceneItemsById[item.devId] == nil) {
             sceneItemsById[item.devId] = [Int : Item]()
         }
-        var innerDict : [Int : Item] = self.sceneItemsById[item.devId]
+        var innerDict : [Int : Item] = self.sceneItemsById[item.devId]!
         innerDict[item.id] = item
         self.sceneItemsById[item.devId] = innerDict
         
-        item.setScene(self)
+        item.setScene(scene: self)
         self.reindex()
         self.redisplay()
     }
     
     // With start/endChanges(), it is no longer important to remove items in batch.
     public func removeSceneItem(item : Item) {
-        var i : Item = sceneItems.index(where: item)
+        var i : Int = sceneItems.index(where: {(i) -> Bool in i === item })!
         if (i > -1) {
             self.sceneItems.remove(at: 0)
         }
@@ -103,14 +103,14 @@ class Scene {
         innerDict?.removeValue(forKey: item.id)
         self.sceneItemsById[item.devId] = innerDict
         
-        item.setScene(Scene.nullScene)
+        item.setScene(scene: Scene.nullScene)
         self.reindex()
         self.redisplay()
     }
     
     public func getItemById(id : Int, devId : Int) -> Item {
         var innerDict = self.sceneItemsById[devId]
-        return innerDict[id]
+        return innerDict![id]
     }
     
     ///////////////////////////
@@ -180,11 +180,11 @@ class Scene {
     }
     
     public func removeForefrontItem(itemT : ItemT) {
-        var i = self.forefrontItems.index(where: itemT)
+        var i : Int = self.forefrontItems.index(where: {(i) -> Bool in i === itemT})!
         if (i > -1) {
             // TODO why is this case not always happening (if I select a curve, then click away)
             self.forefrontItems.removeFirst()
-            itemT.setScene(Scene.nullScene)
+            itemT.setScene(scene: Scene.nullScene)
             // remove itemT as event responder
             if (itemT.respondsToHoverEvents) {
                 self.removeHoverResponder(responder : itemT)
@@ -213,7 +213,7 @@ class Scene {
     }
     
     public func removeHoverResponder(responder : ItemT) {
-        var i = self.hoverResponders.index(where: responder)
+        var i : Int = self.hoverResponders.index(where: {(i) -> Bool in i === responder})!
         if (i > -1) {
             self.hoverResponders.removeFirst()
         }
@@ -228,7 +228,7 @@ class Scene {
     }
     
     public func removeClickResponder(responder : ItemT) {
-        var i = self.clickResponders.index(where: responder)
+        var i : Int = self.clickResponders.index(where: {(i) -> Bool in i === responder})!
         if (i > -1) {
             self.clickResponders.removeFirst()
         }
@@ -243,7 +243,7 @@ class Scene {
     }
     
     public func removeKeyResponder(responder : ItemT) {
-        var i = self.keyResponders.index(where: responder)
+        var i : Int = self.keyResponders.index(where: {(i) -> Bool in i === responder})!
         if (i >= -1) {
             self.keyResponders.removeFirst()
         }

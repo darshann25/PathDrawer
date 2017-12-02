@@ -38,7 +38,7 @@ class TextItem : Item {
         return TextItemState(id: id, devId: devId, matrix: self.matrix, buffer: self.buffer, baselineLeft: self.localBaselineLeft, baselineRight: self.localBaselineRight)
     }
     
-    func getBoundingRect() -> Rect {
+    override func getBoundingRect() -> Rect {
         var topLeft = self.getCorner(chirality : TextItem.chiralities.Left, matrix : self.matrix, refLine : TextItem.referenceLines.TopBox)
         var topRight = self.getCorner(chirality : TextItem.chiralities.Right, matrix : self.matrix, refLine : TextItem.referenceLines.TopBox)
         var left = topLeft.x
@@ -98,9 +98,9 @@ class TextItem : Item {
     }
     */
     
-    var scaleInvariant = false
+    self.scaleInvariant = false
     
-    func setMatrix(matrix : Matrix) {
+    override func setMatrix(matrix : Matrix) {
         // Object.getPrototypeOf(TextItem.prototype).setMatrix.call(this, matrix);
         self.lines = RichTextLines(buffer : self.buffer, maxWidth : self.getTextWidth(matrix : self.matrix));
         if (self.scene != Scene.nullScene) {

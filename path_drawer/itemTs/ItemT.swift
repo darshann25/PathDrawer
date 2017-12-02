@@ -96,11 +96,11 @@ class ItemT {
     }
     
     func acceptsClick(x : Double, y : Double, zoom : Double) -> Bool {
-        
+        return false
     }
 
     func acceptsHover(x : Double, y : Double, zoom : Double) -> Bool {
-        
+        return false
     }
     
     func onDown(x : Double, y : Double, zoom : Double, event : UIEvent) {
@@ -110,7 +110,7 @@ class ItemT {
 
 class NullItemT : ItemT {
     init() {
-        
+        super.init(scene: Scene.sharedInstance, respondsToHoverEvents: false, respondsToClickEvents: false, respondsToKeyEvents: false)
     }
     
 }

@@ -11,7 +11,7 @@ import UIKit
 
 class ImageItem : Item {
     init(state : ImageItemState) {
-        
+        super.init(state: ItemState(type: Item.ItemType.Unknown))
     }
 }
 

@@ -83,7 +83,7 @@ class PathItem : Item {
         }
     }
 
-    override func getPdfgenData(matrix: Matrix) -> Dictionary<String, Any> {
+    func getPdfgenData(matrix: Matrix) -> Dictionary<String, Any> {
         var xs = [Double]()
         var ys = [Double]()
         
@@ -98,11 +98,11 @@ class PathItem : Item {
             "t" : "path",
             "m" : m.toArray(),
             "c" : self.pathItemColor, // TODO : Convert to RGB Value
-            "s" : self.size,
+            "s" : self.pathItemSize,
             "xs" : xs,
             "ys" : ys
         ]
-        if (self.opacity != 1) {
+        if (self.pathItemOpacity != 1) {
             data["alpha"] = 1     // set alpha flag
         }
         
@@ -133,7 +133,7 @@ class PathItem : Item {
     
     override func getBoundingRect() -> Rect {
         
-        if(self.boundingRect == nil) {
+        if(self.boundingRect === Rect.nullRect ) {
             var rect = Rect(left: 0, top: 0, width: 0, height: 0)
             
             if (LINEAR_ONLY) {
@@ -142,16 +142,16 @@ class PathItem : Item {
                 rect = self.path.computeBoundingRectCubic(matrix : self.matrix)
             }
             
-            var thickness = self.size * sqrt(self.matrix.det())
+            var thickness = Double(self.pathItemSize) * sqrt(self.matrix.det())
             self.boundingRect = rect.expandedBy(mdl: thickness/2, mdt: thickness/2, dr: thickness/2, db: thickness/2)
         }
         
         return self.boundingRect
     }
     
-    func intersectsSegment(end1 : Point, end2 : Point) -> Bool {
+    override func intersectsSegment(end1 : Point, end2 : Point) -> Bool {
         // since the segment is generally small, we use this hack for now
-        return self.intersectsRect(Rect.rectFromXYXY(x0 : end1.x, y0 : end1.y, x1 : end2.x, y1 : end2.y))
+        return self.intersectsRect(Rect().rectFromXYXY(x0 : end1.x, y0 : end1.y, x1 : end2.x, y1 : end2.y))
     }
     
     func intersectsRect(rect : Rect) -> Bool {

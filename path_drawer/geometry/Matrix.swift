@@ -32,7 +32,7 @@ import Foundation
  
  */
 
-class Matrix{
+class Matrix {
 
     var a : Double
     var b : Double
@@ -40,16 +40,6 @@ class Matrix{
     var d : Double
     var e : Double
     var f : Double
-
-    init() {
-        self.a = 0
-        self.b = 0
-        self.c = 0
-        self.d = 0
-        self.e = 0
-        self.f = 0
-    }
-
 
     init(a : Double, b : Double, c : Double, d : Double, e : Double, f : Double){
         self.a = a
@@ -59,13 +49,9 @@ class Matrix{
         self.e = e
         self.f = f
     }
-
-    /*
-     Returns the identity matrix, that is the affine linear transformation which leaves all points fixed.
-     @return {Matrix} The identity matrix.
-     */
-    func identityMatrix() -> Matrix{
-        return Matrix(a: 1,b: 0,c: 0,d: 1,e: 0,f: 0)
+    
+    convenience init() {
+        self.init(a: 0, b: 0, c: 0, d: 0, e: 0, f: 0)
     }
 
     /*
@@ -75,6 +61,14 @@ class Matrix{
      */
     func scaleMatrix(scale : Double)-> Matrix {
         return Matrix(a: scale, b: 0, c: 0, d: scale, e: 0, f: 0)
+    }
+    
+    /*
+     Returns the identity matrix, that is the affine linear transformation which leaves all points fixed.
+     @return {Matrix} The identity matrix.
+     */
+    func identityMatrix() -> Matrix{
+        return Matrix(a: 1,b: 0,c: 0,d: 1,e: 0,f: 0)
     }
 
 
@@ -165,7 +159,7 @@ class Matrix{
         e: Double((self.c * self.f - self.d * self.e)) / Double(det),
         f: Double((self.b * self.e - self.a * self.f)) / Double(det) )
     }
-
+    
     /*
      Returns a 1-dimensional array of length 6 containing the parameters of the matrix. In order, those 6 parameters are a,b,c,d,e,f.
      @return {Array} A 1-dimensional array of length 6 containing the parameters of the matrix.
@@ -173,19 +167,21 @@ class Matrix{
     func toArray()-> Array<Double>{   //prototype conversion pending
         return [self.a, self.b, self.c, self.d, self.e, self.f]
     }
-
+    
     /*
      Returns a matrix with parameters given by the inputed array, where the first 6 elements of the array will become the parameters a,b,c,d,e,f, in that order, for the new matrix. This function will return an error if the length of the array is less than 6 or if any of the first 6 elements of the array are not non-negative numbers. If the array has length >6, this function will still run using the first 6 elements of the array, however this is not recommended.
      @summary Given an array of non-negative numbers, returns a matrix with parameters given by the first 6 elements of the array.
      @return {Matrix} The resulting matrix.
      */
-    func fromArray(a:[Int])-> Matrix{
-        return Matrix (a: Double(a[0]), b: Double(a[1]), c: Double(a[2]), d: Double(a[3]), e: Double(a[4]), f: Double((a[5])))
+    func fromArray(a : [Int])-> Matrix {
+        return Matrix(a: Double(a[0]), b: Double(a[1]), c: Double(a[2]), d: Double(a[3]), e: Double(a[4]), f: Double((a[5])))
     }
     
     func fromArray(a : [Double]) -> Matrix {
         return Matrix(a : a[0], b : a[1], c : a[2], d : a[3], e : a[4], f : a[5])
     }
 }
+
+
 
 

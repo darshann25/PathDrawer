@@ -58,7 +58,7 @@ class MagicEraserTool : Tool {
         self.previousPoint = point;
     }
     
-    func onUp() {
+    override func onUp() {
         // TODO : Null previousPoint
         self.previousPoint = Point(x : 0, y : 0);
         self.actId = -1;

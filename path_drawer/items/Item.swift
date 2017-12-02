@@ -44,7 +44,7 @@ class Item {
     internal var scene : Scene
     internal var matrix : Matrix
     internal var inverseMatrix : Matrix
-    internal var boundingRect : CGRect
+    internal var boundingRect : Rect
     
     init(state: ItemState){
         

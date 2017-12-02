@@ -111,7 +111,7 @@ class PenTool : Tool {
         var x : Double = clientX
         var y : Double = clientY
         
-        if (self.prePathItemT !== nullPrePathItemT) {
+        if (self.prePathItemT !== ItemT.nullItemT) {
             self.prePathItemT.addPoint(x: x, y : y)
             var del : [String: Any] = [
                 "type" : "pen",
@@ -119,7 +119,7 @@ class PenTool : Tool {
                 "x" : x,
                 "y" : y
             ]
-            self.messenger.broadcastDel(delta : del)
+            self.messenger.broadcastDel(del : del)
             
         } else {
             
@@ -143,7 +143,7 @@ class PenTool : Tool {
                 "x" : x,
                 "y" : y
             ]
-            self.messenger.broadcastDel(delta : del)
+            self.messenger.broadcastDel(del : del)
         }
         
     }
@@ -157,7 +157,7 @@ class PenTool : Tool {
             "type" : "penEnd",
             "new" : self.delManager.newDelN()
         ]
-        self.messenger.broadcastDel(delta : del)
+        self.messenger.broadcastDel(del : del)
         
         var deviceId = self.devicesManager.getMyDeviceId()
         // create a resource
@@ -169,17 +169,17 @@ class PenTool : Tool {
         self.devicesManager.enqueueResource(resource : resource)
         
         // create the itemState
-        var itemState = PathItemState(id : self.boardStateManager.getNewItemId(), devId : deviceId, matrix : Matrix.identityMatrix(), resource : resource, beginIndex : 0, endIndex : xs.count - 1, color : self.color, size : self.size, opacity : self.opacity)
+        var itemState = PathItemState(id : self.boardStateManager.getNewItemId(), devId : deviceId, matrix : Matrix().identityMatrix(), resource : resource, beginIndex : 0, endIndex : xs.count - 1, color : self.color, size : self.size, opacity : self.opacity)
         
         // create the delta
-        var delta = NewItemDelta(id : self.boardStateManager.getNewActId(), devId : deviceId, state : itemState)
+        var delta = NewItemDelta(actId : self.boardStateManager.getNewActId(), devId : deviceId, itemState : itemState)
         self.boardStateManager.addDelta(delta : delta)
         self.devicesManager.enqueueDelta(delta : delta)
         
         // update the scene
         self.scene.beginChanges()
         delta.applyToScene()
-        self.scene.removeForefrontItem(item : self.prePathItemT)
+        self.scene.removeForefrontItem(itemT : self.prePathItemT)
         self.prePathItemT = PrePathItemT.nullPrePathItemT
         self.scene.endChanges()
         

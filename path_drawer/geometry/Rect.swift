@@ -39,6 +39,10 @@ class Rect{
         
     }
     
+    convenience init() {
+        self.init(left : 0, top : 0, width : 0 , height : 0)
+    }
+    
     /*
     Creates the smallest Rect containing the two points.
     @param {Number} x0 The x coordinate of the first point.

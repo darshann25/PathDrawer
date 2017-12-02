@@ -39,7 +39,7 @@ class NewItemDelta : Delta {
         return NewItemDelta(actId: mini["actId"] as! Int, devId: mini["devId"] as! Int, itemState: itemState as! ItemState)
     }
     
-    func applyToScene (){
+    override func applyToScene (){
         var item = Item.fromItemState(self.itemState)
         Scene.sharedInstance.addSceneItem(item)
     }

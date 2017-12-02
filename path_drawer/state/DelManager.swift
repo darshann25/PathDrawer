@@ -96,7 +96,7 @@ class DelManager {
         // when a user drags a SelectionItemT
         self._dels["selDrag"] = {del, context in
             Scene.sharedInstance.beginChanges()
-            (context["selectionItemT"] as! SelectionItemT).setMatrix(matrix: Matrix.fromArray(del["matrix"] as! [Double]))
+            (context["selectionItemT"] as! SelectionItemT).setMatrix(matrix: Matrix().fromArray(a : del["matrix"] as! [Double]))
             (context["haloItemT"] as! HaloItemT).hide()
             Scene.sharedInstance.endChanges()
         }
@@ -104,7 +104,7 @@ class DelManager {
          // when a user edits a textItem
         self._dels["textKeyDown"] = {del, context in
             Scene.sharedInstance.beginChanges()
-            if(context["preTextItemT"] != nil || context["preTextItemT"] != ItemT.nullItemT) {
+            if((context["preTextItemT"] as! PreTextItemT) !== ItemT.nullItemT) {
             //    (context["preTextItemT"] as! PrePathItemT).setBuffer(buffer : TextBuffer.fromObject(object : del["buffer"]))
             }
             Scene.sharedInstance.endChanges()
@@ -113,10 +113,11 @@ class DelManager {
     }
     
     public func newDelN() -> DelN {
-        return ++self._currentDelN
+        self._currentDelN += 1
+        return self._currentDelN
     }
     
     public func currentDelnN() -> DelN {
-        return self._currentDelnN
+        return self._currentDelN
     }
 }

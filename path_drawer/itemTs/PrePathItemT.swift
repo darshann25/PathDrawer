@@ -16,6 +16,9 @@ import UIKit
 import Foundation
 
 class PrePathItemT : ItemT {
+    
+    public static let nullPrePathItemT = NullPrePathItemT()
+    
     var points : [Point]
     var color : CGColor
     var size : CGFloat
@@ -56,7 +59,7 @@ class PrePathItemT : ItemT {
     
     func addPoint(x : Double, y : Double) {
         self.points.append(Point(x : x, y : y))
-        if(self.scene != Scene.nullScene) {
+        if(self.scene !== Scene.nullScene) {
             self.scene.redisplay()
         }
     }
@@ -125,7 +128,7 @@ class PrePathItemT : ItemT {
     func computingBoundingRect() -> Rect {
         if(self.points.count == 0) {
             // return null shouldn't happen
-            return NSNull
+            return Rect.nullRect
         } else {
             var left = self.points[0].x
             var right = left
@@ -138,8 +141,14 @@ class PrePathItemT : ItemT {
                 top = min(top, self.points[i].y)
                 bottom = max(bottom, self.points[i].y)
             }
-            return Rect(left, top, right - left, bottom - top)
+            return Rect(left: left, top: top, width: right - left, height: bottom - top)
         }
+    }
+}
+
+class NullPrePathItemT : PrePathItemT {
+    override init() {
+        
     }
 }
 

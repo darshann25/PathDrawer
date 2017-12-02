@@ -9,7 +9,7 @@
 import Foundation
 
 class RegionItem : Item {
-    init(state : ItemState) {
-        
+    override init(state : ItemState) {
+        super.init(state: ItemState(type: Item.ItemType.Region))
     }
 }
